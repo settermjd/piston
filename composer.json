@@ -1,0 +1,29 @@
+{
+  "name": "refinery29/piston",
+  "require": {
+    "league/route": "~1.1",
+    "league/fractal": "0.12.*",
+    "vlucas/phpdotenv": "~2.0",
+    "henrikbjorn/phpspec-code-coverage": "~1.0"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.2",
+    "phpspec/nyan-formatters": "~1.0"
+  },
+  "authors": [
+    {
+      "name": "Kayla Daniels",
+      "email": "kayladnls@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Refinery29\\Piston\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Refinery29\\Piston\\Stubs\\": "spec/stubs"
+    }
+  }
+}
