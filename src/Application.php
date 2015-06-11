@@ -4,7 +4,7 @@ use Dotenv\Dotenv;
 use League\Container\Container;
 use League\Container\ContainerInterface;
 use League\Route\RouteCollection;
-use Refinery29\Piston\Hooks\HookQueue;
+use Refinery29\Piston\Hooks\Hookable;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Application
 {
+    use Hookable;
+
     /**
      * @var Container
      */
@@ -26,18 +28,6 @@ class Application
      * @var RouteCollection
      */
     protected $router;
-
-    /**
-     * @var HookQueue
-     */
-    protected $pre_hooks;
-
-    /**
-     * @var HookQueue
-     */
-    protected $post_hooks;
-
-    protected $default_permission = "PUBLIC";
 
     public function __construct(ContainerInterface $container = null)
     {
@@ -59,41 +49,7 @@ class Application
 
     public function addRoute(Route $route)
     {
-        if ($route->getPermission() == null) {
-            $route->setPermission($this->default_permission);
-        }
-
         $this->router->addRoute($route->getVerb(), $route->getAlias(), $route->getAction());
-    }
-
-    public function addPreHook()
-    {
-
-    }
-
-    public function addPostHook()
-    {
-
-    }
-
-    public function getPreHooks()
-    {
-
-    }
-
-    public function getPostHooks()
-    {
-
-    }
-
-    public function setDefaultPermission($permission)
-    {
-        $this->default_permission = $permission;
-    }
-
-    public function getDefaultPermission()
-    {
-        return $this->default_permission;
     }
 
     public function launch()
@@ -115,11 +71,4 @@ class Application
         $this->router = new RouteCollection($this->container);
         $this->router->setStrategy(new PistonStrategy($this->container));
     }
-
-    private function bootstrapHooks()
-    {
-        $this->pre_hooks = new HookQueue();
-        $this->post_hooks = new HookQueue();
-    }
-
 }

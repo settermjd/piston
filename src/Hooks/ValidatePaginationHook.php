@@ -18,6 +18,5 @@ class ValidatePaginationHook implements Hook
     {
         $qs = $request->getQueryString();
         echo "<pre>".print_r($qs, true)."</pre>"; exit;
-
     }
 }

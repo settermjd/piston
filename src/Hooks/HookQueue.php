@@ -1,4 +1,8 @@
 <?php namespace Refinery29\Piston\Hooks;
+
+use Closure;
+use InvalidArgumentException;
+
 /**
  * Created by PhpStorm.
  * User: kayla.daniels
@@ -10,18 +14,36 @@ class HookQueue
 {
     private $hooks = [];
 
-    public function addHook(Hook $hook)
+    public function addHook( $hook)
     {
+        $this->validateHook($hook);
+
         $this->hooks[] = $hook;
+        return $this;
     }
 
     public function getNext()
     {
-        return array_pop($this->hooks);
+        return array_shift($this->hooks);
     }
 
-    public function insertHook(Hook $hook, $position)
+    public function insertHook($hook, $position)
     {
-        array_splice($this->hooks, $position, 1, $hook);
+        $this->validateHook($hook);
+        array_splice($this->hooks, $position, 0, $hook);
+
+        return $this;
+    }
+
+    private function validateHook($hook)
+    {
+        if (!($hook instanceof Closure) && !($hook instanceof Hook)) {
+            throw new InvalidArgumentException('You may only use closures and Refinery29/Piston/Hooks/Hook as a Hook');
+        }
+    }
+
+    public function getHooks()
+    {
+        return $this->hooks;
     }
 }

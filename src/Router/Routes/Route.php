@@ -1,4 +1,7 @@
 <?php namespace Refinery29\Piston\Router\Routes;
+
+use Refinery29\Piston\Hooks\Hookable;
+
 /**
  * Created by PhpStorm.
  * User: kayla.daniels
@@ -8,40 +11,40 @@
 
 class Route
 {
+    use Hookable;
+
     protected $verb;
     protected $alias;
     protected $action;
-    protected $permission;
 
     private $acceptable_verbs = ['POST', 'PUT', 'DELETE', 'GET'];
 
-    public function __construct($verb, $alias, $action, $permission = NULL)
+    public function __construct($verb, $alias, $action)
     {
         $this->validateVerb($verb);
         $this->verb = $verb;
         $this->alias = $alias;
         $this->action = $action;
-        $this->permission = $permission;
     }
 
-    static public function get($alias, $action, $permission = NULL)
+    static public function get($alias, $action)
     {
-        return new static('GET', $alias, $action, $permission);
+        return new static('GET', $alias, $action);
     }
 
-    static public function post($alias, $action, $permission = NULL)
+    static public function post($alias, $action)
     {
-        return new static('POST', $alias, $action, $permission);
+        return new static('POST', $alias, $action);
     }
 
-    static public function delete($alias, $action, $permission = NULL)
+    static public function delete($alias, $action)
     {
-        return new static('DELETE', $alias, $action, $permission);
+        return new static('DELETE', $alias, $action);
     }
 
-    static public function put($alias, $action, $permission = NULL)
+    static public function put($alias, $action)
     {
-        return new static('PUT', $alias, $action, $permission);
+        return new static('PUT', $alias, $action);
     }
 
     private function validateVerb($verb)
@@ -73,18 +76,5 @@ class Route
     public function getAction()
     {
         return $this->action;
-    }
-
-    public function getPermission()
-    {
-        return $this->permission;
-    }
-
-    public function setPermission($permission)
-    {
-        if (!is_null($this->permission)){
-            throw new \Exception('you cannot change permission once set');
-        }
-        $this->permission = $permission;
     }
 }

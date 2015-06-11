@@ -5,6 +5,11 @@ use Prophecy\Argument;
 
 class RouteSpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedThrough('get', ['alias', 'something']);
+    }
+
     function it_can_create_a_get_route()
     {
         $this->beConstructedThrough('get', ['something', 'something']);
@@ -52,33 +57,53 @@ class RouteSpec extends ObjectBehavior
         $this->shouldThrow('\Exception')->during('__construct', ['YOLO', 'something', 'something']);
     }
 
-    function it_can_get_permissions()
+    function it_cannot_add_invalid_pre_hook()
     {
-        $this->beConstructedThrough('get', ['alias', 'something', 'ADMIN']);
-
-        $this->getPermission()->shouldReturn('ADMIN');
+        $this->shouldThrow('\InvalidArgumentException')->during('addPreHook', [new \stdClass()]);
     }
 
-    function it_can_set_permission()
+    function it_cannot_add_invalid_post_hook()
     {
-        $this->beConstructedThrough('get', ['alias', 'something']);
-        $this->setPermission('POODLE');
-        $this->getPermission()->shouldReturn('POODLE');
+        $this->shouldThrow('\InvalidArgumentException')->during('addPostHook', [new \stdClass()]);
     }
 
-    function it_cannot_change_permission_once_set_via_constructor()
+    function it_can_add_pre_hooks()
     {
-        $this->beConstructedThrough('get', ['alias', 'something', 'ADMIN']);
+        $closure = function($request, $response){
+            return $response;
+        };
 
-        $this->shouldThrow('\Exception')->during('setPermission', ['PUBLIC']);
+        $this->addPreHook($closure);
+
+        $pre_hooks = $this->getPreHooks();
+
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+
+        $pre_hooks->getNext()->shouldReturn($closure);
+
+    }
+    function it_can_add_post_hooks()
+    {
+        $closure = function($request, $response){
+            return $response;
+        };
+
+        $this->addPostHook($closure);
+
+        $pre_hooks = $this->getPostHooks();
+
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+
+        $pre_hooks->getNext()->shouldReturn($closure);
     }
 
-    function it_cannot_change_permission_once_set_via_setter()
+    function it_can_get_pre_hooks()
     {
-        $this->beConstructedThrough('get', ['alias', 'something']);
+        $this->getPreHooks()->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+    }
 
-        $this->setPermission('ADMIN');
-
-        $this->shouldThrow('\Exception')->during('setPermission', ['PUBLIC']);
+    function it_can_get_post_hooks()
+    {
+        $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
     }
 }
