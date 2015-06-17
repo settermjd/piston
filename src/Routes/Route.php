@@ -1,4 +1,4 @@
-<?php namespace Refinery29\Piston\Router\Routes;
+<?php namespace Refinery29\Piston\Routes;
 
 use Refinery29\Piston\Hooks\Hookable;
 

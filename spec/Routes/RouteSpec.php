@@ -1,4 +1,4 @@
-<?php namespace spec\Refinery29\Piston\Router\Routes;
+<?php namespace spec\Refinery29\Piston\Routes;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -13,28 +13,28 @@ class RouteSpec extends ObjectBehavior
     function it_can_create_a_get_route()
     {
         $this->beConstructedThrough('get', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
         $this->getVerb()->shouldReturn('GET');
     }
 
     function it_can_create_a_post_route()
     {
         $this->beConstructedThrough('post', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
         $this->getVerb()->shouldReturn('POST');
     }
 
     function it_can_create_a_put_route()
     {
         $this->beConstructedThrough('put', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
         $this->getVerb()->shouldReturn('PUT');
     }
 
     function it_can_create_a_delete_route()
     {
         $this->beConstructedThrough('delete', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
         $this->getVerb()->shouldReturn('DELETE');
     }
 
@@ -77,7 +77,7 @@ class RouteSpec extends ObjectBehavior
 
         $pre_hooks = $this->getPreHooks();
 
-        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
 
         $pre_hooks->getNext()->shouldReturn($closure);
 
@@ -92,18 +92,18 @@ class RouteSpec extends ObjectBehavior
 
         $pre_hooks = $this->getPostHooks();
 
-        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
 
         $pre_hooks->getNext()->shouldReturn($closure);
     }
 
     function it_can_get_pre_hooks()
     {
-        $this->getPreHooks()->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $this->getPreHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
     }
 
     function it_can_get_post_hooks()
     {
-        $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
     }
 }

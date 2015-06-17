@@ -10,11 +10,18 @@ use InvalidArgumentException;
  * Time: 5:44 PM
  */
 
-class HookQueue
+class Queue
 {
+    /**
+     * @var Hook[]
+     */
     private $hooks = [];
 
-    public function addHook( $hook)
+    /**
+     * @param \Closure|Hook
+     * @return $this
+     */
+    public function addHook($hook)
     {
         $this->validateHook($hook);
 
@@ -22,11 +29,19 @@ class HookQueue
         return $this;
     }
 
+    /**
+     * @return \Closure|Hook
+     */
     public function getNext()
     {
         return array_shift($this->hooks);
     }
 
+    /**
+     * @param \Closure|Hook
+     * @param $position
+     * @return $this
+     */
     public function insertHook($hook, $position)
     {
         $this->validateHook($hook);
@@ -35,6 +50,10 @@ class HookQueue
         return $this;
     }
 
+    /**
+     * @param $hook
+     * @throws InvalidArgumentException
+     */
     private function validateHook($hook)
     {
         if (!($hook instanceof Closure) && !($hook instanceof Hook)) {
@@ -42,6 +61,9 @@ class HookQueue
         }
     }
 
+    /**
+     * @return Hook[]
+     */
     public function getHooks()
     {
         return $this->hooks;

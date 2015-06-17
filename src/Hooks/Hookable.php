@@ -14,12 +14,12 @@ use InvalidArgumentException;
 trait Hookable
 {
     /**
-     * @var HookQueue
+     * @var Queue
      */
     protected $pre_hooks = null;
 
     /**
-     * @var HookQueue
+     * @var Queue
      */
     protected $post_hooks = null;
 
@@ -65,11 +65,11 @@ trait Hookable
     protected function bootstrapHooks()
     {
         if ($this->pre_hooks == NULL){
-            $this->pre_hooks = new HookQueue();
+            $this->pre_hooks = new Queue();
         }
 
         if ($this->post_hooks == NULL){
-            $this->post_hooks = new HookQueue();
+            $this->post_hooks = new Queue();
         }
     }
 }

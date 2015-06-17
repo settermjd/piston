@@ -5,11 +5,11 @@ namespace spec\Refinery29\Piston\Hooks;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class HookQueueSpec extends ObjectBehavior
+class QueueSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $this->shouldHaveType('Refinery29\Piston\Hooks\Queue');
     }
 
     function it_can_get_hooks()

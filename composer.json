@@ -5,7 +5,8 @@
     "league/fractal": "^0.12.0",
     "vlucas/phpdotenv": "~2.0",
     "henrikbjorn/phpspec-code-coverage": "~1.0",
-    "vlucas/spot2": "~2.1"
+    "vlucas/spot2": "~2.1",
+    "league/event": "^2.1"
   },
   "require-dev": {
     "phpspec/phpspec": "~2.2",

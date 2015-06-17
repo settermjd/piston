@@ -1,34 +1,33 @@
 <?php
 
-namespace spec\Refinery29\Piston;
+namespace spec\Refinery29\Piston\Routes;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Refinery29\Piston\Hooks\HookQueue;
-use Refinery29\Piston\Router\Routes\Route;
+use Refinery29\Piston\Routes\Route;
+use Refinery29\Piston\Routes\RouteGroup;
 
-class ApplicationSpec extends ObjectBehavior
+class RouteGroupSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Application');
-    }
-
-    function it_should_create_container_if_none_is_injected()
-    {
-        $this->getContainer()->shouldHaveType('League\Container\Container');
-    }
-
-    function it_cannot_set_environ_config_to_nonexistant_directory()
-    {
-        $this->shouldThrow('\InvalidArgumentException')->during('setEnvConfig', ['not a folder']);
+        $this->shouldHaveType('Refinery29\Piston\Routes\RouteGroup');
     }
 
     function it_can_add_a_route(Route $route)
     {
-        $route->beADoubleOf('Refinery29\Piston\Router\Routes\Route');
-
+        $route->beADoubleOf('Refinery29\Piston\Routes\Route');
         $this->addRoute($route);
+
+        $this->getRoutes()->shouldContain($route);
+    }
+
+    function it_can_add_a_group(RouteGroup $group)
+    {
+        $group->beADoubleOf('Refinery29\Piston\Routes\RouteGroup');
+        $this->addGroup($group);
+
+        $this->getGroups()->shouldContain($group);
     }
 
     function it_cannot_add_invalid_pre_hook()
@@ -51,7 +50,7 @@ class ApplicationSpec extends ObjectBehavior
 
         $pre_hooks = $this->getPreHooks();
 
-        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
 
         $pre_hooks->getNext()->shouldReturn($closure);
 
@@ -66,18 +65,18 @@ class ApplicationSpec extends ObjectBehavior
 
         $pre_hooks = $this->getPostHooks();
 
-        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
 
         $pre_hooks->getNext()->shouldReturn($closure);
     }
 
     function it_can_get_pre_hooks()
     {
-        $this->getPreHooks()->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $this->getPreHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
     }
 
     function it_can_get_post_hooks()
     {
-        $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\HookQueue');
+        $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
     }
 }

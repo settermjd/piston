@@ -13,9 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FooController extends Controller
 {
-    function fooAction(Request $req, Response $resp)
+    function fooAction(Request $req)
     {
-        $resp->setContent('Hello World');
-        return $resp;
+        return array('yolo');
     }
 }

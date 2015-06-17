@@ -1,0 +1,118 @@
+<?php namespace spec\Refinery29\Piston;
+
+use League\Container\Container;
+use League\Container\ServiceProvider;
+use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
+use Refinery29\Piston\Routes\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+class PistonSpec extends ObjectBehavior
+{
+    function let(Container $container)
+    {
+        $container->beADoubleOf('League\Container\Container');
+        $this->beConstructedWith($container, __DIR__);
+    }
+
+    function it_is_initializable()
+    {
+        $this->shouldHaveType('Refinery29\Piston\Piston');
+    }
+
+    function it_should_create_container_if_none_is_injected()
+    {
+        $this->beConstructedWith(NULL, __DIR__);
+        $this->getContainer()->shouldHaveType('League\Container\Container');
+    }
+
+    function it_can_add_a_route(Route $route)
+    {
+        $route->beADoubleOf('Refinery29\Piston\Routes\Route');
+
+        $this->addRoute($route);
+    }
+
+    function it_cannot_add_invalid_pre_hook()
+    {
+        $this->shouldThrow('\InvalidArgumentException')->during('addPreHook', [new \stdClass()]);
+    }
+
+    function it_cannot_add_invalid_post_hook()
+    {
+        $this->shouldThrow('\InvalidArgumentException')->during('addPostHook', [new \stdClass()]);
+    }
+
+    function it_can_add_pre_hooks()
+    {
+        $closure = function($request, $response){
+            return $response;
+        };
+
+        $this->addPreHook($closure);
+
+        $pre_hooks = $this->getPreHooks();
+
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
+
+        $pre_hooks->getNext()->shouldReturn($closure);
+
+    }
+    function it_can_add_post_hooks()
+    {
+        $closure = function($request, $response){
+            return $response;
+        };
+
+        $this->addPostHook($closure);
+
+        $pre_hooks = $this->getPostHooks();
+
+        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
+
+        $pre_hooks->getNext()->shouldReturn($closure);
+    }
+
+    function it_can_get_pre_hooks()
+    {
+        $this->getPreHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
+    }
+
+    function it_can_get_post_hooks()
+    {
+        $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
+    }
+
+    function it_can_set_a_request(Request $request)
+    {
+        $request->beADoubleOf('Symfony\Component\HttpFoundation\Request');
+
+        $this->setRequest($request);
+
+        $this->getRequest()->shouldReturn($request);
+    }
+
+    function it_creates_a_request_if_one_is_not_provided()
+    {
+        $this->getRequest()->shouldHaveType('Symfony\Component\HttpFoundation\Request');
+    }
+
+    function it_can_add_service_providers(ServiceProvider $provider)
+    {
+        $provider->beADoubleOf('League\Container\ServiceProvider');
+
+        $this->addServiceProvider($provider);
+    }
+
+    function it_can_redirect()
+    {
+        $this->redirect('123/something')->shouldHaveType('Symfony\Component\HttpFoundation\RedirectResponse');
+    }
+
+    function it_can_404()
+    {
+        $response = $this->notFound();
+        $response->shouldHaveType('Symfony\Component\HttpFoundation\Response');
+        $response->getStatusCode()->shouldReturn(404);
+    }
+}
