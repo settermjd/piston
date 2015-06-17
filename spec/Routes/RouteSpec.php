@@ -106,4 +106,11 @@ class RouteSpec extends ObjectBehavior
     {
         $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
     }
+
+    function it_can_be_paginated()
+    {
+        $this->beConstructedThrough('get', ['alias', 'something', true]);
+
+        $this->isPaginated()->shouldReturn(true);
+    }
 }

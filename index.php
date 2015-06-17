@@ -24,7 +24,5 @@ $app->setRequest($request);
 
 $app->addRoute($route);
 
-$app->addPreHook(new ValidatePaginationHook());
-
 $app->launch();
 

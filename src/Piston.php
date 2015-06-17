@@ -8,11 +8,15 @@ use League\Route\RouteCollection;
 use League\Route\Strategy\RequestResponseStrategy;
 use Refinery29\Piston\Hooks\Hookable;
 use Refinery29\Piston\Hooks\Worker;
+use Refinery29\Piston\Request\Filters\Fields;
+use Refinery29\Piston\Request\Filters\IncludedResource;
+use Refinery29\Piston\Request\Filters\Pagination;
 use Refinery29\Piston\Routes\Route;
 use Refinery29\Piston\ServiceProviders\SpotDbProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Refinery29\Piston\Request\Request as PistonRequest;
 
 /**
  * Created by PhpStorm.
@@ -35,7 +39,7 @@ class Piston
     protected $router;
 
     /**
-     * @var Request
+     * @var PistonRequest
      */
     protected $request;
 
@@ -54,14 +58,23 @@ class Piston
         $this->container->add('app', $this);
     }
 
-    public function setRequest(Request $request)
+    public function setRequest(PistonRequest $request)
     {
         $this->request = $request;
     }
 
     public function getRequest()
     {
-        return $this->request ?: Request::createFromGlobals();
+        $request =  $this->request ?: PistonRequest::createFromGlobals();
+
+        $request = Pagination::apply($request);
+        $request = IncludedResource::apply($request);
+        $request = Fields::apply($request);
+
+        $this->container->add('Symfony\Component\HttpFoundation\Request', $request, true);
+
+        return $request;
+
     }
 
     public function addRoute(Route $route)
@@ -74,12 +87,8 @@ class Piston
         $dispatcher = $this->router->getDispatcher();
 
         $request = $this->getRequest();
-        $response = new Response();
 
-        $response = Worker::work($this->getPreHooks(), $request, $response);
-
-        $this->container->add('Symfony\Component\HttpFoundation\Request', $request, true);
-        $this->container->add('Symfony\Component\HttpFoundation\Response', $response, true);
+        $response = Worker::work($this->getPreHooks(), $request, new Response());
 
         $response = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
 

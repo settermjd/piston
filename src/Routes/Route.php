@@ -16,35 +16,36 @@ class Route
     protected $verb;
     protected $alias;
     protected $action;
+    protected $is_paginated = false;
 
     private $acceptable_verbs = ['POST', 'PUT', 'DELETE', 'GET'];
 
-    public function __construct($verb, $alias, $action)
+    public function __construct($verb, $alias, $action, $is_paginated = false)
     {
         $this->validateVerb($verb);
-        $this->verb = $verb;
+        $this->is_paginated = $is_paginated;
         $this->alias = $alias;
         $this->action = $action;
     }
 
-    static public function get($alias, $action)
+    static public function get($alias, $action, $is_paginated = false)
     {
-        return new static('GET', $alias, $action);
+        return new static('GET', $alias, $action, $is_paginated);
     }
 
     static public function post($alias, $action)
     {
-        return new static('POST', $alias, $action);
+        return new static('POST', $alias, $action, false);
     }
 
     static public function delete($alias, $action)
     {
-        return new static('DELETE', $alias, $action);
+        return new static('DELETE', $alias, $action, false);
     }
 
     static public function put($alias, $action)
     {
-        return new static('PUT', $alias, $action);
+        return new static('PUT', $alias, $action, false);
     }
 
     private function validateVerb($verb)
@@ -52,6 +53,8 @@ class Route
         if (!in_array($verb, $this->acceptable_verbs)) {
             throw new \InvalidArgumentException('Invalid Route Verb Supplied.');
         }
+
+        $this->verb = $verb;
     }
 
     /**
@@ -76,5 +79,10 @@ class Route
     public function getAction()
     {
         return $this->action;
+    }
+
+    public function isPaginated()
+    {
+        return $this->is_paginated;
     }
 }

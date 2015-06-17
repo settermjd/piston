@@ -5,7 +5,7 @@ use League\Container\ServiceProvider;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Routes\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Refinery29\Piston\Request\Request;
 
 class PistonSpec extends ObjectBehavior
 {
@@ -85,7 +85,7 @@ class PistonSpec extends ObjectBehavior
 
     function it_can_set_a_request(Request $request)
     {
-        $request->beADoubleOf('Symfony\Component\HttpFoundation\Request');
+        $request->beADoubleOf('Refinery29\Piston\Request\Request');
 
         $this->setRequest($request);
 
@@ -94,7 +94,7 @@ class PistonSpec extends ObjectBehavior
 
     function it_creates_a_request_if_one_is_not_provided()
     {
-        $this->getRequest()->shouldHaveType('Symfony\Component\HttpFoundation\Request');
+        $this->getRequest()->shouldHaveType('Refinery29\Piston\Request\Request');
     }
 
     function it_can_add_service_providers(ServiceProvider $provider)
