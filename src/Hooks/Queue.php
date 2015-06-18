@@ -9,7 +9,6 @@ use InvalidArgumentException;
  * Date: 6/10/15
  * Time: 5:44 PM
  */
-
 class Queue
 {
     /**
@@ -26,6 +25,7 @@ class Queue
         $this->validateHook($hook);
 
         $this->hooks[] = $hook;
+
         return $this;
     }
 

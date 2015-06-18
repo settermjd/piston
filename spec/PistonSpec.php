@@ -5,8 +5,8 @@ use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Request\Request;
+use Refinery29\Piston\Router\Routes\Route;
 
 class PistonSpec extends ObjectBehavior
 {
@@ -23,7 +23,7 @@ class PistonSpec extends ObjectBehavior
 
     function it_should_create_container_if_none_is_injected()
     {
-        $this->beConstructedWith(NULL, __DIR__);
+        $this->beConstructedWith(null, __DIR__);
         $this->getContainer()->shouldHaveType('League\Container\Container');
     }
 
@@ -52,7 +52,7 @@ class PistonSpec extends ObjectBehavior
 
     function it_can_add_pre_hooks()
     {
-        $closure = function($request, $response){
+        $closure = function ($request, $response) {
             return $response;
         };
 
@@ -65,9 +65,10 @@ class PistonSpec extends ObjectBehavior
         $pre_hooks->getNext()->shouldReturn($closure);
 
     }
+
     function it_can_add_post_hooks()
     {
-        $closure = function($request, $response){
+        $closure = function ($request, $response) {
             return $response;
         };
 

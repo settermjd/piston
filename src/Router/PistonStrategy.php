@@ -1,6 +1,7 @@
 <?php namespace Refinery29\Piston\Router;
 
 use Closure;
+use League\Container\ContainerInterface;
 use League\Route\Strategy\StrategyInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,15 +15,23 @@ use Symfony\Component\HttpFoundation\Response;
 class PistonStrategy implements StrategyInterface
 {
     /**
-     * @var
+     * @var ContainerInterface
      */
     private $container;
 
-    function __construct($container)
+    /**
+     * @param $container
+     */
+    function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
+    /**
+     * @param array|callable|string $controller
+     * @param array $vars
+     * @return mixed
+     */
     public function dispatch($controller, array $vars = [])
     {
         $response = $this->invokeAction($controller, [
@@ -39,7 +48,7 @@ class PistonStrategy implements StrategyInterface
      *
      * @param  string|\Closure $action
      * @param  array $vars
-     * @return ResponseInterface
+     * @return Response
      */
     public function invokeAction($action, array $vars = [])
     {
@@ -51,6 +60,11 @@ class PistonStrategy implements StrategyInterface
 
     }
 
+    /**
+     * @param $action
+     * @param $vars
+     * @return mixed
+     */
     public function dispatchController($action, $vars)
     {
         $controller = $this->resolveController($action);
@@ -63,6 +77,10 @@ class PistonStrategy implements StrategyInterface
 //        return $controller[0]->afterController($response);
     }
 
+    /**
+     * @param $action
+     * @return array
+     */
     public function resolveController($action)
     {
         if (is_array($action) && !($action[0] instanceof Routeable)) {
@@ -76,6 +94,11 @@ class PistonStrategy implements StrategyInterface
 
     }
 
+    /**
+     * @param $action
+     * @param array $vars
+     * @return mixed
+     */
     public function dispatchClosure($action, $vars = [])
     {
         $response = $action(array_shift($vars), array_shift($vars), $vars);
@@ -83,6 +106,10 @@ class PistonStrategy implements StrategyInterface
         return $this->validateResponse($response);
     }
 
+    /**
+     * @param $response
+     * @return mixed
+     */
     public function validateResponse($response)
     {
         if ($response instanceof Response) {

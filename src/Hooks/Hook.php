@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
  * Date: 6/17/15
  * Time: 2:59 PM
  */
-
 interface Hook
 {
     /**

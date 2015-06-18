@@ -23,7 +23,7 @@ class PistonStrategySpec extends ObjectBehavior
 
     public function it_must_return_a_response()
     {
-        $this->dispatch(function($req, $resp){
+        $this->dispatch(function ($req, $resp) {
             return $resp;
         }, [])->shouldHaveType('Symfony\Component\HttpFoundation\Response');
     }

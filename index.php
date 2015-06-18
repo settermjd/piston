@@ -8,15 +8,15 @@
 use League\Container\Container;
 use Refinery29\Piston\Hooks\QueryString\ValidatePaginationHook;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-require(__DIR__."/vendor/autoload.php");
+require(__DIR__ . "/vendor/autoload.php");
 
 
 $app = new \Refinery29\Piston\Piston(new Container(), __DIR__);
 
-$route = new \Refinery29\Piston\Routes\Route('GET', '/', function($req, $resp){
-   echo "<pre>".print_r("YOLO", true)."</pre>"; exit;
+$route = new \Refinery29\Piston\Routes\Route('GET', '/', function ($req, $resp) {
+    echo "<pre>" . print_r("YOLO", true) . "</pre>";
+    exit;
 });
 
 $request = Request::create('/?pagination=123&something=somethingelse');

@@ -11,7 +11,8 @@ namespace Refinery29\Piston\Request\Filters;
 
 use Refinery29\Piston\Request\Request;
 
-interface Filter {
+interface Filter
+{
 
     /**
      * @param Request $request

@@ -13,10 +13,10 @@ use Refinery29\Piston\Hooks\Worker;
 use Refinery29\Piston\Request\Filters\Fields;
 use Refinery29\Piston\Request\Filters\IncludedResource;
 use Refinery29\Piston\Request\Filters\Pagination;
+use Refinery29\Piston\Request\Request;
 use Refinery29\Piston\Router\Routes\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Refinery29\Piston\Request\Request;
 
 /**
  * Created by PhpStorm.
@@ -63,7 +63,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
 
     public function getRequest()
     {
-        $request =  $this->request ?: Request::createFromGlobals();
+        $request = $this->request ?: Request::createFromGlobals();
 
         $request = Pagination::apply($request);
         $request = IncludedResource::apply($request);
@@ -147,11 +147,12 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     {
         return $this->container->get($key);
     }
+
     /**
      * Array Access set.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return void
      */
@@ -159,6 +160,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     {
         $this->container->singleton($key, $value);
     }
+
     /**
      * Array Access unset.
      *
@@ -170,6 +172,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     {
         $this->container->offsetUnset($key);
     }
+
     /**
      * Array Access isset.
      *

@@ -22,8 +22,7 @@ class Worker
      */
     static public function work(Queue $queue, Request $request, Response $response)
     {
-        foreach ($queue->getHooks() as $hook)
-        {
+        foreach ($queue->getHooks() as $hook) {
             $response = $hook->apply($request, $response);
         }
 

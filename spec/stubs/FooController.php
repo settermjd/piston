@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
  * Date: 6/9/15
  * Time: 4:39 PM
  */
-
 class FooController implements Routeable
 {
     function fooAction(Request $req, Response $resp)

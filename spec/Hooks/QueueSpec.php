@@ -19,7 +19,9 @@ class QueueSpec extends ObjectBehavior
 
     function it_can_add_a_hook()
     {
-        $closure = function($request, $response){echo "YES";};
+        $closure = function ($request, $response) {
+            echo "YES";
+        };
 
         $this->addHook($closure);
 
@@ -30,9 +32,15 @@ class QueueSpec extends ObjectBehavior
 
     function it_is_a_fifo_queue()
     {
-        $closure1 = function($request, $response){echo "YES";};
-        $closure2 = function($request, $response){echo "YES";};
-        $closure3 = function($request, $response){echo "YES";};
+        $closure1 = function ($request, $response) {
+            echo "YES";
+        };
+        $closure2 = function ($request, $response) {
+            echo "YES";
+        };
+        $closure3 = function ($request, $response) {
+            echo "YES";
+        };
 
         $this->addHook($closure1);
         $this->addHook($closure2);
@@ -47,10 +55,14 @@ class QueueSpec extends ObjectBehavior
 
     function it_can_insert_a_hook()
     {
-        $closure = function($request, $response){echo "YES";};
+        $closure = function ($request, $response) {
+            echo "YES";
+        };
 
-        $this->addHook(function($request, $respo){});
-        $this->addHook(function($request, $respo){});
+        $this->addHook(function ($request, $respo) {
+        });
+        $this->addHook(function ($request, $respo) {
+        });
 
         $this->insertHook($closure, 0);
 

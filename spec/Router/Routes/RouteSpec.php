@@ -69,7 +69,7 @@ class RouteSpec extends ObjectBehavior
 
     function it_can_add_pre_hooks()
     {
-        $closure = function($request, $response){
+        $closure = function ($request, $response) {
             return $response;
         };
 
@@ -82,9 +82,10 @@ class RouteSpec extends ObjectBehavior
         $pre_hooks->getNext()->shouldReturn($closure);
 
     }
+
     function it_can_add_post_hooks()
     {
-        $closure = function($request, $response){
+        $closure = function ($request, $response) {
             return $response;
         };
 
