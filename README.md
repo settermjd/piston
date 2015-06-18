@@ -24,8 +24,7 @@ $application->addRoute(Route::get('jedi/{id}', 'JediController::useTheForce'));
 ```php
 $application = new Piston();
 
-$application->addRoute(Route::get('jedi/{id}', function(Request $request, Response $response)
-{
+$application->addRoute(Route::get('jedi/{id}', function(Request $request, Response $response) {
     //do some cool stuff here
     return $response;
 }));
