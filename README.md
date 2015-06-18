@@ -1,4 +1,7 @@
 # Piston
+
+[![Build Status](https://travis-ci.org/refinery29/piston.svg?branch=master)](https://travis-ci.org/refinery29/piston)
+
 Micro Framework for APIs
 
 ## Currently Under Development
