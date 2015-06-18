@@ -16,7 +16,6 @@ Highly in flux and not for use in production.
 $application = new Piston();
 
 $application->addRoute(Route::get('jedi/{id}', 'JediController::useTheForce'));
-
 ```
 
 ### Closure Based Routing
@@ -28,5 +27,4 @@ $application->addRoute(Route::get('jedi/{id}', function(Request $request, Respon
     //do some cool stuff here
     return $response;
 }));
-
 ```
