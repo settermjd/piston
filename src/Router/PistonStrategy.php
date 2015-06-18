@@ -6,12 +6,6 @@ use League\Route\Strategy\StrategyInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/4/15
- * Time: 1:45 PM
- */
 class PistonStrategy implements StrategyInterface
 {
     /**

@@ -18,12 +18,6 @@ use Refinery29\Piston\Router\Routes\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/4/15
- * Time: 1:37 PM
- */
 class Piston implements ContainerAwareInterface, ArrayAccess
 {
     use Hookable;
@@ -44,6 +38,10 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     protected $request;
 
 
+    /**
+     * @param ContainerInterface $container
+     * @param $config_dir
+     */
     public function __construct(ContainerInterface $container = null, $config_dir)
     {
         $this->container = $container ?: new Container();
@@ -56,11 +54,17 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         $this->container->add('app', $this);
     }
 
+    /**
+     * @param Request $request
+     */
     public function setRequest(Request $request)
     {
         $this->request = $request;
     }
 
+    /**
+     * @return Request|\Symfony\Component\HttpFoundation\Request
+     */
     public function getRequest()
     {
         $request = $this->request ?: Request::createFromGlobals();
@@ -74,11 +78,17 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         return $request;
     }
 
+    /**
+     * @param Route $route
+     */
     public function addRoute(Route $route)
     {
         $this->router->addRoute($route->getVerb(), $route->getAlias(), $route->getAction());
     }
 
+    /**
+     * @return Response
+     */
     public function launch()
     {
         $dispatcher = $this->router->getDispatcher();
@@ -95,11 +105,17 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         return $response->send();
     }
 
+    /**
+     * @param ServiceProvider $service_provider
+     */
     public function register(ServiceProvider $service_provider)
     {
         $this->container->addServiceProvider($service_provider);
     }
 
+    /**
+     * @return Container
+     */
     public function getContainer()
     {
         return $this->container;
@@ -111,17 +127,27 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         $this->router->setStrategy(new RequestResponseStrategy($this->container));
     }
 
+    /**
+     * @param $config_dir
+     */
     private function loadConfig($config_dir)
     {
         $env = new Dotenv($config_dir);
         $env->load();
     }
 
+    /**
+     * @return Response
+     */
     public function notFound()
     {
         return new Response('', 404);
     }
 
+    /**
+     * @param $url
+     * @return RedirectResponse
+     */
     public function redirect($url)
     {
         return new RedirectResponse($url);

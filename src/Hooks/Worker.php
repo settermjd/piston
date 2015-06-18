@@ -1,12 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/16/15
- * Time: 12:25 PM
- */
-
-namespace Refinery29\Piston\Hooks;
+<?php namespace Refinery29\Piston\Hooks;
 
 
 use Symfony\Component\HttpFoundation\Request;

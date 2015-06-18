@@ -3,12 +3,6 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/17/15
- * Time: 2:59 PM
- */
 interface Hook
 {
     /**

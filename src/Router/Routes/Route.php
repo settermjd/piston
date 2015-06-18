@@ -2,12 +2,6 @@
 
 use Refinery29\Piston\Hooks\Hookable;
 
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/4/15
- * Time: 2:04 PM
- */
 class Route
 {
     use Hookable;

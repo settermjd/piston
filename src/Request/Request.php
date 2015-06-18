@@ -1,12 +1,5 @@
 <?php namespace Refinery29\Piston\Request;
 
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/17/15
- * Time: 3:28 PM
- */
-
 use Symfony\Component\HttpFoundation\Request as SRequest;
 
 /**

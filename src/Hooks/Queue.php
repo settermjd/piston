@@ -3,12 +3,6 @@
 use Closure;
 use InvalidArgumentException;
 
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/10/15
- * Time: 5:44 PM
- */
 class Queue
 {
     /**
