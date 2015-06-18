@@ -1,4 +1,4 @@
-<?php namespace spec\Refinery29\Piston\Routes;
+<?php namespace spec\Refinery29\Piston\Router\Routes;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -13,28 +13,28 @@ class RouteSpec extends ObjectBehavior
     function it_can_create_a_get_route()
     {
         $this->beConstructedThrough('get', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
         $this->getVerb()->shouldReturn('GET');
     }
 
     function it_can_create_a_post_route()
     {
         $this->beConstructedThrough('post', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
         $this->getVerb()->shouldReturn('POST');
     }
 
     function it_can_create_a_put_route()
     {
         $this->beConstructedThrough('put', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
         $this->getVerb()->shouldReturn('PUT');
     }
 
     function it_can_create_a_delete_route()
     {
         $this->beConstructedThrough('delete', ['something', 'something']);
-        $this->shouldHaveType('Refinery29\Piston\Routes\Route');
+        $this->shouldHaveType('Refinery29\Piston\Router\Routes\Route');
         $this->getVerb()->shouldReturn('DELETE');
     }
 

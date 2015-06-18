@@ -1,7 +1,9 @@
 <?php namespace Refinery29\Piston;
 
+use ArrayAccess;
 use Dotenv\Dotenv;
 use League\Container\Container;
+use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use League\Route\RouteCollection;
@@ -11,12 +13,10 @@ use Refinery29\Piston\Hooks\Worker;
 use Refinery29\Piston\Request\Filters\Fields;
 use Refinery29\Piston\Request\Filters\IncludedResource;
 use Refinery29\Piston\Request\Filters\Pagination;
-use Refinery29\Piston\Routes\Route;
-use Refinery29\Piston\ServiceProviders\SpotDbProvider;
+use Refinery29\Piston\Router\Routes\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Refinery29\Piston\Request\Request as PistonRequest;
+use Refinery29\Piston\Request\Request;
 
 /**
  * Created by PhpStorm.
@@ -24,7 +24,7 @@ use Refinery29\Piston\Request\Request as PistonRequest;
  * Date: 6/4/15
  * Time: 1:37 PM
  */
-class Piston
+class Piston implements ContainerAwareInterface, ArrayAccess
 {
     use Hookable;
 
@@ -39,7 +39,7 @@ class Piston
     protected $router;
 
     /**
-     * @var PistonRequest
+     * @var Request
      */
     protected $request;
 
@@ -50,22 +50,20 @@ class Piston
 
         $this->loadConfig($config_dir);
 
-        $this->bootstrapServiceProviders();
-
         $this->bootstrapRouter();
         $this->bootstrapHooks();
 
         $this->container->add('app', $this);
     }
 
-    public function setRequest(PistonRequest $request)
+    public function setRequest(Request $request)
     {
         $this->request = $request;
     }
 
     public function getRequest()
     {
-        $request =  $this->request ?: PistonRequest::createFromGlobals();
+        $request =  $this->request ?: Request::createFromGlobals();
 
         $request = Pagination::apply($request);
         $request = IncludedResource::apply($request);
@@ -74,7 +72,6 @@ class Piston
         $this->container->add('Symfony\Component\HttpFoundation\Request', $request, true);
 
         return $request;
-
     }
 
     public function addRoute(Route $route)
@@ -89,6 +86,7 @@ class Piston
         $request = $this->getRequest();
 
         $response = Worker::work($this->getPreHooks(), $request, new Response());
+        $this->container->add('Symfony\Component\HttpFoundation\Response', $response, true);
 
         $response = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
 
@@ -97,7 +95,7 @@ class Piston
         return $response->send();
     }
 
-    public function addServiceProvider(ServiceProvider $service_provider)
+    public function register(ServiceProvider $service_provider)
     {
         $this->container->addServiceProvider($service_provider);
     }
@@ -111,11 +109,6 @@ class Piston
     {
         $this->router = new RouteCollection($this->container);
         $this->router->setStrategy(new RequestResponseStrategy($this->container));
-    }
-
-    private function bootstrapServiceProviders()
-    {
-        $this->container->addServiceProvider(new SpotDbProvider());
     }
 
     private function loadConfig($config_dir)
@@ -132,5 +125,60 @@ class Piston
     public function redirect($url)
     {
         return new RedirectResponse($url);
+    }
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+
+    /**
+     * Array Access get.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function offsetGet($key)
+    {
+        return $this->container->get($key);
+    }
+    /**
+     * Array Access set.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return void
+     */
+    public function offsetSet($key, $value)
+    {
+        $this->container->singleton($key, $value);
+    }
+    /**
+     * Array Access unset.
+     *
+     * @param string $key
+     *
+     * @return void
+     */
+    public function offsetUnset($key)
+    {
+        $this->container->offsetUnset($key);
+    }
+    /**
+     * Array Access isset.
+     *
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function offsetExists($key)
+    {
+        return $this->container->isRegistered($key) || $this->container->isSingleton($key);
     }
 }

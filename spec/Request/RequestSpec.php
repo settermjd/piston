@@ -14,10 +14,28 @@ class RequestSpec extends ObjectBehavior
 
     function it_can_set_requested_fields()
     {
-        $req_fields = ['yolo'=>'gogo'];
+        $req_fields = ['yolo', 'gogo'];
         $this->setRequestedFields($req_fields);
 
         $this->getRequestedFields()->shouldReturn($req_fields);
         $this->requestsSpecificFields()->shouldReturn(true);
+    }
+
+    function it_can_set_included_resources()
+    {
+        $included_resources = ['monica', 'chandler'];
+        $this->setIncludedResources($included_resources);
+
+        $this->getIncludedResources()->shouldReturn($included_resources);
+        $this->hasIncludedResources()->shouldReturn(true);
+    }
+
+    function it_can_set_pagination()
+    {
+        $pagination_cursor = rand();
+        $this->setPaginationCursor($pagination_cursor);
+
+        $this->getPaginationCursor()->shouldReturn($pagination_cursor);
+        $this->isPaginated()->shouldReturn(true);
     }
 }

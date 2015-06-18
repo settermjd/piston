@@ -1,6 +1,6 @@
 <?php namespace Refinery29\Piston\Stubs;
 
-use Refinery29\Piston\Controllers\Controller;
+use Refinery29\Piston\Router\Routeable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
  * Time: 4:39 PM
  */
 
-class FooController extends Controller
+class FooController implements Routeable
 {
-    function fooAction(Request $req)
+    function fooAction(Request $req, Response $resp)
     {
-        return array('yolo');
+        return $resp;
     }
 }

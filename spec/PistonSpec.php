@@ -1,10 +1,11 @@
 <?php namespace spec\Refinery29\Piston;
 
 use League\Container\Container;
+use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Refinery29\Piston\Routes\Route;
+use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Request\Request;
 
 class PistonSpec extends ObjectBehavior
@@ -28,9 +29,15 @@ class PistonSpec extends ObjectBehavior
 
     function it_can_add_a_route(Route $route)
     {
-        $route->beADoubleOf('Refinery29\Piston\Routes\Route');
+        $route->beADoubleOf('Refinery29\Piston\Router\Routes\Route');
 
         $this->addRoute($route);
+    }
+
+    function it_can_set_a_container(ContainerInterface $container)
+    {
+        $this->setContainer($container);
+        $this->getContainer()->shouldReturn($container);
     }
 
     function it_cannot_add_invalid_pre_hook()
@@ -101,7 +108,7 @@ class PistonSpec extends ObjectBehavior
     {
         $provider->beADoubleOf('League\Container\ServiceProvider');
 
-        $this->addServiceProvider($provider);
+        $this->register($provider);
     }
 
     function it_can_redirect()

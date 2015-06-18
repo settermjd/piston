@@ -1,12 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/16/15
- * Time: 12:04 PM
- */
-
-namespace Refinery29\Piston\Routes;
+<?php namespace Refinery29\Piston\Router\Routes;
 
 use Refinery29\Piston\Hooks\Hookable;
 

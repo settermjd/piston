@@ -1,22 +1,22 @@
 <?php
 
-namespace spec\Refinery29\Piston\Routes;
+namespace spec\Refinery29\Piston\Router\Routes;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Refinery29\Piston\Routes\Route;
-use Refinery29\Piston\Routes\RouteGroup;
+use Refinery29\Piston\Router\Routes\Route;
+use Refinery29\Piston\Router\Routes\RouteGroup;
 
 class RouteGroupSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Routes\RouteGroup');
+        $this->shouldHaveType('Refinery29\Piston\Router\Routes\RouteGroup');
     }
 
     function it_can_add_a_route(Route $route)
     {
-        $route->beADoubleOf('Refinery29\Piston\Routes\Route');
+        $route->beADoubleOf('Refinery29\Piston\Router\Routes\Route');
         $this->addRoute($route);
 
         $this->getRoutes()->shouldContain($route);
@@ -24,7 +24,7 @@ class RouteGroupSpec extends ObjectBehavior
 
     function it_can_add_a_group(RouteGroup $group)
     {
-        $group->beADoubleOf('Refinery29\Piston\Routes\RouteGroup');
+        $group->beADoubleOf('Refinery29\Piston\Router\Routes\RouteGroup');
         $this->addGroup($group);
 
         $this->getGroups()->shouldContain($group);
