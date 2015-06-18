@@ -13,3 +13,11 @@ install:
 
 script:
   - vendor/bin/phpspec run --format=dot
+
+after_script:
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_BRANCH" == "master" ]]; then vendor/bin/test-reporter; fi
+
+addons:
+  code_climate:
+    repo_token:
+      secure: QFJBxr2pYU96oIn/p1eNwx+p4y7zkDrIv0q+HlXsJ5AfHCqWhkx0c5ZJ+8N9BwOXekhxsAlqrcMdJWQNgoHr4VhdHMmpNgJ+W1GVihjWqJmcOUicVYf2pTJ8mI5wfOdWU7f6Y+6aokJuxoUqRIiNSiTZZQaFqhc9YKIDoBPxLatQBihWHr4+dRD9EJww34s3KTfbL2exnV0dvVJfmG87qyuxt5PUydPwh+LlMlVgsDXMS6bACllHIEao69Q8Nt4M65rEhUic7vNPsLPi3aJtgj8T26qClZA+ZPhMayQ5oqQc9heqdjL9RBsDBUS3Zd6GS0zc3Yny5tAOxcxYlNultI7ASZ2jws40UgFbPE/8jYTG4FCszm8/8L5POrTFFbjws8c0nmylkL2laPmoWPdTuPGk5pNUF38MRjQ/xF9Fl5T+R808tf+TZfgFKy3OVfUpWYn27e/lPNxLseBkA+S7XTDP0LAcrIqAt+Tb2VJNVjMDlDtODD9pjTdXyGPIwIR1DglPyJ9Vpp+mJWz4Fy35v4lG6nQi6Lyz86Sp5RByMMBqq2/UwEexb4/QB13/4cgTsQxzEwzaml8u2Uz3I59as6IRysm9PUL9KMbDoZrEQqGC/8XOwYgc76te7s30TK76jTI392MuLwyPXTYw27sXS1ValM8Mm5SkKgkyz80Ks7I=

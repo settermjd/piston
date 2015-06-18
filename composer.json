@@ -8,8 +8,9 @@
     "league/event": "^2.1"
   },
   "require-dev": {
-    "phpspec/phpspec": "~2.2",
-    "phpspec/nyan-formatters": "~1.0"
+    "codeclimate/php-test-reporter": "dev-master",
+    "phpspec/nyan-formatters": "~1.0",
+    "phpspec/phpspec": "~2.2"
   },
   "authors": [
     {
