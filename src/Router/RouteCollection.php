@@ -6,12 +6,12 @@ use League\Route\RouteCollection as Router;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 
-class RouteCollection
+class RouteCollection extends Router
 {
     /**
      * @var Route[]
      */
-    protected $routes;
+    protected $route_objects;
 
     /**
      * @var RouteGroup[]
@@ -28,21 +28,20 @@ class RouteCollection
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->container = $container;
-        $this->router = new Router($container);
+        parent::__construct($container);
         $this->parser = new Std();
     }
 
     /**
      * @param Route $route
      */
-    public function addRoute(Route $route)
+    public function add(Route $route)
     {
         $route_alias = $this->parseAlias($route);
         $route->setParsedAlias($route_alias);
 
-        $this->router->addRoute($route->getVerb(), $route->getAlias(), $route->getAction());
-        $this->routes[] = $route;
+        parent::addRoute($route->getVerb(), $route->getAlias(), $route->getAction());
+        $this->route_objects[] = $route;
     }
 
     protected function buildRegexForRoute($routeData)
@@ -64,7 +63,7 @@ class RouteCollection
 
     private function parseAlias($route)
     {
-        $parsed_alias = $this->router->parseRouteString($route->getAlias());
+        $parsed_alias = $this->parseRouteString($route->getAlias());
         $parsed_alias = $this->parser->parse($parsed_alias);
 
         return $this->buildRegexForRoute($parsed_alias);
@@ -76,7 +75,7 @@ class RouteCollection
     public function addRouteGroup(RouteGroup $group)
     {
         foreach ($group->getRoutes() as $route) {
-            $this->addRoute($route);
+            $this->add($route);
             $this->groups = $group;
         }
     }
@@ -84,7 +83,7 @@ class RouteCollection
     public function byVerb($verb)
     {
         $return = [];
-        foreach ($this->routes as $route) {
+        foreach ($this->route_objects as $route) {
             if ($route->getVerb() == $verb) {
                 $return[] = $route;
             }
@@ -93,17 +92,12 @@ class RouteCollection
         return $return;
     }
 
-    /**
-     * @param array $data
-     */
     public function findRoute()
     {
         $request = $this->container->get('app')->getRequest();
 
         $path = $request->getPathInfo();
         $method = $request->getMethod();
-
-
 
         foreach ($this->byVerb($method) as $route) {
             //            echo print_r($route->getParsedAlias()."\n", true);
@@ -115,26 +109,5 @@ class RouteCollection
         }
 
 //        exit;
-    }
-
-    /**
-     * @param $name
-     * @param $arguments
-     * @return mixed
-     */
-    public function __call($name, $arguments)
-    {
-        return call_user_func_array([$this->router, $name], $arguments);
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        if (property_exists($this->router, $name)) {
-            return $this->router->$name;
-        }
     }
 }

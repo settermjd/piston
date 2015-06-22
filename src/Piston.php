@@ -49,6 +49,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     public function __construct(ContainerInterface $container = null, array $config_array = [])
     {
         $this->container = $container ?: new Container();
+        $this->container['app'] = $this;
 
         $this->bootstrapRouter();
         $this->bootstrapHooks();
@@ -57,7 +58,6 @@ class Piston implements ContainerAwareInterface, ArrayAccess
             $this->config = $config_array;
         };
 
-        $this->container->add('app', $this);
     }
 
     /**
@@ -89,7 +89,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      */
     public function addRoute(Route $route)
     {
-        $this->router->addRoute($route);
+        $this->router->add($route);
     }
 
     /**
