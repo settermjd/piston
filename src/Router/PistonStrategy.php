@@ -2,25 +2,13 @@
 
 use Closure;
 use League\Container\ContainerInterface;
+use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PistonStrategy implements StrategyInterface
+class PistonStrategy extends RequestResponseStrategy implements StrategyInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
-     * @param $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
     /**
      * @param array|callable|string $controller
      * @param array $vars
@@ -51,7 +39,6 @@ class PistonStrategy implements StrategyInterface
         }
 
         return $this->dispatchRoutable($action, $vars);
-
     }
 
     /**

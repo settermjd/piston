@@ -68,7 +68,6 @@ class RouteCollection
         $parsed_alias = $this->parser->parse($parsed_alias);
 
         return $this->buildRegexForRoute($parsed_alias);
-
     }
 
     /**
@@ -107,7 +106,7 @@ class RouteCollection
 
 
         foreach ($this->byVerb($method) as $route) {
-//            echo print_r($route->getParsedAlias()."\n", true);
+            //            echo print_r($route->getParsedAlias()."\n", true);
 //            ~^(?|/john/bob/([a-zA-Z]+)|/john/joseph/([a-zA-Z]+)()|/john/lala/([a-zA-Z]+)()())$~
 
             if (preg_match($route->getParsedAlias(), $path, $matches)) {
@@ -116,7 +115,6 @@ class RouteCollection
         }
 
 //        exit;
-
     }
 
     /**
@@ -124,7 +122,7 @@ class RouteCollection
      * @param $arguments
      * @return mixed
      */
-    function __call($name, $arguments)
+    public function __call($name, $arguments)
     {
         return call_user_func_array([$this->router, $name], $arguments);
     }
@@ -133,11 +131,10 @@ class RouteCollection
      * @param $name
      * @return mixed
      */
-    function __get($name)
+    public function __get($name)
     {
         if (property_exists($this->router, $name)) {
             return $this->router->$name;
         }
     }
-
 }

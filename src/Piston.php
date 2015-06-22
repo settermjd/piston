@@ -46,14 +46,14 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      * @param ContainerInterface $container
      * @param array $config_array
      */
-    public function __construct(ContainerInterface $container = null, array $config_array = [] )
+    public function __construct(ContainerInterface $container = null, array $config_array = [])
     {
         $this->container = $container ?: new Container();
 
         $this->bootstrapRouter();
         $this->bootstrapHooks();
 
-        if (!is_null($config_array)){
+        if (!is_null($config_array)) {
             $this->config = $config_array;
         };
 
@@ -150,7 +150,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      * @param $url
      * @return RedirectResponse
      */
-    static public function redirect($url)
+    public static function redirect($url)
     {
         return new RedirectResponse($url);
     }
