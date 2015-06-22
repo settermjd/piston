@@ -13,7 +13,7 @@ class PistonSpec extends ObjectBehavior
     public function let(Container $container)
     {
         $container->beADoubleOf('League\Container\Container');
-        $this->beConstructedWith($container, __DIR__);
+        $this->beConstructedWith($container, []);
     }
 
     public function it_is_initializable()
@@ -23,7 +23,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_should_create_container_if_none_is_injected()
     {
-        $this->beConstructedWith(null, __DIR__);
+        $this->beConstructedWith(null, []);
         $this->getContainer()->shouldHaveType('League\Container\Container');
     }
 

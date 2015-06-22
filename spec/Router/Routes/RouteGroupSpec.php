@@ -5,7 +5,6 @@ namespace spec\Refinery29\Piston\Router\Routes;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Router\Routes\Route;
-use Refinery29\Piston\Router\Routes\RouteGroup;
 
 class RouteGroupSpec extends ObjectBehavior
 {
@@ -20,14 +19,6 @@ class RouteGroupSpec extends ObjectBehavior
         $this->addRoute($route);
 
         $this->getRoutes()->shouldContain($route);
-    }
-
-    public function it_can_add_a_group(RouteGroup $group)
-    {
-        $group->beADoubleOf('Refinery29\Piston\Router\Routes\RouteGroup');
-        $this->addGroup($group);
-
-        $this->getGroups()->shouldContain($group);
     }
 
     public function it_cannot_add_invalid_pre_hook()

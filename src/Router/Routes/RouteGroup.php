@@ -12,10 +12,6 @@ class RouteGroup
      * @var array
      */
     protected $routes = [];
-    /**
-     * @var array
-     */
-    protected $groups = [];
 
     use Hookable;
 
@@ -28,14 +24,6 @@ class RouteGroup
     }
 
     /**
-     * @param RouteGroup $group
-     */
-    public function addGroup(RouteGroup $group)
-    {
-        $this->groups[] = $group;
-    }
-
-    /**
      * @return array
      */
     public function getRoutes()
@@ -44,10 +32,17 @@ class RouteGroup
     }
 
     /**
-     * @return array
+     * @param Route $route
+     * @return bool
      */
-    public function getGroups()
+    public function includes(Route $route)
     {
-        return $this->groups;
+        foreach ($this->routes as $match_route) {
+            if ($route->getAlias() == $match_route->getAlias()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

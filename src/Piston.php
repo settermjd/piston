@@ -1,19 +1,18 @@
 <?php namespace Refinery29\Piston;
 
 use ArrayAccess;
-use Dotenv\Dotenv;
 use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
-use League\Route\RouteCollection;
-use League\Route\Strategy\RequestResponseStrategy;
 use Refinery29\Piston\Hooks\Hookable;
 use Refinery29\Piston\Hooks\Worker;
 use Refinery29\Piston\Request\Filters\Fields;
 use Refinery29\Piston\Request\Filters\IncludedResource;
 use Refinery29\Piston\Request\Filters\Pagination;
 use Refinery29\Piston\Request\Request;
+use Refinery29\Piston\Router\PistonStrategy;
+use Refinery29\Piston\Router\RouteCollection;
 use Refinery29\Piston\Router\Routes\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,19 +36,26 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      */
     protected $request;
 
+    /**
+     * @var array
+     */
+    protected $config;
+
 
     /**
      * @param ContainerInterface $container
-     * @param $config_dir
+     * @param array $config_array
      */
-    public function __construct(ContainerInterface $container = null, $config_dir)
+    public function __construct(ContainerInterface $container = null, array $config_array = [] )
     {
         $this->container = $container ?: new Container();
 
-        $this->loadConfig($config_dir);
-
         $this->bootstrapRouter();
         $this->bootstrapHooks();
+
+        if (!is_null($config_array)){
+            $this->config = $config_array;
+        };
 
         $this->container->add('app', $this);
     }
@@ -83,7 +89,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      */
     public function addRoute(Route $route)
     {
-        $this->router->addRoute($route->getVerb(), $route->getAlias(), $route->getAction());
+        $this->router->addRoute($route);
     }
 
     /**
@@ -91,11 +97,16 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      */
     public function launch()
     {
+        $routeData = $this->router->getData();
+
+        $this->router->findRoute($routeData);
+
         $dispatcher = $this->router->getDispatcher();
 
         $request = $this->getRequest();
 
         $response = Worker::work($this->getPreHooks(), $request, new Response());
+
         $this->container->add('Symfony\Component\HttpFoundation\Response', $response, true);
 
         $response = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
@@ -124,16 +135,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     private function bootstrapRouter()
     {
         $this->router = new RouteCollection($this->container);
-        $this->router->setStrategy(new RequestResponseStrategy($this->container));
-    }
-
-    /**
-     * @param $config_dir
-     */
-    private function loadConfig($config_dir)
-    {
-        $env = new Dotenv($config_dir);
-        $env->load();
+        $this->router->setStrategy(new PistonStrategy);
     }
 
     /**
@@ -148,7 +150,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      * @param $url
      * @return RedirectResponse
      */
-    public function redirect($url)
+    static public function redirect($url)
     {
         return new RedirectResponse($url);
     }
@@ -209,5 +211,21 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     public function offsetExists($key)
     {
         return $this->container->isRegistered($key) || $this->container->isSingleton($key);
+    }
+
+    /**
+     * @return ArrayAccess
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param ArrayAccess $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
     }
 }

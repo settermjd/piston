@@ -13,7 +13,7 @@ class PistonStrategySpec extends ObjectBehavior
 {
     public function let()
     {
-        $this->beConstructedWith(new Container());
+        $this->setContainer(new Container);
     }
 
     public function it_is_initializable()

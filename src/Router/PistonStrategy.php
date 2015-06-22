@@ -50,7 +50,8 @@ class PistonStrategy implements StrategyInterface
             return $this->dispatchClosure($action, $vars);
         }
 
-        return $this->dispatchController($action, $vars);
+        return $this->dispatchRoutable($action, $vars);
+
     }
 
     /**
@@ -58,7 +59,7 @@ class PistonStrategy implements StrategyInterface
      * @param $vars
      * @return mixed
      */
-    public function dispatchController($action, $vars)
+    public function dispatchRoutable($action, $vars)
     {
         $controller = $this->resolveController($action);
 
