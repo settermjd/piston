@@ -1,6 +1,8 @@
 <?php namespace Refinery29\Piston\Hooks;
 
-use InvalidArgumentException;
+use League\Pipeline\OperationInterface;
+use League\Pipeline\Pipeline;
+use League\Pipeline\PipelineBuilder;
 
 /**
  * Class Hookable
@@ -9,25 +11,23 @@ use InvalidArgumentException;
 trait Hookable
 {
     /**
-     * @var Queue
+     * @var PipelineBuilder
      */
     protected $pre_hooks = null;
 
     /**
-     * @var Queue
+     * @var PipelineBuilder
      */
     protected $post_hooks = null;
 
     /**
-     * @param \Closure|Hook $hook
+     * @param $hook
      * @return $this
      */
-    public function addPreHook($hook)
+    public function addPreHook(OperationInterface $hook)
     {
         $this->bootstrapHooks();
-        $this->validateHook($hook);
-
-        $this->pre_hooks->addHook($hook);
+        $this->pre_hooks->add($hook);
 
         return $this;
     }
@@ -35,55 +35,43 @@ trait Hookable
     protected function bootstrapHooks()
     {
         if ($this->pre_hooks == null) {
-            $this->pre_hooks = new Queue();
+            $this->pre_hooks = new PipelineBuilder();
         }
 
         if ($this->post_hooks == null) {
-            $this->post_hooks = new Queue();
+            $this->post_hooks = new PipelineBuilder();
         }
     }
 
     /**
-     * @param \Closure|Hook $hook
-     */
-    private function validateHook($hook)
-    {
-        if (!($hook instanceof \Closure) && !($hook instanceof Hook)) {
-            throw new InvalidArgumentException('You may only use closures and Refinery29/Piston/Hooks/Hook as a Hook');
-        }
-    }
-
-    /**
-     * @param \Closure|Hook $hook
+     * @param OperationInterface $hook
      * @return $this
      */
-    public function addPostHook($hook)
+    public function addPostHook(OperationInterface $hook)
     {
         $this->bootstrapHooks();
-        $this->validateHook($hook);
-
-        $this->post_hooks->addHook($hook);
+        $this->post_hooks->add($hook);
 
         return $this;
     }
 
     /**
-     * @return Queue
+     * @return PipeLine
      */
     public function getPreHooks()
     {
         $this->bootstrapHooks();
 
-        return $this->pre_hooks;
+        return $this->pre_hooks->build();
     }
 
     /**
-     * @return Queue
+     * @return Pipeline
      */
     public function getPostHooks()
     {
         $this->bootstrapHooks();
 
-        return $this->post_hooks;
+        return $this->post_hooks->build();
     }
 }

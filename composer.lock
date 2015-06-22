@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ce96f1c6e2de6e420350c642102c02ee",
+    "hash": "4069220438658a574cd24c5a2021ffd9",
     "packages": [
         {
             "name": "league/container",
@@ -176,6 +176,48 @@
                 "rest"
             ],
             "time": "2015-03-19 15:16:43"
+        },
+        {
+            "name": "league/pipeline",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/frankdejonge/pipeline.git",
+                "reference": "e22bc67ac982c41eb6beba64b614b2e9bf5a57e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/frankdejonge/pipeline/zipball/e22bc67ac982c41eb6beba64b614b2e9bf5a57e2",
+                "reference": "e22bc67ac982c41eb6beba64b614b2e9bf5a57e2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "henrikbjorn/phpspec-code-coverage": "^1.0",
+                "phpspec/phpspec": "^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Pipeline\\": "src"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpspec run"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A plug and play pipeline implementation.",
+            "support": {
+                "source": "https://github.com/frankdejonge/pipeline/tree/master",
+                "issues": "https://github.com/frankdejonge/pipeline/issues"
+            },
+            "time": "2015-06-22 18:59:40"
         },
         {
             "name": "league/route",
@@ -1744,7 +1786,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "league/pipeline": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

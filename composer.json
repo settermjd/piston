@@ -1,9 +1,16 @@
 {
   "name": "refinery29/piston",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url":  "git@github.com:frankdejonge/pipeline.git"
+    }
+  ],
   "require": {
     "league/route": "~1.1",
     "league/fractal": "^0.12.0",
-    "league/event": "^2.1"
+    "league/event": "^2.1",
+    "league/pipeline" : "dev-master"
   },
   "require-dev": {
     "fabpot/php-cs-fixer": "^1.9",
@@ -27,5 +34,6 @@
     "psr-4": {
       "Refinery29\\Piston\\Stubs\\": "spec/stubs"
     }
-  }
+  },
+  "min-stability": "dev"
 }

@@ -96,21 +96,16 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      */
     public function launch()
     {
-        $routeData = $this->router->getData();
-
-        $this->router->findRoute($routeData);
-
         $dispatcher = $this->router->getDispatcher();
 
         $request = $this->getRequest();
-
-        $response = Worker::work($this->getPreHooks(), $request, new Response());
+        $response = $this->getPreHooks()->process($request, new Response());
 
         $this->container->add('Symfony\Component\HttpFoundation\Response', $response, true);
 
         $response = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
 
-        $response = Worker::work($this->getPostHooks(), $request, $response);
+        $response = $this->getPostHooks()->process($request, $response);
 
         return $response->send();
     }

@@ -1,5 +1,7 @@
 <?php namespace spec\Refinery29\Piston\Router\Routes;
 
+use League\Pipeline\OperationInterface;
+use League\Pipeline\Pipeline;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -57,54 +59,16 @@ class RouteSpec extends ObjectBehavior
         $this->shouldThrow('\Exception')->during('__construct', ['YOLO', 'something', 'something']);
     }
 
-    public function it_cannot_add_invalid_pre_hook()
+    public function it_can_add_pre_hooks(OperationInterface $operation)
     {
-        $this->shouldThrow('\InvalidArgumentException')->during('addPreHook', [new \stdClass()]);
+        $this->addPreHook($operation);
+        $this->getPreHooks()->shouldHaveType(Pipeline::class);
     }
 
-    public function it_cannot_add_invalid_post_hook()
+    public function it_can_add_post_hooks(OperationInterface $operation)
     {
-        $this->shouldThrow('\InvalidArgumentException')->during('addPostHook', [new \stdClass()]);
-    }
-
-    public function it_can_add_pre_hooks()
-    {
-        $closure = function ($request, $response) {
-            return $response;
-        };
-
-        $this->addPreHook($closure);
-
-        $pre_hooks = $this->getPreHooks();
-
-        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
-
-        $pre_hooks->getNext()->shouldReturn($closure);
-    }
-
-    public function it_can_add_post_hooks()
-    {
-        $closure = function ($request, $response) {
-            return $response;
-        };
-
-        $this->addPostHook($closure);
-
-        $pre_hooks = $this->getPostHooks();
-
-        $pre_hooks->shouldHaveType('Refinery29\Piston\Hooks\Queue');
-
-        $pre_hooks->getNext()->shouldReturn($closure);
-    }
-
-    public function it_can_get_pre_hooks()
-    {
-        $this->getPreHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
-    }
-
-    public function it_can_get_post_hooks()
-    {
-        $this->getPostHooks()->shouldHaveType('Refinery29\Piston\Hooks\Queue');
+        $this->addPostHook($operation);
+        $this->getPostHooks()->shouldHaveType(Pipeline::class);
     }
 
     public function it_can_be_paginated()
