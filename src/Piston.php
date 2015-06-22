@@ -57,7 +57,6 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         if (!is_null($config_array)) {
             $this->config = $config_array;
         };
-
     }
 
     /**
