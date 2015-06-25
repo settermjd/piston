@@ -1,6 +1,6 @@
 <?php namespace Refinery29\Piston\Hooks;
 
-use League\Pipeline\OperationInterface;
+use League\Pipeline\StageInterface;
 use League\Pipeline\Pipeline;
 use League\Pipeline\PipelineBuilder;
 
@@ -24,7 +24,7 @@ trait Hookable
      * @param $hook
      * @return $this
      */
-    public function addPreHook(OperationInterface $hook)
+    public function addPreHook(StageInterface $hook)
     {
         $this->bootstrapHooks();
         $this->pre_hooks->add($hook);
@@ -47,7 +47,7 @@ trait Hookable
      * @param OperationInterface $hook
      * @return $this
      */
-    public function addPostHook(OperationInterface $hook)
+    public function addPostHook(StageInterface $hook)
     {
         $this->bootstrapHooks();
         $this->post_hooks->add($hook);
