@@ -100,6 +100,16 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         return $this;
     }
 
+    public function group(array $routes)
+    {
+        $group = new RouteGroup();
+        foreach ($routes as $route){
+            $group->addRoute($route);
+        }
+
+        $this->addRouteGroup($group);
+    }
+
     /**
      * @return Response
      */

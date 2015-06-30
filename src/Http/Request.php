@@ -90,7 +90,7 @@ class Request extends SRequest
     /**
      * @return bool
      */
-    public function requestsSpecificFields()
+    public function hasRequestedFields()
     {
         return !is_null($this->requested_fields);
     }

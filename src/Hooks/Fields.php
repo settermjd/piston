@@ -1,13 +1,13 @@
 <?php namespace Refinery29\Piston\Hooks;
 
-use League\Pipeline\OperationInterface;
-use Refinery29\Piston\Request;
+use League\Pipeline\StageInterface;
+use Refinery29\Piston\Http\Request;
 
 /**
  * Class Fields
  * @package Refinery29\Piston\Request\Filters
  */
-class Fields extends GetOnlyHook implements OperationInterface
+class Fields extends GetOnlyHook implements StageInterface
 {
     /**
      * @param Request $request

@@ -1,9 +1,9 @@
 <?php namespace Refinery29\Piston\Hooks;
 
-use League\Pipeline\OperationInterface;
-use Refinery29\Piston\Request;
+use League\Pipeline\StageInterface;
+use Refinery29\Piston\Http\Request;
 
-class Pagination extends GetOnlyHook implements OperationInterface
+class Pagination extends GetOnlyHook implements StageInterface
 {
     /**
      * @param Request $request

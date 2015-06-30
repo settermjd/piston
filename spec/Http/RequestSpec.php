@@ -18,7 +18,7 @@ class RequestSpec extends ObjectBehavior
         $this->setRequestedFields($req_fields);
 
         $this->getRequestedFields()->shouldReturn($req_fields);
-        $this->requestsSpecificFields()->shouldReturn(true);
+        $this->hasRequestedFields()->shouldReturn(true);
     }
 
     public function it_can_set_included_resources()

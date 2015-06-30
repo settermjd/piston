@@ -1,11 +1,5 @@
 {
   "name": "refinery29/piston",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url":  "git@github.com:frankdejonge/pipeline.git"
-    }
-  ],
   "require": {
     "league/route": "~1.1",
     "league/fractal": "^0.12.0",
