@@ -11,12 +11,12 @@ class RouteCollection extends Router
     /**
      * @var Route[]
      */
-    protected $route_objects;
+    protected $route_objects = [];
 
     /**
      * @var RouteGroup[]
      */
-    protected $groups;
+    protected $groups = [];
 
     /**
      * @var Router
@@ -37,77 +37,53 @@ class RouteCollection extends Router
      */
     public function add(Route $route)
     {
-        $route_alias = $this->parseAlias($route);
-        $route->setParsedAlias($route_alias);
-
         parent::addRoute($route->getVerb(), $route->getAlias(), $route->getAction());
         $this->route_objects[] = $route;
-    }
-
-    protected function buildRegexForRoute($routeData)
-    {
-        $regex = '';
-        foreach ($routeData as $part) {
-            if (is_string($part)) {
-                $regex .= preg_quote($part, '/');
-                continue;
-            }
-
-            $regexPart = array_pop($part);
-
-            $regex .= '(' . $regexPart . ')';
-        }
-
-        return "~".$regex."~";
-    }
-
-    private function parseAlias($route)
-    {
-        $parsed_alias = $this->parseRouteString($route->getAlias());
-        $parsed_alias = $this->parser->parse($parsed_alias);
-
-        return $this->buildRegexForRoute($parsed_alias);
     }
 
     /**
      * @param RouteGroup $group
      */
-    public function addRouteGroup(RouteGroup $group)
+    public function addGroup(RouteGroup $group)
     {
         foreach ($group->getRoutes() as $route) {
             $this->add($route);
-            $this->groups = $group;
         }
+        $this->groups[] = $group;
     }
 
-    public function byVerb($verb)
+    public function getGroups()
     {
-        $return = [];
+        return $this->groups;
+    }
+
+    /**
+     * @param array $action
+     * @return Route
+     */
+    public function findByAction(array $action)
+    {
         foreach ($this->route_objects as $route) {
-            if ($route->getVerb() == $verb) {
-                $return[] = $route;
+            if ($route->getAction() == implode('::', $action)) {
+                return $route;
             }
         }
 
-        return $return;
+        return false;
     }
 
-    public function findRoute()
+    /**
+     * @param Route $route
+     * @return RouteGroup
+     */
+    public function findGroupByRoute(Route $route)
     {
-        $request = $this->container->get('app')->getRequest();
-
-        $path = $request->getPathInfo();
-        $method = $request->getMethod();
-
-        foreach ($this->byVerb($method) as $route) {
-            //            echo print_r($route->getParsedAlias()."\n", true);
-//            ~^(?|/john/bob/([a-zA-Z]+)|/john/joseph/([a-zA-Z]+)()|/john/lala/([a-zA-Z]+)()())$~
-
-            if (preg_match($route->getParsedAlias(), $path, $matches)) {
-                echo "<pre>".print_r($matches, true)."</pre>";
+        foreach ($this->groups as $group) {
+            if ($group->includes($route)) {
+                return $group;
             }
         }
 
-//        exit;
+        return false;
     }
 }

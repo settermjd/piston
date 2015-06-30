@@ -1,7 +1,7 @@
 <?php namespace Refinery29\Piston\Stubs;
 
-use Refinery29\Piston\Router\Routeable;
-use Symfony\Component\HttpFoundation\Request;
+use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Router\Routes\Routeable;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -14,6 +14,18 @@ class FooController implements Routeable
 {
     public function fooAction(Request $req, Response $resp)
     {
+        return $resp;
+    }
+
+    public function test($req, $resp)
+    {
+
+        if ($req->isPaginated()){
+            echo "<pre>".print_r($req->getPaginationCursor(), true)."</pre>"; exit;
+        }
+
+        $resp->setContent('Hello, friend');
+
         return $resp;
     }
 }

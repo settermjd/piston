@@ -6,14 +6,14 @@ use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use Refinery29\Piston\Hooks\Hookable;
-use Refinery29\Piston\Hooks\Worker;
-use Refinery29\Piston\Request\Filters\Fields;
-use Refinery29\Piston\Request\Filters\IncludedResource;
-use Refinery29\Piston\Request\Filters\Pagination;
-use Refinery29\Piston\Request\Request;
+use Refinery29\Piston\Hooks\Fields;
+use Refinery29\Piston\Hooks\IncludedResource;
+use Refinery29\Piston\Hooks\Pagination;
+use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\RouteCollection;
 use Refinery29\Piston\Router\Routes\Route;
+use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,7 +34,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     /**
      * @var Request
      */
-    protected $request;
+    protected $request = null;
 
     /**
      * @var array
@@ -72,13 +72,13 @@ class Piston implements ContainerAwareInterface, ArrayAccess
      */
     public function getRequest()
     {
-        $request = $this->request ?: Request::createFromGlobals();
+        $request = $this->request ? $this->request : Request::createFromGlobals();
 
-        $request = Pagination::apply($request);
-        $request = IncludedResource::apply($request);
-        $request = Fields::apply($request);
+        $request = (new Pagination())->process($request);
+        $request = (new IncludedResource())->process($request);
+        $request = (new Fields())->process($request);
 
-        $this->container->add('Symfony\Component\HttpFoundation\Request', $request, true);
+        $this->container->add('PistonRequest', $request, true);
 
         return $request;
     }
@@ -89,6 +89,15 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     public function addRoute(Route $route)
     {
         $this->router->add($route);
+
+        return $this;
+    }
+
+    public function addRouteGroup(RouteGroup $group)
+    {
+        $this->router->addGroup($group);
+
+        return $this;
     }
 
     /**
@@ -99,13 +108,9 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         $dispatcher = $this->router->getDispatcher();
 
         $request = $this->getRequest();
-        $response = $this->getPreHooks()->process($request, new Response());
-
-        $this->container->add('Symfony\Component\HttpFoundation\Response', $response, true);
+        $this->container->add('Symfony\Component\HttpFoundation\Response', new Response(), true);
 
         $response = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
-
-        $response = $this->getPostHooks()->process($request, $response);
 
         return $response->send();
     }
@@ -130,6 +135,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     {
         $this->router = new RouteCollection($this->container);
         $this->router->setStrategy(new PistonStrategy);
+        $this->container->add('PistonRouter', $this->router);
     }
 
     /**

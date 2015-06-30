@@ -34,4 +34,23 @@ class RouteGroupSpec extends ObjectBehavior
         $this->addPostHook($operation);
         $this->getPostHooks()->shouldHaveType(Pipeline::class);
     }
+
+    public function it_can_tell_if_it_includes_a_route(Route $route)
+    {
+        $route->getAction()->willReturn('FooController::test');
+        $route->getVerb()->willReturn('GET');
+        $route->getAlias()->willReturn('123/345');
+        $this->addRoute($route);
+
+        $this->includes($route)->shouldReturn(true);
+    }
+
+    public function it_can_tell_if_it_doesnt_include_a_route(Route $route)
+    {
+        $route->getAction()->willReturn('FooController::test');
+        $route->getVerb()->willReturn('GET');
+        $route->getAlias()->willReturn('123/345');
+
+        $this->includes($route)->shouldReturn(false);
+    }
 }

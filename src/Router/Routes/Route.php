@@ -26,8 +26,6 @@ class Route
      */
     protected $is_paginated = false;
 
-    protected $parsed_alias = null;
-
     /**
      * @var array
      */
@@ -130,21 +128,5 @@ class Route
     public function isPaginated()
     {
         return $this->is_paginated;
-    }
-
-    /**
-     * @return null
-     */
-    public function getParsedAlias()
-    {
-        return $this->parsed_alias;
-    }
-
-    /**
-     * @param null $parsed_alias
-     */
-    public function setParsedAlias($parsed_alias)
-    {
-        $this->parsed_alias = $parsed_alias;
     }
 }

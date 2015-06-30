@@ -7,8 +7,9 @@ use League\Pipeline\OperationInterface;
 use League\Pipeline\Pipeline;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Refinery29\Piston\Request\Request;
+use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\Routes\Route;
+use Refinery29\Piston\Router\Routes\RouteGroup;
 
 class PistonSpec extends ObjectBehavior
 {
@@ -36,6 +37,12 @@ class PistonSpec extends ObjectBehavior
         $this->addRoute($route);
     }
 
+    public function it_can_add_a_route_group(RouteGroup $group)
+    {
+        $group->getRoutes()->willReturn([]);
+        $this->addRouteGroup($group);
+    }
+
     public function it_can_set_a_container(ContainerInterface $container)
     {
         $this->setContainer($container);
@@ -56,7 +63,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_can_set_a_request(Request $request)
     {
-        $request->beADoubleOf('Refinery29\Piston\Request\Request');
+        $request->beADoubleOf(Request::class);
 
         $this->setRequest($request);
 
@@ -65,7 +72,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_creates_a_request_if_one_is_not_provided()
     {
-        $this->getRequest()->shouldHaveType('Refinery29\Piston\Request\Request');
+        $this->getRequest()->shouldHaveType('Refinery29\Piston\Http\Request');
     }
 
     public function it_can_add_service_providers(ServiceProvider $provider)
@@ -85,5 +92,26 @@ class PistonSpec extends ObjectBehavior
         $response = $this->notFound();
         $response->shouldHaveType('Symfony\Component\HttpFoundation\Response');
         $response->getStatusCode()->shouldReturn(404);
+    }
+
+    public function it_can_set_config()
+    {
+        $this->setConfig(['yellow' => 'submarine']);
+
+        $this->getConfig()->shouldReturn(['yellow' => 'submarine']);
+    }
+
+    public function it_offset_exists()
+    {
+        $this->offsetExists('yolo')->shouldReturn(false);
+    }
+
+    public function it_offset_unset()
+    {
+        $this['yolo'] = "fomo";
+
+        unset($this['yolo']);
+
+        $this->offsetExists('yolo')->shouldReturn(false);
     }
 }

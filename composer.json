@@ -9,7 +9,6 @@
   "require": {
     "league/route": "~1.1",
     "league/fractal": "^0.12.0",
-    "league/event": "^2.1",
     "league/pipeline" : "dev-master"
   },
   "require-dev": {

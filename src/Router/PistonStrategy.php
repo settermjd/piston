@@ -1,10 +1,9 @@
 <?php namespace Refinery29\Piston\Router;
 
 use Closure;
-use League\Container\ContainerInterface;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Refinery29\Piston\Router\Routes\Routeable;
 use Symfony\Component\HttpFoundation\Response;
 
 class PistonStrategy extends RequestResponseStrategy implements StrategyInterface
@@ -16,13 +15,71 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      */
     public function dispatch($controller, array $vars = [])
     {
+        $request = $this->container->get('PistonRequest');
+
+        $original_response = $this->container->get('Symfony\Component\HttpFoundation\Response');
+
+        $app = $this->container->get('app');
+
+        $response = $this->processPreHooks($app, $request, $original_response);
+
+        if (is_array($controller) && is_string($controller[0])) {
+            /** @var RouteCollection */
+            $router = $this->container->get('PistonRouter');
+            $active_route = $router->findByAction($controller);
+
+            if ($active_route !== false) {
+                $group = $router->findGroupByRoute($active_route);
+                if ($group !== false) {
+                    $response = $this->processPreHooks($group, $request, $original_response);
+                }
+
+                $response = $this->processPreHooks($active_route, $request, $original_response);
+            }
+        }
+
         $response = $this->invokeAction($controller, [
-            Request::createFromGlobals(),
-            Response::create(),
+            $request,
+            $response,
             $vars
         ]);
 
+        if (is_array($controller) && is_string($controller[0]) && $active_route !== false) {
+            if ($group !== false) {
+                $this->processPostHooks($group, $request, $original_response);
+            }
+
+            $response = $this->processPostHooks($active_route, $request, $original_response);
+        }
+
+
+        $this->processPostHooks($app, $request, $original_response);
+
         return $this->validateResponse($response);
+    }
+
+    /**
+     * @param $item
+     * @param $request
+     * @param $original_response
+     * @return Response
+     */
+    protected function processPreHooks($item, $request, $original_response)
+    {
+        $response = $item->getPreHooks()->process([$request, $original_response]);
+        return $response instanceof Response ? $response : $original_response;
+    }
+
+    /**
+     * @param $item
+     * @param $request
+     * @param $original_response
+     * @return Response
+     */
+    protected function processPostHooks($item, $request, $original_response)
+    {
+        $response = $item->getPostHooks()->process([$request, $original_response]);
+        return $response instanceof Response ? $response : $original_response;
     }
 
     /**
@@ -50,12 +107,9 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
     {
         $controller = $this->resolveController($action);
 
-//        $controller[0]->beforeController();
         $response = call_user_func_array($controller, $vars);
 
         return $this->validateResponse($response);
-
-//        return $controller[0]->afterController($response);
     }
 
     /**

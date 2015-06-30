@@ -1,4 +1,4 @@
-<?php namespace Refinery29\Piston\Request;
+<?php namespace Refinery29\Piston\Http;
 
 use Symfony\Component\HttpFoundation\Request as SRequest;
 
@@ -76,7 +76,7 @@ class Request extends SRequest
      */
     public function isPaginated()
     {
-        return !is_null($this->pagination_cursor);
+        return !empty($this->pagination_cursor);
     }
 
     /**
