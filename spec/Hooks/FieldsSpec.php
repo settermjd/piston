@@ -8,12 +8,12 @@ use Refinery29\Piston\Http\Request;
 
 class FieldsSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Refinery29\Piston\Hooks\Fields');
     }
 
-    function it_will_get_included_resources()
+    public function it_will_get_included_resources()
     {
         $request = Request::create('123/yolo?fields=model,blog,entry');
         $result = $this->process($request);

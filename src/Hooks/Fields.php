@@ -21,11 +21,11 @@ class Fields extends GetOnlyHook implements OperationInterface
             $this->ensureGetOnlyRequest($request);
         }
 
-        if ($fields){
+        if ($fields) {
             $fields = explode(',', $fields);
         }
 
-        if (!empty($fields)){
+        if (!empty($fields)) {
             $request->setRequestedFields((array)$fields);
         }
 

@@ -19,9 +19,9 @@ class FooController implements Routeable
 
     public function test($req, $resp)
     {
-
-        if ($req->isPaginated()){
-            echo "<pre>".print_r($req->getPaginationCursor(), true)."</pre>"; exit;
+        if ($req->isPaginated()) {
+            echo "<pre>".print_r($req->getPaginationCursor(), true)."</pre>";
+            exit;
         }
 
         $resp->setContent('Hello, friend');

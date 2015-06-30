@@ -10,17 +10,17 @@ use Refinery29\Piston\Router\Routes\RouteGroup;
 
 class RouteCollectionSpec extends ObjectBehavior
 {
-    function let(ContainerInterface $container)
+    public function let(ContainerInterface $container)
     {
         $this->beConstructedWith($container);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Refinery29\Piston\Router\RouteCollection');
     }
 
-    function it_can_add_route_groups(RouteGroup $group, Route $route)
+    public function it_can_add_route_groups(RouteGroup $group, Route $route)
     {
         $group->getRoutes()->willReturn([$route]);
         $this->addGroup($group);
@@ -28,7 +28,7 @@ class RouteCollectionSpec extends ObjectBehavior
         $this->getGroups()->shouldContain($group);
     }
 
-    function it_can_find_route_by_action(Route $route)
+    public function it_can_find_route_by_action(Route $route)
     {
         $route->getAction()->willReturn('FooController::test');
         $route->getVerb()->willReturn('GET');
@@ -38,12 +38,12 @@ class RouteCollectionSpec extends ObjectBehavior
         $this->findByAction(['FooController', 'test'])->shouldReturn($route);
     }
 
-    function it_cannot_find_a_nonexistant_route()
+    public function it_cannot_find_a_nonexistant_route()
     {
         $this->findByAction(['FooController', 'test'])->shouldReturn(false);
     }
 
-    function it_can_find_group_by_route(Route $route, RouteGroup $group)
+    public function it_can_find_group_by_route(Route $route, RouteGroup $group)
     {
         $route->getAction()->willReturn('FooController::test');
         $route->getVerb()->willReturn('GET');
@@ -59,7 +59,7 @@ class RouteCollectionSpec extends ObjectBehavior
         $this->findGroupByRoute($route)->shouldReturn($group);
     }
 
-    function it_cannot_find_group(Route $route)
+    public function it_cannot_find_group(Route $route)
     {
         $route->getAction()->willReturn('FooController::test');
         $route->getVerb()->willReturn('GET');

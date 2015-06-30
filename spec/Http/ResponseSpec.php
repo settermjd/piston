@@ -7,7 +7,7 @@ use Prophecy\Argument;
 
 class ResponseSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Refinery29\Piston\Http\Response');
     }
@@ -18,5 +18,4 @@ class ResponseSpec extends ObjectBehavior
 
         $this->getPaginationCursors()->shouldReturn(['before' => 123, 'after' => 345]);
     }
-
 }

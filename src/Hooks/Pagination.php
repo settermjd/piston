@@ -18,7 +18,7 @@ class Pagination extends GetOnlyHook implements OperationInterface
             $this->ensureGetOnlyRequest($request);
         }
 
-        if ($before || $after){
+        if ($before || $after) {
             $request->setPaginationCursor(['before' => $before, 'after' => $after]);
         }
 
