@@ -140,3 +140,7 @@ Configuration is available through:
 ```
 $app->getConfig()
 ```
+
+### Todo:
+- [ ] CSRF Protection on POST and PUT routes
+- [ ] Offset/limit and page based pagination
