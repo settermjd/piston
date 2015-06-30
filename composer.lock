@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4069220438658a574cd24c5a2021ffd9",
+    "hash": "0abeda717420956bfd9dafbf492ddc6e",
     "packages": [
         {
             "name": "league/container",
@@ -179,16 +179,16 @@
         },
         {
             "name": "league/pipeline",
-            "version": "dev-master",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/frankdejonge/pipeline.git",
-                "reference": "e22bc67ac982c41eb6beba64b614b2e9bf5a57e2"
+                "url": "https://github.com/thephpleague/pipeline.git",
+                "reference": "c8145611b588ab20bb5dd7a12d0f741b40fc57bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/frankdejonge/pipeline/zipball/e22bc67ac982c41eb6beba64b614b2e9bf5a57e2",
-                "reference": "e22bc67ac982c41eb6beba64b614b2e9bf5a57e2",
+                "url": "https://api.github.com/repos/thephpleague/pipeline/zipball/c8145611b588ab20bb5dd7a12d0f741b40fc57bd",
+                "reference": "c8145611b588ab20bb5dd7a12d0f741b40fc57bd",
                 "shasum": ""
             },
             "require": {
@@ -204,20 +204,25 @@
                     "League\\Pipeline\\": "src"
                 }
             },
-            "scripts": {
-                "test": [
-                    "phpspec run"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
             "description": "A plug and play pipeline implementation.",
-            "support": {
-                "source": "https://github.com/frankdejonge/pipeline/tree/master",
-                "issues": "https://github.com/frankdejonge/pipeline/issues"
-            },
-            "time": "2015-06-22 18:59:40"
+            "keywords": [
+                "composition",
+                "design pattern",
+                "pattern",
+                "pipeline",
+                "sequential"
+            ],
+            "time": "2015-06-25 16:50:06"
         },
         {
             "name": "league/route",
@@ -1786,9 +1791,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "league/pipeline": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
