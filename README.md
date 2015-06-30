@@ -121,3 +121,21 @@ array
 
 
 All of the above filters are only allowed on `GET` requests. Use of any of these parameters will result in an error if used with any other HTTP verb.
+
+### Configuration
+You are able to pass in configuration variables via the following method:  
+
+```
+$config = [
+    'super_secret_key' => 'super_secret_value'
+]
+
+$application = new Piston();
+$application->setConfig($config);
+```
+
+Configuration is available through: 
+
+```
+$app->getConfig()
+```
