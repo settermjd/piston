@@ -1,5 +1,5 @@
 # Piston
-Micro Framework for APIs
+Opinionated Micro Framework for APIs
 
 
 ## Routing
