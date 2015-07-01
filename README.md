@@ -63,7 +63,7 @@ $application->addPreHook($hook);
 ```
 
 ### Service Providers
-Service providers can be easily added to encapsulate any service necessary to the application. 
+[Service providers](http://container.thephpleague.com/service-providers/) can be easily added to encapsulate any service necessary to the application. Any service provider class must implement `League\Container\ServiceProvider`
 
 ```
 $application = new Piston();
