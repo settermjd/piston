@@ -21,6 +21,8 @@ $application->AddRoute(Route::get('jedi/{id}', function($request, $response(){
 });
 ```
 
+Piston relies on [`league/route`](http://route.thephpleague.com/) for routing. This allows for parameterized routes such as `/jedi/master/{name}`. You are able to enforce that the parameters be either a number of a word: `{id:number}/{name:word}`
+
 ### Route Groups
 There is also the ability to create Route groups that can bundle certain routes together. For instance, if you have a set of routes that are Admin accessible, you can create a group for those routes. 
 
