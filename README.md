@@ -16,9 +16,9 @@ $application->addRoute(Route::get('jedi/{id}', 'JediController::useTheForce'));
 **Closure Based**
 ```
 $application = new Application();
-$application->AddRoute(Route::get('jedi/{id}', function($request, $response(){
+$application->addRoute(Route::get('jedi/{id}', function($request, $response) {
 	return $response;
-});
+}));
 ```
 
 Piston relies on [`league/route`](http://route.thephpleague.com/) for routing. This allows for parameterized routes such as `/jedi/master/{name}`. You are able to enforce that the parameters be either a number of a word: `{id:number}/{name:word}`
