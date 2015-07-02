@@ -1,7 +1,7 @@
 # Piston
 Opinionated Micro Framework for APIs
 
--[![Build Status](https://travis-ci.org/refinery29/piston.svg?branch=master)](https://travis-ci.org/refinery29/piston) [![Code Climate](https://codeclimate.com/github/refinery29/piston/badges/gpa.svg)](https://codeclimate.com/github/refinery29/piston) [![Test Coveragex](https://codeclimate.com/github/refinery29/piston/badges/coverage.svg)](https://codeclimate.com/github/refinery29/piston/coverage)
+[![Build Status](https://travis-ci.org/refinery29/piston.svg?branch=master)](https://travis-ci.org/refinery29/piston) [![Code Climate](https://codeclimate.com/github/refinery29/piston/badges/gpa.svg)](https://codeclimate.com/github/refinery29/piston) [![Test Coverage](https://codeclimate.com/github/refinery29/piston/badges/coverage.svg)](https://codeclimate.com/github/refinery29/piston/coverage)
 
 ## Routing
 
@@ -131,7 +131,7 @@ You are able to pass in configuration variables via the following method:
 ```php
 $config = [
     'super_secret_key' => 'super_secret_value'
-]
+];
 
 $application = new Piston();
 $application->setConfig($config);
