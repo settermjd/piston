@@ -8,13 +8,13 @@ Opinionated Micro Framework for APIs
 Piston supports route based and closure based routing. In both cases, the action must return an instance of `Refinery29\Piston\Http\Request`. Routes are implemented as simple value objects that hold url alias, http verb, and action. 
 
 **Route Based**
-```
+```php
 $application = new Application();
 $application->addRoute(Route::get('jedi/{id}', 'JediController::useTheForce'));
 ```
 
 **Closure Based**
-```
+```php
 $application = new Application();
 $application->addRoute(Route::get('jedi/{id}', function($request, $response) {
 	return $response;
@@ -26,7 +26,7 @@ Piston relies on [`league/route`](http://route.thephpleague.com/) for routing. T
 ### Route Groups
 There is also the ability to create Route groups that can bundle certain routes together. For instance, if you have a set of routes that are Admin accessible, you can create a group for those routes. 
 
-```
+```php
 $application = new Application();
 
 $route1 = Route::get('jedi/{id}', 'JediController::useTheForce'));
@@ -41,7 +41,7 @@ $application->addRouteGroup($group);
 
 You can also use the convenience function `group()`. 
 
-```
+```php
 $application->group($route1, $route2, $route2);
 ```
 
@@ -57,7 +57,7 @@ Hooks are applied in order from least specific to most specific. Application, th
 
 Hooks must implement `League\Pipeline\StageInterface` and define a `process()` method which must return an instance of `Refinery29\Piston\Http\Request`
 
-```
+```php
 $hook = new UseTheForceHook();
 $application->addPreHook($hook);
 ```
@@ -65,7 +65,7 @@ $application->addPreHook($hook);
 ### Service Providers
 [Service providers](http://container.thephpleague.com/service-providers/) can be easily added to encapsulate any service necessary to the application. Any service provider class must implement `League\Container\ServiceProvider`
 
-```
+```php
 $application = new Piston();
 $application->register(new LightSaberProvider());
 ```
@@ -128,7 +128,7 @@ All of the above filters are only allowed on `GET` requests. Use of any of these
 ### Configuration
 You are able to pass in configuration variables via the following method:  
 
-```
+```php
 $config = [
     'super_secret_key' => 'super_secret_value'
 ]
@@ -139,7 +139,7 @@ $application->setConfig($config);
 
 Configuration is available through: 
 
-```
+```php
 $app->getConfig()
 ```
 
