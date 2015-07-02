@@ -131,7 +131,7 @@ You are able to pass in configuration variables via the following method:
 ```
 $config = [
     'super_secret_key' => 'super_secret_value'
-]
+];
 
 $application = new Piston();
 $application->setConfig($config);
