@@ -7,17 +7,17 @@ class Route
     use Hookable;
 
     /**
-     * @var
+     * @var string
      */
     protected $verb;
 
     /**
-     * @var
+     * @var string
      */
     protected $alias;
 
     /**
-     * @var
+     * @var string
      */
     protected $action;
 
@@ -32,9 +32,9 @@ class Route
     private $acceptable_verbs = ['POST', 'PUT', 'DELETE', 'GET'];
 
     /**
-     * @param $verb
-     * @param $alias
-     * @param $action
+     * @param string $verb
+     * @param string $alias
+     * @param string $action
      * @param bool $is_paginated
      */
     public function __construct($verb, $alias, $action, $is_paginated = false)
@@ -69,8 +69,8 @@ class Route
     }
 
     /**
-     * @param $alias
-     * @param $action
+     * @param string $alias
+     * @param string $action
      * @return static
      */
     public static function post($alias, $action)
@@ -79,8 +79,8 @@ class Route
     }
 
     /**
-     * @param $alias
-     * @param $action
+     * @param string $alias
+     * @param string $action
      * @return static
      */
     public static function delete($alias, $action)
@@ -89,8 +89,8 @@ class Route
     }
 
     /**
-     * @param $alias
-     * @param $action
+     * @param string $alias
+     * @param string $action
      * @return static
      */
     public static function put($alias, $action)
@@ -99,7 +99,7 @@ class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getVerb()
     {
@@ -107,7 +107,7 @@ class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAlias()
     {
@@ -115,7 +115,7 @@ class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAction()
     {
