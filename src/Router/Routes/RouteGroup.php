@@ -9,7 +9,7 @@ use Refinery29\Piston\Hooks\Hookable;
 class RouteGroup
 {
     /**
-     * @var array
+     * @var Route[]
      */
     protected $routes = [];
 
@@ -24,7 +24,7 @@ class RouteGroup
     }
 
     /**
-     * @return array
+     * @return Route[]
      */
     public function getRoutes()
     {
