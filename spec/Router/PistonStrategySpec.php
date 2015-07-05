@@ -53,9 +53,6 @@ class PistonStrategySpec extends ObjectBehavior
 
     public function it_can_dispatch_controller(Request $request, Response $response)
     {
-        $response->beADoubleOf(Response::class);
-        $request->beADoubleOf(Request::class);
-
         $controller_response = $this->invokeAction(['Refinery29\Piston\Stubs\FooController', 'fooAction'], [$request, $response]);
         $controller_response->shouldHaveType('Symfony\Component\HttpFoundation\Response');
     }
