@@ -11,7 +11,7 @@ class RouteGroup
     use Hookable;
 
     /**
-     * @var array
+     * @var Route[]
      */
     protected $routes = [];
 
@@ -24,7 +24,7 @@ class RouteGroup
     }
 
     /**
-     * @return array
+     * @return Route[]
      */
     public function getRoutes()
     {
