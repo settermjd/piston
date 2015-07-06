@@ -8,12 +8,12 @@ use Refinery29\Piston\Hooks\Hookable;
  */
 class RouteGroup
 {
+    use Hookable;
+
     /**
      * @var array
      */
     protected $routes = [];
-
-    use Hookable;
 
     /**
      * @param Route $route
