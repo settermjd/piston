@@ -123,9 +123,9 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
                 $this->container->get($action[0]),
                 $action[1]
             ];
-        } else {
-            return $action;
         }
+
+        return $action;
     }
 
     /**
