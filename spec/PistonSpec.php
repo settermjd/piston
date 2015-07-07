@@ -120,5 +120,4 @@ class PistonSpec extends ObjectBehavior
 
         $this->offsetExists('yolo')->shouldReturn(false);
     }
-
 }

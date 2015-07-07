@@ -122,5 +122,4 @@ class Route
 
         $this->url = str_replace('//', '/', $this->url);
     }
-
 }
