@@ -26,6 +26,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
         if (is_array($controller) && is_string($controller[0])) {
             /** @var RouteCollection */
             $router = $this->container->get('PistonRouter');
+
             $active_route = $router->findByAction($controller);
 
             if ($active_route !== false) {
@@ -123,9 +124,9 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
                 $this->container->get($action[0]),
                 $action[1]
             ];
-        } else {
-            return $action;
         }
+
+        return $action;
     }
 
     /**

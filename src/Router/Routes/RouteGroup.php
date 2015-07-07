@@ -9,11 +9,24 @@ use Refinery29\Piston\Hooks\Hookable;
 class RouteGroup
 {
     /**
-     * @var array
+     * @var Route[]
      */
     protected $routes = [];
 
+    protected $url_segment;
+
+    /**
+     * @var RouteGroup[]
+     */
+    protected $groups = [];
+
     use Hookable;
+
+    public function __construct(array $routes = [], $url_segment = null)
+    {
+        $this->routes = $routes;
+        $this->url_segment = $url_segment;
+    }
 
     /**
      * @param Route $route
@@ -23,8 +36,29 @@ class RouteGroup
         $this->routes[] = $route;
     }
 
+    public function addGroup(RouteGroup $group)
+    {
+        foreach ($group->getRoutes() as $route) {
+            $this->routes[] = $route;
+        }
+        $this->groups[] = $group;
+    }
+
+    public function updateRoutes()
+    {
+        foreach ($this->groups as $group) {
+            $group->updateRoutes();
+        }
+
+        foreach ($this->getRoutes() as $route) {
+            if ($this->url_segment !== false) {
+                $route->updateUrl($this->url_segment);
+            }
+        }
+    }
+
     /**
-     * @return array
+     * @return Route[]
      */
     public function getRoutes()
     {
@@ -38,11 +72,27 @@ class RouteGroup
     public function includes(Route $route)
     {
         foreach ($this->routes as $match_route) {
-            if ($route->getAlias() == $match_route->getAlias()) {
+            if ($route->getUrl() == $match_route->getUrl()) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * @param mixed $url_segment
+     */
+    public function setUrlSegment($url_segment)
+    {
+        $this->url_segment = $url_segment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrlSegment()
+    {
+        return $this->url_segment;
     }
 }

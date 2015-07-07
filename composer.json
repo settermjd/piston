@@ -1,9 +1,9 @@
 {
   "name": "refinery29/piston",
   "require": {
-    "league/route": "~1.1",
     "league/pipeline": "^0.1.0",
-    "nikic/fast-route": "~0.5.0"
+    "nikic/fast-route": "~0.5.0",
+    "kayladnls/seesaw": "^0.0.5"
   },
   "require-dev": {
     "fabpot/php-cs-fixer": "^1.9",

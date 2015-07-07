@@ -23,6 +23,8 @@ class RouteCollectionSpec extends ObjectBehavior
     public function it_can_add_route_groups(RouteGroup $group, Route $route)
     {
         $group->getRoutes()->willReturn([$route]);
+        $group->updateRoutes()->willReturn(null);
+        $group->getUrlSegment()->willReturn(false);
         $this->addGroup($group);
 
         $this->getGroups()->shouldContain($group);
@@ -32,7 +34,7 @@ class RouteCollectionSpec extends ObjectBehavior
     {
         $route->getAction()->willReturn('FooController::test');
         $route->getVerb()->willReturn('GET');
-        $route->getAlias()->willReturn('123/345');
+        $route->getUrl()->willReturn('123/345');
         $this->add($route);
 
         $this->findByAction(['FooController', 'test'])->shouldReturn($route);
@@ -47,10 +49,12 @@ class RouteCollectionSpec extends ObjectBehavior
     {
         $route->getAction()->willReturn('FooController::test');
         $route->getVerb()->willReturn('GET');
-        $route->getAlias()->willReturn('123/345');
+        $route->getUrl()->willReturn('123/345');
 
         $group->getRoutes()->willReturn([$route]);
+        $group->getUrlSegment()->willReturn(false);
         $group->includes($route)->willReturn(true);
+        $group->updateRoutes()->willReturn(null);
 
         $group->addRoute($route);
 
@@ -63,7 +67,7 @@ class RouteCollectionSpec extends ObjectBehavior
     {
         $route->getAction()->willReturn('FooController::test');
         $route->getVerb()->willReturn('GET');
-        $route->getAlias()->willReturn('123/345');
+        $route->getUrl()->willReturn('123/345');
         $this->add($route);
 
         $this->findGroupByRoute($route)->shouldReturn(false);

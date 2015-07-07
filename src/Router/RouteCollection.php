@@ -1,8 +1,6 @@
 <?php namespace Refinery29\Piston\Router;
 
-use FastRoute\RouteParser\Std;
-use League\Container\ContainerInterface;
-use League\Route\RouteCollection as Router;
+use Kayladnls\Seesaw\Seesaw as Router;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 
@@ -24,21 +22,14 @@ class RouteCollection extends Router
     protected $router;
 
     /**
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-        $this->parser = new Std();
-    }
-
-    /**
      * @param Route $route
      */
     public function add(Route $route)
     {
-        parent::addRoute($route->getVerb(), $route->getAlias(), $route->getAction());
+        parent::addRoute($route->getVerb(), $route->getUrl(), $route->getAction());
         $this->route_objects[] = $route;
+
+        return $this;
     }
 
     /**
@@ -46,10 +37,14 @@ class RouteCollection extends Router
      */
     public function addGroup(RouteGroup $group)
     {
+        $group->updateRoutes();
+
         foreach ($group->getRoutes() as $route) {
-            $this->add($route);
+            $this->route_objects[] = $route;
         }
         $this->groups[] = $group;
+
+        return $this;
     }
 
     public function getGroups()

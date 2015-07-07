@@ -68,19 +68,11 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     }
 
     /**
-     * @return Request|\Symfony\Component\HttpFoundation\Request
+     * @return Request
      */
     public function getRequest()
     {
-        $request = $this->request ? $this->request : Request::createFromGlobals();
-
-        $request = (new Pagination())->process($request);
-        $request = (new IncludedResource())->process($request);
-        $request = (new Fields())->process($request);
-
-        $this->container->add('PistonRequest', $request, true);
-
-        return $request;
+        return $this->request ? $this->request : Request::createFromGlobals();
     }
 
     /**
@@ -100,14 +92,12 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         return $this;
     }
 
-    public function group(array $routes)
+    public function group(array $routes, $url_segment = null)
     {
-        $group = new RouteGroup();
-        foreach ($routes as $route) {
-            $group->addRoute($route);
-        }
-
+        $group = new RouteGroup($routes, $url_segment);
         $this->addRouteGroup($group);
+
+        return $this;
     }
 
     /**
@@ -117,12 +107,25 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     {
         $dispatcher = $this->router->getDispatcher();
 
-        $request = $this->getRequest();
+        $request = $this->preProcessRequest();
+
         $this->container->add('Symfony\Component\HttpFoundation\Response', new Response(), true);
 
         $response = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
 
         return $response->send();
+    }
+
+    protected function preProcessRequest()
+    {
+        $request = $this->getRequest();
+        $request = (new Pagination())->process($request);
+        $request = (new IncludedResource())->process($request);
+        $request = (new Fields())->process($request);
+
+        $this->container->add('PistonRequest', $request, true);
+
+        return $request;
     }
 
     /**

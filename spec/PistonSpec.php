@@ -40,7 +40,13 @@ class PistonSpec extends ObjectBehavior
     public function it_can_add_a_route_group(RouteGroup $group)
     {
         $group->getRoutes()->willReturn([]);
+        $group->updateRoutes()->willReturn(null);
         $this->addRouteGroup($group);
+    }
+
+    public function it_can_add_a_route_group_through_group()
+    {
+        $this->group([Route::get('/something', 'Foo::bar'), Route::get('/else', 'Foo::bar')], 'something');
     }
 
     public function it_can_set_a_container(ContainerInterface $container)
@@ -114,4 +120,5 @@ class PistonSpec extends ObjectBehavior
 
         $this->offsetExists('yolo')->shouldReturn(false);
     }
+
 }

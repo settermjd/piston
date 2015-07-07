@@ -2,23 +2,35 @@
 
 namespace spec\Refinery29\Piston\Router;
 
-use League\Container\Container;
+use League\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\RouteCollection;
+use Refinery29\Piston\Router\Routes\Route;
+use Refinery29\Piston\Router\Routes\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
 
 class PistonStrategySpec extends ObjectBehavior
 {
-    public function let(Container $container)
+    public function let(ContainerInterface $container)
     {
-        $container->get('PistonRequest')->willReturn(Request::createFromGlobals());
+        $container->get('PistonRequest')->willReturn(Request::create('/alias'));
         $container->get('Symfony\Component\HttpFoundation\Response')->willReturn(Response::create());
         $container->get('Refinery29\Piston\Stubs\FooController')->willReturn(new FooController());
         $container->get('app')->willReturn(new Piston());
+
+        $route = Route::get('alias', 'yolo');
+
+        $group = new RouteGroup();
+        $group->addRoute($route);
+
+        $collection = (new RouteCollection($container))->addGroup($group);
+
+        $container->get('PistonRouter')->willReturn($collection);
+
         $this->setContainer($container);
     }
 
@@ -51,12 +63,18 @@ class PistonStrategySpec extends ObjectBehavior
         $controller->shouldHaveType('Refinery29\Piston\Stubs\FooController');
     }
 
-    public function it_can_dispatch_controller(Request $request, Response $response)
+    public function it_can_resolve_controller(Request $request, Response $response)
     {
         $response->beADoubleOf(Response::class);
         $request->beADoubleOf(Request::class);
 
         $controller_response = $this->invokeAction(['Refinery29\Piston\Stubs\FooController', 'fooAction'], [$request, $response]);
+        $controller_response->shouldHaveType('Symfony\Component\HttpFoundation\Response');
+    }
+
+    public function it_can_dispatch_controller()
+    {
+        $controller_response = $this->dispatch(['Refinery29\Piston\Stubs\FooController', 'fooAction']);
         $controller_response->shouldHaveType('Symfony\Component\HttpFoundation\Response');
     }
 }

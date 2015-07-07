@@ -43,6 +43,25 @@ You can also use the convenience function `group()`.
 $application->group($route1, $route2, $route2);
 ```
 
+Route Groups also accept a url segment as a second parameter: 
+
+```php
+$group = new RouteGroup([], 'admin');
+```
+All routes in this group will have urls that are prepended with this url segment, resulting in the URL `admin/route_url`.
+
+Route groups are able to be nested. 
+
+```php 
+
+$outer_group = new RouteGroup([Route::get('/somethingReallyCool', 'JediController::UseTheFource')], 'outer', ;
+
+$inner_group = new RouteGroup([], '/inner');
+$inner_group->addGroup($outer_group);
+```
+
+The above route would result in having the URL `outer/inner/somethingReallyCool`. 
+
 ### Hooks
 Piston provides another of different hookable points in the execute of the application. This allows you to take action at different points, as you launch the app. 
 

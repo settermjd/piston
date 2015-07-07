@@ -14,17 +14,12 @@ class Route
     /**
      * @var
      */
-    protected $alias;
+    protected $url;
 
     /**
      * @var
      */
     protected $action;
-
-    /**
-     * @var bool
-     */
-    protected $is_paginated = false;
 
     /**
      * @var array
@@ -33,16 +28,14 @@ class Route
 
     /**
      * @param $verb
-     * @param $alias
+     * @param $url
      * @param $action
-     * @param bool $is_paginated
      */
-    public function __construct($verb, $alias, $action, $is_paginated = false)
+    public function __construct($verb, $url, $action)
     {
         $this->validateVerb($verb);
         $this->action = $action;
-        $this->is_paginated = $is_paginated;
-        $this->alias = $alias;
+        $this->url = $url;
     }
 
     /**
@@ -58,44 +51,43 @@ class Route
     }
 
     /**
-     * @param $alias
+     * @param $url
      * @param $action
-     * @param bool $is_paginated
      * @return static
      */
-    public static function get($alias, $action, $is_paginated = false)
+    public static function get($url, $action)
     {
-        return new static('GET', $alias, $action, $is_paginated);
+        return new static('GET', $url, $action);
     }
 
     /**
-     * @param $alias
+     * @param $url
      * @param $action
      * @return static
      */
-    public static function post($alias, $action)
+    public static function post($url, $action)
     {
-        return new static('POST', $alias, $action, false);
+        return new static('POST', $url, $action);
     }
 
     /**
-     * @param $alias
+     * @param $url
      * @param $action
      * @return static
      */
-    public static function delete($alias, $action)
+    public static function delete($url, $action)
     {
-        return new static('DELETE', $alias, $action, false);
+        return new static('DELETE', $url, $action);
     }
 
     /**
-     * @param $alias
+     * @param $url
      * @param $action
      * @return static
      */
-    public static function put($alias, $action)
+    public static function put($url, $action)
     {
-        return new static('PUT', $alias, $action, false);
+        return new static('PUT', $url, $action);
     }
 
     /**
@@ -109,9 +101,17 @@ class Route
     /**
      * @return mixed
      */
-    public function getAlias()
+    public function getUrl()
     {
-        return $this->alias;
+        return $this->url;
+    }
+
+    public function updateUrl($segment)
+    {
+        $segment = trim($segment, "/");
+        $this->url = $segment."/". $this->url;
+
+        $this->url = str_replace('//', '/', $this->url);
     }
 
     /**
@@ -120,13 +120,5 @@ class Route
     public function getAction()
     {
         return $this->action;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPaginated()
-    {
-        return $this->is_paginated;
     }
 }

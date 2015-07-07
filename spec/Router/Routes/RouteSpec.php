@@ -40,11 +40,11 @@ class RouteSpec extends ObjectBehavior
         $this->getVerb()->shouldReturn('DELETE');
     }
 
-    public function it_can_get_Alias()
+    public function it_can_get_url()
     {
         $this->beConstructedThrough('get', ['alias', 'something']);
 
-        $this->getAlias()->shouldReturn('alias');
+        $this->getUrl()->shouldReturn('alias');
     }
 
     public function it_can_get_action()
@@ -71,10 +71,11 @@ class RouteSpec extends ObjectBehavior
         $this->getPostHooks()->shouldHaveType(Pipeline::class);
     }
 
-    public function it_can_be_paginated()
+    public function it_can_update_a_url()
     {
-        $this->beConstructedThrough('get', ['alias', 'something', true]);
+        $this->beConstructedThrough('get', ['alias', 'action']);
+        $this->updateUrl('/yolo/fomo');
 
-        $this->isPaginated()->shouldReturn(true);
+        $this->getUrl()->shouldReturn('yolo/fomo/alias');
     }
 }
