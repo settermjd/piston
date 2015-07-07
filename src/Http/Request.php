@@ -23,20 +23,19 @@ class Request extends SRequest
      */
     protected $included_resources = null;
 
+    /** @var  var string */
+    protected $before_cursor;
+
+    /** @var  var string */
+    protected $after_cursor;
+
+
     /**
-     * @return null
+     * @return string
      */
     public function getPaginationCursor()
     {
-        return $this->pagination_cursor;
-    }
-
-    /**
-     * @param null $pagination_cursor
-     */
-    public function setPaginationCursor($pagination_cursor)
-    {
-        $this->pagination_cursor = $pagination_cursor;
+        return $this->before_cursor ? $this->before_cursor : $this->after_cursor;
     }
 
     /**
@@ -76,7 +75,7 @@ class Request extends SRequest
      */
     public function isPaginated()
     {
-        return !empty($this->pagination_cursor);
+        return $this->before_cursor || $this->after_cursor;
     }
 
     /**
@@ -93,5 +92,21 @@ class Request extends SRequest
     public function hasRequestedFields()
     {
         return !is_null($this->requested_fields);
+    }
+
+    /**
+     * @param string $after_cursor
+     */
+    public function setAfterCursor($after_cursor)
+    {
+        $this->after_cursor = $after_cursor;
+    }
+
+    /**
+     * @param string $before_cursor
+     */
+    public function setBeforeCursor($before_cursor)
+    {
+        $this->before_cursor = $before_cursor;
     }
 }

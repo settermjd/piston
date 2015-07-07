@@ -30,10 +30,19 @@ class RequestSpec extends ObjectBehavior
         $this->hasIncludedResources()->shouldReturn(true);
     }
 
-    public function it_can_set_pagination()
+    public function it_can_set_a_before_cursor()
     {
         $pagination_cursor = rand();
-        $this->setPaginationCursor($pagination_cursor);
+        $this->setBeforeCursor($pagination_cursor);
+
+        $this->getPaginationCursor()->shouldReturn($pagination_cursor);
+        $this->isPaginated()->shouldReturn(true);
+    }
+
+    public function it_can_set_an_after_cursor()
+    {
+        $pagination_cursor = rand();
+        $this->setAfterCursor($pagination_cursor);
 
         $this->getPaginationCursor()->shouldReturn($pagination_cursor);
         $this->isPaginated()->shouldReturn(true);

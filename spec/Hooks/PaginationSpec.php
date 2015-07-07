@@ -3,6 +3,7 @@
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Http\Response;
 
 class PaginationSpec extends ObjectBehavior
 {
@@ -13,14 +14,33 @@ class PaginationSpec extends ObjectBehavior
 
     public function it_will_not_allow_pagination_on_non_get_requests()
     {
-        $request = Request::create('123/yolo?before=123&after=456', "PUT");
+        $request = Request::create('123/yolo?before=123', "PUT");
 
         $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$request]);
     }
 
-    public function it_will_allow_pagination_on_get_requests()
+    public function it_will_not_allow_before_an_after()
     {
         $request = Request::create('123/yolo?before=123&after=456', "GET");
+
+        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$request]);
+    }
+
+    public function it_will_allow_before_cursor_on_get_requests()
+    {
+        $request = Request::create('123/yolo?before=123', "GET");
         $this->process($request);
+    }
+
+    public function it_will_allow_after_cursor_on_get_requests()
+    {
+        $request = Request::create('123/yolo?after=123', "GET");
+        $this->process($request);
+    }
+
+    public function it_returns_a_request()
+    {
+        $request = Request::create('123/yolo?before=123', "GET");
+        $this->process($request)->shouldReturn($request);
     }
 }
