@@ -13,7 +13,7 @@ class IncludedResource extends GetOnlyHook implements StageInterface
     {
         $include = $request->get('include');
 
-        if (($include)) {
+        if ($include) {
             $this->ensureGetOnlyRequest($request);
         }
 

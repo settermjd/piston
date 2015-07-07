@@ -44,7 +44,7 @@ trait Hookable
     }
 
     /**
-     * @param OperationInterface $hook
+     * @param StageInterface $hook
      * @return $this
      */
     public function addPostHook(StageInterface $hook)

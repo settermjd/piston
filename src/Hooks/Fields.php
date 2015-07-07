@@ -17,7 +17,7 @@ class Fields extends GetOnlyHook implements StageInterface
     {
         $fields = $request->get('fields');
 
-        if (($fields)) {
+        if ($fields) {
             $this->ensureGetOnlyRequest($request);
         }
 

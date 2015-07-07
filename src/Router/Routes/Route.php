@@ -7,17 +7,17 @@ class Route
     use Hookable;
 
     /**
-     * @var
+     * @var string
      */
     protected $verb;
 
     /**
-     * @var
+     * @var string
      */
     protected $url;
 
     /**
-     * @var
+     * @var string
      */
     protected $action;
 
@@ -27,9 +27,10 @@ class Route
     private $acceptable_verbs = ['POST', 'PUT', 'DELETE', 'GET'];
 
     /**
-     * @param $verb
-     * @param $url
-     * @param $action
+     * @param string $verb
+     * @param string $alias
+     * @param string $action
+     * @param bool $is_paginated
      */
     public function __construct($verb, $url, $action)
     {
@@ -61,8 +62,8 @@ class Route
     }
 
     /**
-     * @param $url
-     * @param $action
+     * @param string $url
+     * @param string $action
      * @return static
      */
     public static function post($url, $action)
@@ -71,8 +72,8 @@ class Route
     }
 
     /**
-     * @param $url
-     * @param $action
+     * @param string $url
+     * @param string $action
      * @return static
      */
     public static function delete($url, $action)
@@ -81,8 +82,8 @@ class Route
     }
 
     /**
-     * @param $url
-     * @param $action
+     * @param string $url
+     * @param string $action
      * @return static
      */
     public static function put($url, $action)
@@ -91,7 +92,7 @@ class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getVerb()
     {
@@ -99,11 +100,19 @@ class Route
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->action;
     }
 
     public function updateUrl($segment)
@@ -114,11 +123,4 @@ class Route
         $this->url = str_replace('//', '/', $this->url);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAction()
-    {
-        return $this->action;
-    }
 }

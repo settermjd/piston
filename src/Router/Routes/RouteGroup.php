@@ -8,6 +8,8 @@ use Refinery29\Piston\Hooks\Hookable;
  */
 class RouteGroup
 {
+    use Hookable;
+
     /**
      * @var Route[]
      */
@@ -20,7 +22,6 @@ class RouteGroup
      */
     protected $groups = [];
 
-    use Hookable;
 
     public function __construct(array $routes = [], $url_segment = null)
     {

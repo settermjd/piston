@@ -14,7 +14,7 @@ class Pagination extends GetOnlyHook implements StageInterface
         $before = $request->get('before');
         $after = $request->get('after');
 
-        if (($before || $after)) {
+        if ($before || $after) {
             $this->ensureGetOnlyRequest($request);
         }
 
