@@ -11,7 +11,7 @@ use Refinery29\Piston\Hooks\IncludedResource;
 use Refinery29\Piston\Hooks\Pagination;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\PistonStrategy;
-use Refinery29\Piston\Router\RouteCollection;
+use Kayladnls\Seesaw\RouteCollection;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\RedirectResponse;

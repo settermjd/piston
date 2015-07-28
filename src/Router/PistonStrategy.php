@@ -29,13 +29,12 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
             $active_route = $router->findByAction($controller);
 
-            if ($active_route !== false) {
+
+            if (!empty($active_route)) {
                 $group = $router->findGroupByRoute($active_route);
                 if ($group !== false) {
                     $response = $this->processPreHooks($group, $request, $original_response);
                 }
-
-                $response = $this->processPreHooks($active_route, $request, $original_response);
             }
         }
 
@@ -45,7 +44,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
             $vars
         ]);
 
-        if (is_array($controller) && is_string($controller[0]) && $active_route !== false) {
+        if (is_array($controller) && is_string($controller[0]) && isset($active_route) && !empty($active_route)) {
             if ($group !== false) {
                 $this->processPostHooks($group, $request, $original_response);
             }
