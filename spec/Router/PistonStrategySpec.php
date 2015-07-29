@@ -54,7 +54,6 @@ class PistonStrategySpec extends ObjectBehavior
                 $resp->setContent('YOLO');
                 return $resp;
             }, [])->getContent()->shouldReturn('YOLO');
-
     }
 
     public function it_throws_exceptions_on_invalid_response()
