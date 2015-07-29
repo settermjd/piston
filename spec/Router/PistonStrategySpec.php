@@ -19,6 +19,7 @@ class PistonStrategySpec extends ObjectBehavior
     public function let(RouteCollection $collection, ContainerInterface $container)
     {
         $container->get('PistonRequest')->willReturn(Request::create('/alias'));
+        $container->get('Symfony\Component\HttpFoundation\Request')->willReturn(Request::create('/alias'));
         $container->get('Symfony\Component\HttpFoundation\Response')->willReturn(Response::create());
         $container->get('Refinery29\Piston\Stubs\FooController')->willReturn(new FooController());
         $container->get('app')->willReturn(new Piston());

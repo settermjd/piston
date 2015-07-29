@@ -15,7 +15,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      */
     public function dispatch($controller, array $vars = [])
     {
-        $request = $this->container->get('PistonRequest');
+        $request = $this->container->get('Symfony\Component\HttpFoundation\Request');
 
         $original_response = $this->container->get('Symfony\Component\HttpFoundation\Response');
 

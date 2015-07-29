@@ -1,6 +1,7 @@
 <?php namespace Refinery29\Piston;
 
 use ArrayAccess;
+use Kayladnls\Seesaw\Seesaw;
 use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
@@ -11,7 +12,6 @@ use Refinery29\Piston\Hooks\IncludedResource;
 use Refinery29\Piston\Hooks\Pagination;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\PistonStrategy;
-use Kayladnls\Seesaw\RouteCollection;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,7 +27,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     protected $container;
 
     /**
-     * @var RouteCollection
+     * @var Seesaw
      */
     protected $router;
 
@@ -92,6 +92,11 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         return $this;
     }
 
+    public function addNamedRoute($name, Route $route)
+    {
+        $this->router->addNamedRoute($name, $route->getVerb(), $route->getUrl(), $route->getAction());
+    }
+
     public function group(array $routes, $url_segment = null)
     {
         $group = new RouteGroup($routes, $url_segment);
@@ -123,7 +128,8 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         $request = (new IncludedResource())->process($request);
         $request = (new Fields())->process($request);
 
-        $this->container->add('PistonRequest', $request, true);
+        $this->container->singleton('PistonRequest', $request);
+        $this->container->singleton('Symfony\Component\HttpFoundation\Request', $request);
 
         return $request;
     }
@@ -146,7 +152,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess
 
     private function bootstrapRouter()
     {
-        $this->router = new RouteCollection($this->container);
+        $this->router = new Seesaw(null, null, $this->container);
         $this->router->setStrategy(new PistonStrategy);
         $this->container->add('PistonRouter', $this->router);
     }
