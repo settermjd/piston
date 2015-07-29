@@ -142,6 +142,17 @@ class Piston implements ContainerAwareInterface, ArrayAccess
         $this->container->addServiceProvider($service_provider);
     }
 
+    public function addDecorator(Decorator $decorator)
+    {
+        $app = $decorator->register();
+
+        if (!$app instanceof Piston) {
+            throw new \InvalidArgumentException('Decorators Must Return an Instance of Piston');
+        }
+
+        return $app;
+    }
+
     /**
      * @return Container
      */
