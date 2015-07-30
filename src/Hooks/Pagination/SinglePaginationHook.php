@@ -1,4 +1,4 @@
-<?php namespace Refinery29\Piston\Hooks;
+<?php namespace Refinery29\Piston\Hooks\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
 
