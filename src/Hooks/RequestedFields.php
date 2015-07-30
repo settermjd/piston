@@ -7,8 +7,9 @@ use Refinery29\Piston\Http\Request;
  * Class Fields
  * @package Refinery29\Piston\Request\Filters
  */
-class Fields extends GetOnlyHook implements StageInterface
+class RequestedFields implements StageInterface
 {
+    use GetOnlyHook;
     /**
      * @param Request $request
      * @return Request

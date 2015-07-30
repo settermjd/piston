@@ -13,6 +13,8 @@ class Request extends SRequest
      */
     protected $pagination_cursor = null;
 
+    protected $pagination_type = null;
+
     /**
      * @var null
      */
@@ -75,7 +77,7 @@ class Request extends SRequest
      */
     public function isPaginated()
     {
-        return $this->before_cursor || $this->after_cursor;
+        return $this->pagination_type !== null;
     }
 
     /**
@@ -108,5 +110,26 @@ class Request extends SRequest
     public function setBeforeCursor($before_cursor)
     {
         $this->before_cursor = $before_cursor;
+        $this->pagination_type = 'cursor';
+    }
+
+    public function setOffsetLimit($offset, $limit)
+    {
+        $this->offset = $offset;
+        $this->limit = $limit;
+
+        $this->pagination_type = 'offset_limit';
+    }
+
+    public function setPage($page)
+    {
+        $this->page = $page;
+
+        $this->pagination_type = 'page';
+    }
+
+    public function getPaginationType()
+    {
+        return $this->pagination_type;
     }
 }

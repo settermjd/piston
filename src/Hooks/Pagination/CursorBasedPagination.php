@@ -4,8 +4,11 @@ use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Http\Request;
 
-class Pagination extends GetOnlyHook implements StageInterface
+class CursorBasedPagination extends PaginationHook
 {
+    use GetOnlyHook;
+    use SinglePaginationHook;
+
     /**
      * @param Request $request
      * @throws BadRequestException
@@ -13,6 +16,8 @@ class Pagination extends GetOnlyHook implements StageInterface
      */
     public function process($request)
     {
+        parent::process($request);
+
         $before = $request->get('before');
         $after = $request->get('after');
 
@@ -21,7 +26,6 @@ class Pagination extends GetOnlyHook implements StageInterface
         }
 
         if ($before || $after) {
-            $this->ensureGetOnlyRequest($request);
             if ($before) {
                 $request->setBeforeCursor($before);
             }

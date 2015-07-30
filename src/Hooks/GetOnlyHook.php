@@ -2,7 +2,7 @@
 
 use League\Route\Http\Exception\BadRequestException;
 
-abstract class GetOnlyHook
+trait GetOnlyHook
 {
     public function ensureGetOnlyRequest($request)
     {
