@@ -48,7 +48,7 @@ class OffsetLimitPaginationSpec extends ObjectBehavior
         $request->offset->shouldBe(40);
     }
 
-    public function it_assigns_default_limit_of_zero_when_none_given()
+    public function it_assigns_default_limit_of_ten_when_none_given()
     {
         $request = $this->process(Request::create('123/yolo?offset=20', 'GET'));
 
