@@ -1,8 +1,8 @@
 composer:
 	composer install
 
-cs:
+cs: composer
 	vendor/bin/php-cs-fixer fix --config-file=.php_cs --verbose --diff
 
-test:
+test: composer
 	vendor/bin/phpspec run
