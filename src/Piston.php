@@ -6,9 +6,11 @@ use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
+use Refinery29\Piston\Hooks\CursorBasedPagination;
 use Refinery29\Piston\Hooks\Hookable;
 use Refinery29\Piston\Hooks\Fields;
 use Refinery29\Piston\Hooks\IncludedResource;
+use Refinery29\Piston\Hooks\OffsetLimitPagination;
 use Refinery29\Piston\Hooks\Pagination;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\PistonStrategy;
@@ -124,9 +126,10 @@ class Piston implements ContainerAwareInterface, ArrayAccess
     protected function preProcessRequest()
     {
         $request = $this->getRequest();
-        $request = (new Pagination())->process($request);
+        $request = (new CursorBasedPagination())->process($request);
+        $request = (new OffsetLimitPagination())->process($request);
         $request = (new IncludedResource())->process($request);
-        $request = (new Fields())->process($request);
+        $request = (new RequestedFields())->process($request);
 
         $this->container->singleton('PistonRequest', $request);
         $this->container->singleton('Symfony\Component\HttpFoundation\Request', $request);

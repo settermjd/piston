@@ -3,8 +3,10 @@
 use League\Pipeline\StageInterface;
 use Refinery29\Piston\Http\Request;
 
-class IncludedResource extends GetOnlyHook implements StageInterface
+class IncludedResource implements StageInterface
 {
+    use GetOnlyHook;
+
     /**
      * @param Request $request
      * @return Request
