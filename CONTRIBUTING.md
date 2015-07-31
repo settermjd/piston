@@ -4,7 +4,7 @@ Contributions are **welcome** and will be fully **credited**.
 
 We accept contributions via Pull Requests on [Github](https://github.com/refinery29/piston).
 
-If you're not able to create a Pull Request, feel free to open up on issue to address any problem, or propose new features you'd like to see. 
+If you're not able to create a Pull Request, feel free to open up on issue to address any problem, or propose new features you'd like to see.
 
 ## Pull Requests
 
@@ -22,12 +22,20 @@ If you're not able to create a Pull Request, feel free to open up on issue to ad
 
 - **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please squash them before submitting.
 
+## Fixing CS Issues
+
+Run
+
+```
+$ make cs
+```
 
 ## Running Tests
 
-``` bash
-$ vendor/bin/phpspec run
-```
+Run
 
+```
+$ make test
+```
 
 **Happy coding**!
