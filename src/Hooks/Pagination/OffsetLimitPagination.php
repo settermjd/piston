@@ -18,8 +18,8 @@ class OffsetLimitPagination extends PaginationHook
     {
         parent::process($request);
 
-        $offset = $this->coerce($request->get('offset'), 'offset') ?: $this->default_offset;
-        $limit = $this->coerce($request->get('limit'), 'limit') ?: $this->default_limit;
+        $offset = $this->coerceToInteger($request->get('offset'), 'offset') ?: $this->default_offset;
+        $limit = $this->coerceToInteger($request->get('limit'), 'limit') ?: $this->default_limit;
 
         $request->setOffsetLimit($offset, $limit);
 
@@ -32,16 +32,17 @@ class OffsetLimitPagination extends PaginationHook
      * @throws BadRequestException
      * @return int
      */
-    private function coerce($param, $param_name)
+    private function coerceToInteger($param, $param_name)
     {
         if (!$param) {
             return;
         }
 
         if (is_numeric($param)) {
-            $coerced = intval($param);
-            if ($coerced == floatval($param)) {
-                return $coerced;
+            $integer_value = intval($param);
+
+            if ($integer_value == floatval($param)) {
+                return $integer_value;
             }
         }
 
