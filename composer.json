@@ -3,7 +3,7 @@
   "require": {
     "php": ">=5.5",
     "league/pipeline": "^0.1.0",
-    "kayladnls/seesaw": "^0.2.0"
+    "kayladnls/seesaw": "0.2.*"
   },
   "require-dev": {
     "fabpot/php-cs-fixer": "^1.9",
