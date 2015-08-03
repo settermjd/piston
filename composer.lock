@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "adc1d36092febbedd00171ddc4d7b861",
+    "hash": "126cfec507d431811cc9875f75ebb3f8",
     "packages": [
         {
             "name": "kayladnls/seesaw",
-            "version": "v0.1.1",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kayladnls/seesaw.git",
-                "reference": "260a6bd716e56f0444b7b0af7582c731e6bd1546"
+                "reference": "1fbf86b71a6ac07f15ed95637fd11f7bd5ef0f2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kayladnls/seesaw/zipball/260a6bd716e56f0444b7b0af7582c731e6bd1546",
-                "reference": "260a6bd716e56f0444b7b0af7582c731e6bd1546",
+                "url": "https://api.github.com/repos/kayladnls/seesaw/zipball/1fbf86b71a6ac07f15ed95637fd11f7bd5ef0f2b",
+                "reference": "1fbf86b71a6ac07f15ed95637fd11f7bd5ef0f2b",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 }
             ],
             "description": "Routing, forward and backward.",
-            "time": "2015-07-29 17:17:42"
+            "time": "2015-08-03 21:28:50"
         },
         {
             "name": "league/container",
