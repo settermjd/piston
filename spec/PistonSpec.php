@@ -34,7 +34,9 @@ class PistonSpec extends ObjectBehavior
 
     public function it_can_add_a_route(Route $route)
     {
-        $route->beADoubleOf('Refinery29\Piston\Router\Routes\Route');
+        $route->getVerb()->willReturn("GET");
+        $route->getAction()->willReturn('Foo::Bar');
+        $route->getUrl()->willReturn("/yolo");
 
         $this->addRoute($route);
     }
