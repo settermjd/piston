@@ -16,7 +16,7 @@ class RequestTypeNegotiatorSpec extends ObjectBehavior
         $this->beConstructedWith($request);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Refinery29\Piston\Http\RequestTypeNegotiator');
     }
@@ -30,8 +30,6 @@ class RequestTypeNegotiatorSpec extends ObjectBehavior
 
     public function it_has_default_response()
     {
-
         $this->negotiateResponse()->shouldHaveType(Response::class);
     }
-
 }

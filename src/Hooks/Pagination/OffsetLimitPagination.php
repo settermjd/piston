@@ -31,7 +31,6 @@ class OffsetLimitPagination
         $limit = $this->coerceToInteger($request->get('limit'), 'limit');
 
         if ($offset || $limit) {
-
             $this->ensureGetOnlyRequest($request);
 
             $offset = $offset ?: $this->default_offset;

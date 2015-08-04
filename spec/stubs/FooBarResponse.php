@@ -4,5 +4,4 @@ use Refinery29\Piston\Http\Response;
 
 class FooBarResponse extends Response
 {
-
 }

@@ -13,5 +13,4 @@ trait PaginatedResponse
     {
         return $this->pagination;
     }
-
 }

@@ -25,5 +25,4 @@ trait HookProcessor
         $response = $item->getPostHooks()->process([$request, $original_response]);
         return $response instanceof Response ? $response : $original_response;
     }
-
 }
