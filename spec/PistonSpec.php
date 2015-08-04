@@ -8,10 +8,14 @@ use League\Pipeline\Pipeline;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Decorator;
+use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Http\RequestTypeNegotiator;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
+use Symfony\Component\HttpFoundation\HeaderBag;
 
 class PistonSpec extends ObjectBehavior
 {
@@ -41,16 +45,32 @@ class PistonSpec extends ObjectBehavior
         $this->addRoute($route);
     }
 
+    public function it_can_add_named_route(Route $route)
+    {
+        $route->getVerb()->willReturn("GET");
+        $route->getAction()->willReturn('Foo::Bar');
+        $route->getUrl()->willReturn("/yolo");
+
+        $this->addNamedRoute('ThisIsSomeName', $route);
+    }
+
+    public function it_can_negotiate_response_based_on_request(Request $request)
+    {
+        $request->getAcceptableContentTypes()->willReturn([]);
+        $this->getResponse($request)->shouldHaveType(JsonResponse::class);
+    }
+
+    public function it_can_negotiate_json_response_based_on_request(Request $request)
+    {
+        $request->getAcceptableContentTypes()->willReturn(['application/json']);
+        $this->getResponse($request)->shouldHaveType(JsonResponse::class);
+    }
+
     public function it_can_add_a_route_group(RouteGroup $group)
     {
         $group->getRoutes()->willReturn([]);
         $group->updateRoutes()->willReturn(null);
         $this->addRouteGroup($group);
-    }
-
-    public function it_can_add_a_route_group_through_group()
-    {
-        $this->group([Route::get('/something', 'Foo::bar'), Route::get('/else', 'Foo::bar')], 'something');
     }
 
     public function it_can_set_a_container(ContainerInterface $container)

@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PistonStrategy extends RequestResponseStrategy implements StrategyInterface
 {
+    use HookProcessor;
+
     /**
      * @param array|callable|string $controller
      * @param array $vars
@@ -28,7 +30,6 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
             $router = $this->container->get('PistonRouter');
 
             $active_route = $router->findByAction($controller);
-
 
             if (!empty($active_route)) {
                 $group = $router->findGroupByRoute($active_route);
@@ -52,34 +53,9 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
             $response = $this->processPostHooks($active_route, $request, $original_response);
         }
 
-
         $this->processPostHooks($app, $request, $original_response);
 
         return $this->validateResponse($response);
-    }
-
-    /**
-     * @param $item
-     * @param $request
-     * @param $original_response
-     * @return Response
-     */
-    protected function processPreHooks($item, $request, $original_response)
-    {
-        $response = $item->getPreHooks()->process([$request, $original_response]);
-        return $response instanceof Response ? $response : $original_response;
-    }
-
-    /**
-     * @param $item
-     * @param $request
-     * @param $original_response
-     * @return Response
-     */
-    protected function processPostHooks($item, $request, $original_response)
-    {
-        $response = $item->getPostHooks()->process([$request, $original_response]);
-        return $response instanceof Response ? $response : $original_response;
     }
 
     /**
