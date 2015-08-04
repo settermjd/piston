@@ -6,6 +6,7 @@ use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
+use Refinery29\Piston\Hooks\HasHooks;
 use Refinery29\Piston\Hooks\Hookable;
 use Refinery29\Piston\Hooks\Fields;
 use Refinery29\Piston\Hooks\Pagination\OffsetLimitPagination;
@@ -20,7 +21,7 @@ use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class Piston implements ContainerAwareInterface, ArrayAccess
+class Piston implements ContainerAwareInterface, ArrayAccess, HasHooks
 {
     use Hookable;
 

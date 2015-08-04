@@ -20,7 +20,7 @@ trait HookProcessor
      * @param $original_response
      * @return Response
      */
-    protected function processPostHooks($item, $request, $original_response)
+    protected function processPostHooks(Hookable $item, $request, $original_response)
     {
         $response = $item->getPostHooks()->process([$request, $original_response]);
         return $response instanceof Response ? $response : $original_response;
