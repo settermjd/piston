@@ -23,7 +23,7 @@ class RequestTypeNegotiator
             }
         }
 
-        return new Response();
+        return new JsonResponse();
     }
 
     public function addResponseType($accept_header, Response $response)
