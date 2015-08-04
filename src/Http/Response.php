@@ -4,15 +4,5 @@ use Symfony\Component\HttpFoundation\Response as SResponse;
 
 class Response extends SResponse
 {
-    protected $pagination;
-
-    public function setPaginationCursors(array $cursor)
-    {
-        $this->pagination = $cursor;
-    }
-
-    public function getPaginationCursors()
-    {
-        return $this->pagination;
-    }
+    use PaginatedResponse;
 }
