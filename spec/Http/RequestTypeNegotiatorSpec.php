@@ -5,8 +5,8 @@ namespace spec\Refinery29\Piston\Http;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Stubs\FooBarResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RequestTypeNegotiatorSpec extends ObjectBehavior
 {
@@ -28,8 +28,8 @@ class RequestTypeNegotiatorSpec extends ObjectBehavior
         $this->negotiateResponse()->shouldHaveType(FooBarResponse::class);
     }
 
-    public function it_has_default_response()
+    public function it_returns_json_response_by_default()
     {
-        $this->negotiateResponse()->shouldHaveType(Response::class);
+        $this->negotiateResponse()->shouldHaveType(JsonResponse::class);
     }
 }
