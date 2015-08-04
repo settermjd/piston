@@ -3,7 +3,7 @@
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Http\Request;
 
-class OffsetLimitPagination extends PaginationHook
+class OffsetLimitPagination
 {
     protected $default_offset = 0;
 
@@ -16,12 +16,19 @@ class OffsetLimitPagination extends PaginationHook
      */
     public function process($request)
     {
-        parent::process($request);
+        $this->ensureNotPreviouslyPaginated($request);
 
-        $offset = $this->coerceToInteger($request->get('offset'), 'offset') ?: $this->default_offset;
-        $limit = $this->coerceToInteger($request->get('limit'), 'limit') ?: $this->default_limit;
+        $offset = $this->coerceToInteger($request->get('offset'), 'offset');
+        $limit = $this->coerceToInteger($request->get('limit'), 'limit');
 
-        $request->setOffsetLimit($offset, $limit);
+        if ($offset || $limit) {
+
+            $this->ensureGetOnlyRequest($request);
+
+            $offset = $offset ?: $this->default_offset;
+            $limit = $offset ?: $this->default_limit;
+            $request->setOffsetLimit($offset, $limit);
+        }
 
         return $request;
     }

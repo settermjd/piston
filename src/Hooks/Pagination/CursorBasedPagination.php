@@ -3,7 +3,7 @@
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Http\Request;
 
-class CursorBasedPagination extends PaginationHook
+class CursorBasedPagination
 {
     /**
      * @param Request $request
@@ -12,7 +12,7 @@ class CursorBasedPagination extends PaginationHook
      */
     public function process($request)
     {
-        parent::process($request);
+        $this->ensureNotPreviouslyPaginated($request);
 
         $before = $request->get('before');
         $after = $request->get('after');
@@ -22,6 +22,8 @@ class CursorBasedPagination extends PaginationHook
         }
 
         if ($before || $after) {
+            $this->ensureGetOnlyRequest($request);
+
             if ($before) {
                 $request->setBeforeCursor($before);
             }
