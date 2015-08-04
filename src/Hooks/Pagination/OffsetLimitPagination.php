@@ -1,12 +1,21 @@
 <?php namespace Refinery29\Piston\Hooks\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
+use Refinery29\Piston\Hooks\GetOnlyHook;
 use Refinery29\Piston\Http\Request;
 
 class OffsetLimitPagination
 {
+    use SinglePaginationHook, GetOnlyHook;
+
+    /**
+     * @var int $default_offset
+     */
     protected $default_offset = 0;
 
+    /**
+     * @var int $default_limit
+     */
     protected $default_limit = 10;
 
     /**
@@ -26,7 +35,7 @@ class OffsetLimitPagination
             $this->ensureGetOnlyRequest($request);
 
             $offset = $offset ?: $this->default_offset;
-            $limit = $offset ?: $this->default_limit;
+            $limit = $limit ?: $this->default_limit;
             $request->setOffsetLimit($offset, $limit);
         }
 

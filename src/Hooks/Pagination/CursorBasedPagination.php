@@ -1,10 +1,12 @@
 <?php namespace Refinery29\Piston\Hooks\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
+use Refinery29\Piston\Hooks\GetOnlyHook;
 use Refinery29\Piston\Http\Request;
 
 class CursorBasedPagination
 {
+    use SinglePaginationHook, GetOnlyHook;
     /**
      * @param Request $request
      * @throws BadRequestException
