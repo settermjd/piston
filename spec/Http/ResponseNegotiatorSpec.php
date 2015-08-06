@@ -5,10 +5,11 @@ namespace spec\Refinery29\Piston\Http;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Stubs\FooBarResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class RequestTypeNegotiatorSpec extends ObjectBehavior
+class ResponseNegotiatorSpec extends ObjectBehavior
 {
     public function let(Request $request)
     {
@@ -18,7 +19,7 @@ class RequestTypeNegotiatorSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Http\RequestTypeNegotiator');
+        $this->shouldHaveType(ResponseNegotiator::class);
     }
 
     public function it_can_add_custom_responses()

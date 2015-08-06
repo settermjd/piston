@@ -2,7 +2,7 @@
 
 use Refinery29\Piston\Hooks\HasHooks;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response;
+use Refinery29\Piston\Http\JsonResponse as Response;
 
 trait HookProcessor
 {

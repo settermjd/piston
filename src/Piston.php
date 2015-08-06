@@ -14,7 +14,7 @@ use Refinery29\Piston\Hooks\Pagination\CursorBasedPagination;
 use Refinery29\Piston\Hooks\IncludedResource;
 use Refinery29\Piston\Hooks\RequestedFields;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\RequestTypeNegotiator;
+use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
@@ -81,7 +81,7 @@ class Piston implements ContainerAwareInterface, ArrayAccess, HasHooks
 
     public function getResponse(Request $request)
     {
-        $negotiator = new RequestTypeNegotiator($request);
+        $negotiator = new ResponseNegotiator($request);
 
         return $negotiator->negotiateResponse();
     }
