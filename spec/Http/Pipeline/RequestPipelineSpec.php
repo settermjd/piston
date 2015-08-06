@@ -9,17 +9,17 @@ use Refinery29\Piston\Http\Request;
 
 class RequestPipelineSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Refinery29\Piston\Http\Pipeline\RequestPipeline');
     }
 
-    function it_can_be_processed(Request $request)
+    public function it_can_be_processed(Request $request)
     {
         $this->process($request)->shouldReturn($request);
     }
 
-    function it_can_set_a_custom_builder(PipelineBuilder $builder)
+    public function it_can_set_a_custom_builder(PipelineBuilder $builder)
     {
         $this->setBuilder($builder);
 
