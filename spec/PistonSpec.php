@@ -17,7 +17,6 @@ use Refinery29\Piston\Router\Routes\RouteGroup;
 
 class PistonSpec extends ObjectBehavior
 {
-
     public function let(Container $container)
     {
         $container->beADoubleOf('League\Container\Container');
