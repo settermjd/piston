@@ -10,12 +10,9 @@ use Prophecy\Argument;
 use Refinery29\Piston\Decorator;
 use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\RequestTypeNegotiator;
-use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
-use Symfony\Component\HttpFoundation\HeaderBag;
 
 class PistonSpec extends ObjectBehavior
 {
@@ -81,14 +78,14 @@ class PistonSpec extends ObjectBehavior
 
     public function it_can_add_pre_hooks(StageInterface $operation)
     {
-        $this->addPreHook($operation);
-        $this->getPreHooks()->shouldHaveType(Pipeline::class);
+        $this->addPre($operation);
+        $this->getPrePipeline()->shouldHaveType(Pipeline::class);
     }
 
     public function it_can_add_post_hooks(StageInterface $operation)
     {
-        $this->addPostHook($operation);
-        $this->getPostHooks()->shouldHaveType(Pipeline::class);
+        $this->addPost($operation);
+        $this->getPostPipeline()->shouldHaveType(Pipeline::class);
     }
 
     public function it_can_set_a_request(Request $request)
@@ -151,17 +148,10 @@ class PistonSpec extends ObjectBehavior
         $this->getConfig()->shouldReturn(['yellow' => 'submarine']);
     }
 
-    public function it_offset_exists()
+    public function it_can_set_config_on_construct()
     {
-        $this->offsetExists('yolo')->shouldReturn(false);
-    }
+        $this->beConstructedWith(null, ['yolo']);
 
-    public function it_offset_unset()
-    {
-        $this['yolo'] = "fomo";
-
-        unset($this['yolo']);
-
-        $this->offsetExists('yolo')->shouldReturn(false);
+        $this->getConfig()->shouldContain('yolo');
     }
 }

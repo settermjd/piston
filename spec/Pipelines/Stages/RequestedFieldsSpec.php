@@ -1,16 +1,15 @@
-<?php
-
-namespace spec\Refinery29\Piston\Hooks;
+<?php namespace spec\Refinery29\Piston\Pipelines\Stages;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Pipelines\Stages\RequestedFields;
 
 class RequestedFieldsSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Hooks\RequestedFields');
+        $this->shouldHaveType(RequestedFields::class);
     }
 
     public function it_will_get_included_resources()

@@ -1,10 +1,10 @@
 <?php namespace Refinery29\Piston\Router\Routes;
 
 use Kayladnls\Seesaw\Route as SeesawRoute;
-use Refinery29\Piston\Hooks\HasHooks;
-use Refinery29\Piston\Hooks\Hookable;
+use Refinery29\Piston\Pipelines\HasPipelines;
+use Refinery29\Piston\Pipelines\LifeCyclePipelines;
 
-class Route extends SeesawRoute implements HasHooks
+class Route extends SeesawRoute implements HasPipelines
 {
-    use Hookable;
+    use LifeCyclePipelines;
 }

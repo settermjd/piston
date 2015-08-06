@@ -1,4 +1,4 @@
-<?php namespace Refinery29\Piston\Hooks;
+<?php namespace Refinery29\Piston\Pipelines\Stages;
 
 use League\Pipeline\StageInterface;
 use Refinery29\Piston\Http\Request;
@@ -9,7 +9,7 @@ use Refinery29\Piston\Http\Request;
  */
 class RequestedFields implements StageInterface
 {
-    use GetOnlyHook;
+    use GetOnlyStage;
     /**
      * @param Request $request
      * @return Request
