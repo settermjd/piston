@@ -6,7 +6,7 @@ use Refinery29\Piston\Http\Request;
 class IncludedResource implements StageInterface
 {
     use GetOnlyStage;
-
+    
     /**
      * @param Request $request
      * @return Request
