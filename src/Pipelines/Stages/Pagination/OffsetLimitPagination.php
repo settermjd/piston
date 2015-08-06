@@ -7,7 +7,8 @@ use Refinery29\Piston\Http\Request;
 
 class OffsetLimitPagination implements StageInterface
 {
-    use SinglePagination, GetOnlyStage;
+    use SinglePagination;
+    use GetOnlyStage;
 
     /**
      * @var int $default_offset

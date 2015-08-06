@@ -7,7 +7,9 @@ use Refinery29\Piston\Http\Request;
 
 class CursorBasedPagination implements StageInterface
 {
-    use SinglePagination, GetOnlyStage;
+    use SinglePagination;
+    use GetOnlyStage;
+
     /**
      * @param Request $request
      * @throws BadRequestException
