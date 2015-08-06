@@ -10,6 +10,7 @@ use Prophecy\Argument;
 use Refinery29\Piston\Decorator;
 use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
