@@ -44,9 +44,9 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     /**
      * @param ContainerInterface $container
-     * @param array $config_array
+     * @param array $config
      */
-    public function __construct(ContainerInterface $container = null, array $config_array = [])
+    public function __construct(ContainerInterface $container = null, array $config = [])
     {
         $this->container = $container ?: new Container();
         $this->container['app'] = $this;
@@ -54,7 +54,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
         $this->bootstrapRouter();
         $this->bootstrapPipelines();
 
-        $this->config = $config_array;
+        $this->config = $config;
     }
 
     /**
