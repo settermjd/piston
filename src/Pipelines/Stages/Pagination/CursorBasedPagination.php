@@ -1,8 +1,8 @@
-<?php namespace Refinery29\Piston\Pipelines\Stages\Pagination;
+<?php namespace Refinery29\Piston\Pipeline\Stage\Pagination;
 
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
-use Refinery29\Piston\Pipelines\Stages\GetOnlyStage;
+use Refinery29\Piston\Pipeline\Stage\GetOnlyStage;
 use Refinery29\Piston\Http\Request;
 
 class CursorBasedPagination implements StageInterface

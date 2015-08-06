@@ -1,4 +1,4 @@
-<?php namespace Refinery29\Piston\Pipelines\Stages\Pagination;
+<?php namespace Refinery29\Piston\Pipeline\Stage\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
 

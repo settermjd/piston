@@ -18,11 +18,4 @@ class RequestPipelineSpec extends ObjectBehavior
     {
         $this->process($request)->shouldReturn($request);
     }
-
-    public function it_can_set_a_custom_builder(PipelineBuilder $builder)
-    {
-        $this->setBuilder($builder);
-
-        $this->getBuilder()->shouldReturn($builder);
-    }
 }

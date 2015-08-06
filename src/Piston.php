@@ -9,7 +9,6 @@ use League\Container\ServiceProvider;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
 use Refinery29\Piston\Pipelines\HasPipelines;
 use Refinery29\Piston\Pipelines\LifeCyclePipelines;
-use Refinery29\Piston\Pipelines\Stages\Fields;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\RequestTypeNegotiator;
 use Refinery29\Piston\Router\PistonStrategy;
