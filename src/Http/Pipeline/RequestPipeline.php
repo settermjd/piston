@@ -32,7 +32,7 @@ class RequestPipeline
 
     public function process($payload)
     {
-       return $this->pipeline->process($payload);
+        return $this->pipeline->process($payload);
     }
 
     public function setBuilder(PipelineBuilder $builder)
