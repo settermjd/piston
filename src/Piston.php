@@ -122,7 +122,6 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
         $response = $dispatcher->dispatch($this->request->getMethod(), $this->request->getPathInfo());
 
-
         return $response->send();
     }
 
