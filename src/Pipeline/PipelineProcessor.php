@@ -1,4 +1,4 @@
-<?php namespace Refinery29\Piston\Pipelines;
+<?php namespace Refinery29\Piston\Pipeline;
 
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\JsonResponse as Response;
