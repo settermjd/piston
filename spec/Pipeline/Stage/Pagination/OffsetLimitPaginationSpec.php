@@ -1,9 +1,9 @@
-<?php namespace spec\Refinery29\Piston\Pipelines\Stages\Pagination;
+<?php namespace spec\Refinery29\Piston\Pipeline\Stage\Pagination;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Pipelines\Stages\Pagination\OffsetLimitPagination;
+use Refinery29\Piston\Pipeline\Stage\Pagination\OffsetLimitPagination;
 
 class OffsetLimitPaginationSpec extends ObjectBehavior
 {
