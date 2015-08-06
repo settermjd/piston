@@ -1,7 +1,7 @@
 <?php namespace Refinery29\Piston\Router\Routes;
 
-use Refinery29\Piston\Pipelines\HasPipelines;
-use Refinery29\Piston\Pipelines\LifeCyclePipelines;
+use Refinery29\Piston\Pipeline\HasPipelines;
+use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Kayladnls\Seesaw\RouteGroup as SeesawGroup;
 
 /**

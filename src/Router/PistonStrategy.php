@@ -3,7 +3,7 @@
 use Closure;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
-use Refinery29\Piston\Pipelines\PipelineProcessor;
+use Refinery29\Piston\Pipeline\PipelineProcessor;
 use Refinery29\Piston\Router\Routes\Routeable;
 use Symfony\Component\HttpFoundation\Response;
 
