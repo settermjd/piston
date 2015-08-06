@@ -1,14 +1,15 @@
-<?php namespace spec\Refinery29\Piston\Hooks\Pagination;
+<?php namespace spec\Refinery29\Piston\Pipelines\Stages\Pagination;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Pipelines\Stages\Pagination\OffsetLimitPagination;
 
 class OffsetLimitPaginationSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Hooks\Pagination\OffsetLimitPagination');
+        $this->shouldHaveType(OffsetLimitPagination::class);
     }
 
     public function it_will_not_allow_pagination_on_non_get_requests()

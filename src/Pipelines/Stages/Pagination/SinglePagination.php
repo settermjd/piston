@@ -1,8 +1,8 @@
-<?php namespace Refinery29\Piston\Hooks\Pagination;
+<?php namespace Refinery29\Piston\Pipelines\Stages\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
 
-trait SinglePaginationHook
+trait SinglePagination
 {
     public function ensureNotPreviouslyPaginated($request)
     {

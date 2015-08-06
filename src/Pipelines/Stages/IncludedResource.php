@@ -1,11 +1,11 @@
-<?php namespace Refinery29\Piston\Hooks;
+<?php namespace Refinery29\Piston\Pipelines\Stages;
 
 use League\Pipeline\StageInterface;
 use Refinery29\Piston\Http\Request;
 
 class IncludedResource implements StageInterface
 {
-    use GetOnlyHook;
+    use GetOnlyStage;
 
     /**
      * @param Request $request
