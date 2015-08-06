@@ -1,4 +1,4 @@
-<?php namespace Refinery29\Piston\Pipelines;
+<?php namespace Refinery29\Piston\Pipeline;
 
 use League\Pipeline\StageInterface;
 use League\Pipeline\Pipeline;
