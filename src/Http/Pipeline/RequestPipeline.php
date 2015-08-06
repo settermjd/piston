@@ -2,10 +2,10 @@
 
 use League\Pipeline\PipelineBuilder;
 use League\Pipeline\Pipeline;
-use Refinery29\Piston\Pipelines\Stages\IncludedResource;
-use Refinery29\Piston\Pipelines\Stages\Pagination\CursorBasedPagination;
-use Refinery29\Piston\Pipelines\Stages\Pagination\OffsetLimitPagination;
-use Refinery29\Piston\Pipelines\Stages\RequestedFields;
+use Refinery29\Piston\Pipeline\Stage\IncludedResource;
+use Refinery29\Piston\Pipeline\Stage\Pagination\CursorBasedPagination;
+use Refinery29\Piston\Pipeline\Stage\Pagination\OffsetLimitPagination;
+use Refinery29\Piston\Pipeline\Stage\RequestedFields;
 
 class RequestPipeline
 {
