@@ -14,7 +14,12 @@ trait PipelineProcessor
     protected function processPrePipeline(HasPipelines $item, Request $request, Response $original_response)
     {
         $response = $item->getPrePipeline()->process([$request, $original_response]);
-        return $response instanceof Response ? $response : $original_response;
+
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+        return $original_response;
     }
 
     /**
@@ -26,6 +31,11 @@ trait PipelineProcessor
     protected function processPostHooks(HasPipelines $item, Request $request, Response $original_response)
     {
         $response = $item->getPostPipeline()->process([$request, $original_response]);
-        return $response instanceof Response ? $response : $original_response;
+
+        if ($response instanceof Response) {
+            return $response;
+        }
+
+        return $original_response;
     }
 }
