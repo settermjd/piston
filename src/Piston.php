@@ -10,7 +10,7 @@ use Refinery29\Piston\Http\Pipeline\RequestPipeline;
 use Refinery29\Piston\Pipeline\HasPipelines;
 use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\RequestTypeNegotiator;
+use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
@@ -44,9 +44,9 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     /**
      * @param ContainerInterface $container
-     * @param array $config_array
+     * @param array $config
      */
-    public function __construct(ContainerInterface $container = null, array $config_array = [])
+    public function __construct(ContainerInterface $container = null, array $config = [])
     {
         $this->container = $container ?: new Container();
         $this->container['app'] = $this;
@@ -54,7 +54,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
         $this->bootstrapRouter();
         $this->bootstrapPipelines();
 
-        $this->config = $config_array;
+        $this->config = $config;
     }
 
     /**
@@ -75,7 +75,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     public function getResponse(Request $request)
     {
-        $negotiator = new RequestTypeNegotiator($request);
+        $negotiator = new ResponseNegotiator($request);
 
         return $negotiator->negotiateResponse();
     }
