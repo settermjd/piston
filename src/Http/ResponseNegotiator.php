@@ -1,6 +1,8 @@
 <?php namespace Refinery29\Piston\Http;
 
-class RequestTypeNegotiator
+use Symfony\Component\HttpFoundation\Response;
+
+class ResponseNegotiator
 {
     protected $accept_headers;
 
@@ -13,10 +15,6 @@ class RequestTypeNegotiator
 
     public function negotiateResponse()
     {
-        if (in_array('application/json', $this->accept_headers) || empty($this->accept_headers)) {
-            return new JsonResponse();
-        }
-
         foreach ($this->accept_headers as $header) {
             if (array_key_exists($header, $this->custom_responses)) {
                 return $this->custom_responses[$header];

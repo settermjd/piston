@@ -2,11 +2,10 @@
 
 namespace spec\Refinery29\Piston\Router;
 
-use League\Container\Container;
 use League\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Refinery29\Piston\Http\Response;
+use Refinery29\Piston\Http\JsonResponse as Response;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Http\Request;
 use Kayladnls\Seesaw\RouteCollection;

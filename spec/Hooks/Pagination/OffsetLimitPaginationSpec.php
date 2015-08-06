@@ -3,7 +3,6 @@
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response;
 
 class OffsetLimitPaginationSpec extends ObjectBehavior
 {

@@ -4,12 +4,13 @@ namespace spec\Refinery29\Piston\Http;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Refinery29\Piston\Http\JsonResponse;
 
-class ResponseSpec extends ObjectBehavior
+class JsonResponseSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Http\Response');
+        $this->shouldHaveType(JsonResponse::class);
     }
 
     public function it_can_get_pagination_cursors()
