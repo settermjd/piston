@@ -6,13 +6,9 @@ use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
-use Refinery29\Piston\Hooks\HasHooks;
-use Refinery29\Piston\Hooks\Hookable;
-use Refinery29\Piston\Hooks\Fields;
-use Refinery29\Piston\Hooks\Pagination\OffsetLimitPagination;
-use Refinery29\Piston\Hooks\Pagination\CursorBasedPagination;
-use Refinery29\Piston\Hooks\IncludedResource;
-use Refinery29\Piston\Hooks\RequestedFields;
+use Refinery29\Piston\Http\Pipeline\RequestPipeline;
+use Refinery29\Piston\Pipeline\HasPipelines;
+use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Router\PistonStrategy;
@@ -21,9 +17,9 @@ use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class Piston implements ContainerAwareInterface, ArrayAccess, HasHooks
+class Piston implements ContainerAwareInterface, HasPipelines
 {
-    use Hookable;
+    use LifeCyclePipelines;
 
     /**
      * @var Container
@@ -48,19 +44,17 @@ class Piston implements ContainerAwareInterface, ArrayAccess, HasHooks
 
     /**
      * @param ContainerInterface $container
-     * @param array $config_array
+     * @param array $config
      */
-    public function __construct(ContainerInterface $container = null, array $config_array = [])
+    public function __construct(ContainerInterface $container = null, array $config = [])
     {
         $this->container = $container ?: new Container();
         $this->container['app'] = $this;
 
         $this->bootstrapRouter();
-        $this->bootstrapHooks();
+        $this->bootstrapPipelines();
 
-        if (!is_null($config_array)) {
-            $this->config = $config_array;
-        };
+        $this->config = $config;
     }
 
     /**
@@ -128,7 +122,6 @@ class Piston implements ContainerAwareInterface, ArrayAccess, HasHooks
 
         $response = $dispatcher->dispatch($this->request->getMethod(), $this->request->getPathInfo());
 
-
         return $response->send();
     }
 
@@ -144,15 +137,11 @@ class Piston implements ContainerAwareInterface, ArrayAccess, HasHooks
 
     protected function preProcessRequest()
     {
-        $request = $this->getRequest();
-        $request = (new CursorBasedPagination())->process($request);
-        $request = (new OffsetLimitPagination())->process($request);
-        $request = (new IncludedResource())->process($request);
-        $request = (new RequestedFields())->process($request);
+        $this->request = $this->getRequest();
 
-        $this->request = $request;
+        $pipeline = new RequestPipeline();
 
-        return $request;
+        return $pipeline->process($this->request);
     }
 
     /**
@@ -212,56 +201,6 @@ class Piston implements ContainerAwareInterface, ArrayAccess, HasHooks
     public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
-    }
-
-
-    /**
-     * Array Access get.
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function offsetGet($key)
-    {
-        return $this->container->get($key);
-    }
-
-    /**
-     * Array Access set.
-     *
-     * @param string $key
-     * @param mixed $value
-     *
-     * @return void
-     */
-    public function offsetSet($key, $value)
-    {
-        $this->container->singleton($key, $value);
-    }
-
-    /**
-     * Array Access unset.
-     *
-     * @param string $key
-     *
-     * @return void
-     */
-    public function offsetUnset($key)
-    {
-        $this->container->offsetUnset($key);
-    }
-
-    /**
-     * Array Access isset.
-     *
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function offsetExists($key)
-    {
-        return $this->container->isRegistered($key) || $this->container->isSingleton($key);
     }
 
     /**

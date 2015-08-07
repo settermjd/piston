@@ -1,10 +1,9 @@
-<?php namespace Refinery29\Piston\Router;
+<?php namespace Refinery29\Piston\Pipeline;
 
-use Refinery29\Piston\Hooks\HasHooks;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\JsonResponse as Response;
 
-trait HookProcessor
+trait PipelineProcessor
 {
     /**
      * @param $item
@@ -12,9 +11,9 @@ trait HookProcessor
      * @param $original_response
      * @return Response
      */
-    protected function processPreHooks(HasHooks $item, Request $request, Response $original_response)
+    protected function processPrePipeline(HasPipelines $item, Request $request, Response $original_response)
     {
-        $response = $item->getPreHooks()->process([$request, $original_response]);
+        $response = $item->getPrePipeline()->process([$request, $original_response]);
         return $response instanceof Response ? $response : $original_response;
     }
 
@@ -24,9 +23,9 @@ trait HookProcessor
      * @param $original_response
      * @return Response
      */
-    protected function processPostHooks(HasHooks $item, Request $request, Response $original_response)
+    protected function processPostHooks(HasPipelines $item, Request $request, Response $original_response)
     {
-        $response = $item->getPostHooks()->process([$request, $original_response]);
+        $response = $item->getPostPipeline()->process([$request, $original_response]);
         return $response instanceof Response ? $response : $original_response;
     }
 }

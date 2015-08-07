@@ -1,14 +1,15 @@
-<?php namespace spec\Refinery29\Piston\Hooks;
+<?php namespace spec\Refinery29\Piston\Pipeline\Stage;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Pipeline\Stage\IncludedResource;
 
 class IncludedResourceSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Hooks\IncludedResource');
+        $this->shouldHaveType(IncludedResource::class);
     }
 
     public function it_will_get_included_resources()
@@ -34,6 +35,6 @@ class IncludedResourceSpec extends ObjectBehavior
         $resources = $result->getIncludedResources();
         $resources->shouldBeArray();
 
-        $resources->shouldContain(array('foo',  'bing'));
+        $resources->shouldContain(['foo',  'bing']);
     }
 }

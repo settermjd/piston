@@ -3,12 +3,13 @@
 use Closure;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
+use Refinery29\Piston\Pipeline\PipelineProcessor;
 use Refinery29\Piston\Router\Routes\Routeable;
 use Symfony\Component\HttpFoundation\Response;
 
 class PistonStrategy extends RequestResponseStrategy implements StrategyInterface
 {
-    use HookProcessor;
+    use PipelineProcessor;
 
     /**
      * @param array|callable|string $controller
@@ -23,7 +24,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
         $app = $this->container->get('app');
 
-        $response = $this->processPreHooks($app, $request, $original_response);
+        $response = $this->processPrePipeline($app, $request, $original_response);
 
         if (is_array($controller) && is_string($controller[0])) {
             /** @var RouteCollection */
@@ -34,7 +35,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
             if (!empty($active_route)) {
                 $group = $router->findGroupByRoute($active_route);
                 if ($group !== false) {
-                    $response = $this->processPreHooks($group, $request, $original_response);
+                    $response = $this->processPrePipeline($group, $request, $original_response);
                 }
             }
         }

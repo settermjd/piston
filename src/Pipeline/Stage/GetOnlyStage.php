@@ -1,8 +1,8 @@
-<?php namespace Refinery29\Piston\Hooks;
+<?php namespace Refinery29\Piston\Pipeline\Stage;
 
 use League\Route\Http\Exception\BadRequestException;
 
-trait GetOnlyHook
+trait GetOnlyStage
 {
     public function ensureGetOnlyRequest($request)
     {

@@ -1,12 +1,14 @@
-<?php namespace Refinery29\Piston\Hooks\Pagination;
+<?php namespace Refinery29\Piston\Pipeline\Stage\Pagination;
 
+use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
-use Refinery29\Piston\Hooks\GetOnlyHook;
+use Refinery29\Piston\Pipeline\Stage\GetOnlyStage;
 use Refinery29\Piston\Http\Request;
 
-class OffsetLimitPagination
+class OffsetLimitPagination implements StageInterface
 {
-    use SinglePaginationHook, GetOnlyHook;
+    use SinglePagination;
+    use GetOnlyStage;
 
     /**
      * @var int $default_offset
