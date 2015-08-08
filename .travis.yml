@@ -1,5 +1,7 @@
 language: php
 
+sudo: false
+
 env:
   global:
     - secure: "WoaGmMoIspl8a9c22mxUwW9inXYlScWWL5L77BpRrScjheNxnSwE6b2naFgUm2RK0USuF4PRfSk3AgKnraEMYK0yuwk8v7QF6sF4SwBnhnT+KfGEVc0axzmJPtN+ouHOC6zyE4nSx/MNav15o+MmDJr+SrZf3zpYhjfCj60xDHeHRIVf+DFiwruEkHZ57g0UCZeytNLVu4/Dk5c74v5x2y13MRCOnltGCUdcVuLz4ZifR7FmFzs25yaYm9PXH/2u07XW7FPQMvIkXSe8zdLsgzjH1ZT/BhebN2Aurh9uTUgb10oYyDrhGzbLUZm8oA60eNbtcxlPu/5CK6qBH2YwuNzpDnUcNqRI8WKSrga1l+oUuwBrV+6ZzUivb2QxeN7YpM5K4d0yp4596892a+R47BFdRvCq6Bfe3b/5ts8quz7vqPtYxDmL0bxkLhKo0pS1iEj2Z/uaTpgAVxYZTmA78EL+KxPa1DzXdS6bYkV0XQeEZFtqRURDYq3SFB0qb7pPS5cTNb8nv3o1Xfn5VHOMwxjCvgL/Fbly8CmEzEHW8Kp7zLYQT2AxGukfYUDDRXN25idWZXV61Yy570z8Mi5V3g5rO5mxzfs/tueM/QVEJjt4PVzHvmDn5r1XjpSXhRQu50tVa7zepQu0bWaJncd4zpV9qdtJPTVsqDvaNDTLd+Y="
@@ -11,13 +13,17 @@ matrix:
     - php: 5.5
       env: COLLECT_COVERAGE=true
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 before_install:
   - composer self-update
   - composer validate
   - composer config github-oauth.github.com $GITHUB_TOKEN
 
 install:
-  - composer install
+  - composer install --prefer-dist
 
 script:
   - vendor/bin/php-cs-fixer fix --config-file=.php_cs --verbose --diff --dry-run
