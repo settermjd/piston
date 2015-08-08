@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f70da14b107b3b32807d98a84ff1c5f",
+    "hash": "973dfa3ccc9e2d86f72cf36ce08196bc",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -2025,7 +2025,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,

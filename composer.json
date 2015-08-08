@@ -1,5 +1,6 @@
 {
   "name": "refinery29/piston",
+  "description": "Opinionated Micro Framework for APIs",
   "require": {
     "php": ">=5.5",
     "league/pipeline": "^0.1.0",
@@ -29,5 +30,5 @@
       "Refinery29\\Piston\\Stubs\\": "spec/stubs"
     }
   },
-  "min-stability": "dev"
+  "minimum-stability": "dev"
 }
