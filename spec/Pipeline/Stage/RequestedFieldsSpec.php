@@ -1,4 +1,6 @@
-<?php namespace spec\Refinery29\Piston\Pipeline\Stage;
+<?php
+
+namespace spec\Refinery29\Piston\Pipeline\Stage;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

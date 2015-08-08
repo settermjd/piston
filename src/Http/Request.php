@@ -1,10 +1,11 @@
-<?php namespace Refinery29\Piston\Http;
+<?php
+
+namespace Refinery29\Piston\Http;
 
 use Symfony\Component\HttpFoundation\Request as SRequest;
 
 /**
  * Class Request
- * @package Refinery29\Piston\Request
  */
 class Request extends SRequest
 {
@@ -34,7 +35,6 @@ class Request extends SRequest
     /** @var  var string */
     protected $after_cursor;
 
-
     /**
      * @return string
      */
@@ -44,7 +44,6 @@ class Request extends SRequest
     }
 
     /**
-     * @return null
      */
     public function getRequestedFields()
     {
@@ -60,7 +59,6 @@ class Request extends SRequest
     }
 
     /**
-     * @return null
      */
     public function getIncludedResources()
     {

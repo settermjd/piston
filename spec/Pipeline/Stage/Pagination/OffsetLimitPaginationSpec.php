@@ -1,4 +1,6 @@
-<?php namespace spec\Refinery29\Piston\Pipeline\Stage\Pagination;
+<?php
+
+namespace spec\Refinery29\Piston\Pipeline\Stage\Pagination;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

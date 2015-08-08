@@ -1,9 +1,10 @@
 <?php
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()->in(__DIR__);
+$config = new Refinery29\CS\Config\Refinery29();
+$config->getFinder()->in(__DIR__);
 
-return Symfony\CS\Config\Config::create()
-    ->setUsingCache(true)
-    ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
-    ->finder($finder)
-;
+$cacheDir = getenv('TRAVIS') ? getenv('HOME') . '/.php-cs-fixer' : __DIR__;
+
+$config->setCacheFile($cacheDir . '/.php_cs.cache');
+
+return $config;

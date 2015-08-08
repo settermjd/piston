@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston\Stubs;
+<?php
+
+namespace Refinery29\Piston\Stubs;
 
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\Routes\Routeable;
@@ -20,7 +22,7 @@ class FooController implements Routeable
     public function test($req, $resp)
     {
         if ($req->isPaginated()) {
-            echo "<pre>".print_r($req->getPaginationCursor(), true)."</pre>";
+            echo '<pre>' . print_r($req->getPaginationCursor(), true) . '</pre>';
             exit;
         }
 

@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston\Http;
+<?php
+
+namespace Refinery29\Piston\Http;
 
 class JsonResponse extends \Symfony\Component\HttpFoundation\JsonResponse
 {

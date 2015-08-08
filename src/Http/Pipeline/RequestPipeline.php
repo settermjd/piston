@@ -1,7 +1,9 @@
-<?php namespace Refinery29\Piston\Http\Pipeline;
+<?php
 
-use League\Pipeline\PipelineBuilder;
+namespace Refinery29\Piston\Http\Pipeline;
+
 use League\Pipeline\Pipeline;
+use League\Pipeline\PipelineBuilder;
 use Refinery29\Piston\Pipeline\Stage\IncludedResource;
 use Refinery29\Piston\Pipeline\Stage\Pagination\CursorBasedPagination;
 use Refinery29\Piston\Pipeline\Stage\Pagination\OffsetLimitPagination;

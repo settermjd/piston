@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston;
+<?php
+
+namespace Refinery29\Piston;
 
 interface Decorator
 {

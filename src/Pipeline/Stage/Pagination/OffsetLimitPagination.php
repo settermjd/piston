@@ -1,9 +1,11 @@
-<?php namespace Refinery29\Piston\Pipeline\Stage\Pagination;
+<?php
+
+namespace Refinery29\Piston\Pipeline\Stage\Pagination;
 
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
-use Refinery29\Piston\Pipeline\Stage\GetOnlyStage;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Pipeline\Stage\GetOnlyStage;
 
 class OffsetLimitPagination implements StageInterface
 {
@@ -11,18 +13,20 @@ class OffsetLimitPagination implements StageInterface
     use GetOnlyStage;
 
     /**
-     * @var int $default_offset
+     * @var int
      */
     protected $default_offset = 0;
 
     /**
-     * @var int $default_limit
+     * @var int
      */
     protected $default_limit = 10;
 
     /**
      * @param Request $request
+     *
      * @throws BadRequestException
+     *
      * @return Request
      */
     public function process($request)
@@ -44,9 +48,11 @@ class OffsetLimitPagination implements StageInterface
     }
 
     /**
-     * @param mixed $param
+     * @param mixed  $param
      * @param string $param_name
+     *
      * @throws BadRequestException
+     *
      * @return int
      */
     private function coerceToInteger($param, $param_name)
