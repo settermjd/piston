@@ -30,5 +30,5 @@
       "Refinery29\\Piston\\Stubs\\": "spec/stubs"
     }
   },
-  "min-stability": "dev"
+  "minimum-stability": "dev"
 }
