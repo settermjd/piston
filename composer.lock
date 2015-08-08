@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "817fe1c8bad6f7d9ca784d4aad9a8ec1",
+    "hash": "d41996a731675f098addee518ca66320",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -1122,6 +1122,54 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "refinery29/php-cs-fixer-config",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/refinery29/php-cs-fixer-config.git",
+                "reference": "0f86d450cf924a82cad7dd4b1d38098d3705b5bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/refinery29/php-cs-fixer-config/zipball/0f86d450cf924a82cad7dd4b1d38098d3705b5bc",
+                "reference": "0f86d450cf924a82cad7dd4b1d38098d3705b5bc",
+                "shasum": ""
+            },
+            "require": {
+                "fabpot/php-cs-fixer": "2.0.*@dev",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "^0.1.2",
+                "phpunit/phpunit": "^4.8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Refinery29\\CS\\Config\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Refinery29\\CS\\Config\\Test\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "andreas.moller@refinery29.com"
+                }
+            ],
+            "description": "Provides a configuration for fabpot/php-cs-fixer, used within Refinery29.",
+            "support": {
+                "source": "https://github.com/refinery29/php-cs-fixer-config/tree/0.1.1"
+            },
+            "time": "2015-08-07 23:09:12"
         },
         {
             "name": "satooshi/php-coveralls",
