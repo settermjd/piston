@@ -1,12 +1,13 @@
-<?php namespace Refinery29\Piston\Pipeline;
+<?php
 
-use League\Pipeline\StageInterface;
+namespace Refinery29\Piston\Pipeline;
+
 use League\Pipeline\Pipeline;
 use League\Pipeline\PipelineBuilder;
+use League\Pipeline\StageInterface;
 
 /**
  * Class Hookable
- * @package Refinery29\Piston\Hooks
  */
 trait LifeCyclePipelines
 {
@@ -22,6 +23,7 @@ trait LifeCyclePipelines
 
     /**
      * @param $stage
+     *
      * @return $this
      */
     public function addPre(StageInterface $stage)
@@ -34,6 +36,7 @@ trait LifeCyclePipelines
 
     /**
      * @param StageInterface $stage
+     *
      * @return $this
      */
     public function addPost(StageInterface $stage)

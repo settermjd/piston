@@ -2,8 +2,8 @@
 
 namespace spec\Refinery29\Piston\Router\Routes;
 
-use League\Pipeline\StageInterface;
 use League\Pipeline\Pipeline;
+use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Router\Routes\Route;

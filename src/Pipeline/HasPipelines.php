@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston\Pipeline;
+<?php
+
+namespace Refinery29\Piston\Pipeline;
 
 interface HasPipelines
 {

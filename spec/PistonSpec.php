@@ -1,10 +1,12 @@
-<?php namespace spec\Refinery29\Piston;
+<?php
+
+namespace spec\Refinery29\Piston;
 
 use League\Container\Container;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
-use League\Pipeline\StageInterface;
 use League\Pipeline\Pipeline;
+use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Decorator;
@@ -35,18 +37,18 @@ class PistonSpec extends ObjectBehavior
 
     public function it_can_add_a_route(Route $route)
     {
-        $route->getVerb()->willReturn("GET");
+        $route->getVerb()->willReturn('GET');
         $route->getAction()->willReturn('Foo::Bar');
-        $route->getUrl()->willReturn("/yolo");
+        $route->getUrl()->willReturn('/yolo');
 
         $this->addRoute($route);
     }
 
     public function it_can_add_named_route(Route $route)
     {
-        $route->getVerb()->willReturn("GET");
+        $route->getVerb()->willReturn('GET');
         $route->getAction()->willReturn('Foo::Bar');
-        $route->getUrl()->willReturn("/yolo");
+        $route->getUrl()->willReturn('/yolo');
 
         $this->addNamedRoute('ThisIsSomeName', $route);
     }

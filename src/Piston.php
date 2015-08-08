@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston;
+<?php
+
+namespace Refinery29\Piston;
 
 use ArrayAccess;
 use Kayladnls\Seesaw\Seesaw;
@@ -7,10 +9,10 @@ use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
-use Refinery29\Piston\Pipeline\HasPipelines;
-use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\ResponseNegotiator;
+use Refinery29\Piston\Pipeline\HasPipelines;
+use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
@@ -41,10 +43,9 @@ class Piston implements ContainerAwareInterface, HasPipelines
      */
     protected $config;
 
-
     /**
      * @param ContainerInterface $container
-     * @param array $config
+     * @param array              $config
      */
     public function __construct(ContainerInterface $container = null, array $config = [])
     {
@@ -82,6 +83,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     /**
      * @param Route $route
+     *
      * @return Piston
      */
     public function addRoute(Route $route)
@@ -93,6 +95,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     /**
      * @param RouteGroup $group
+     *
      * @return $this
      */
     public function addRouteGroup(RouteGroup $group)
@@ -104,7 +107,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     /**
      * @param string $name
-     * @param Route $route
+     * @param Route  $route
      */
     public function addNamedRoute($name, Route $route)
     {
@@ -174,7 +177,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
     private function bootstrapRouter()
     {
         $this->router = new Seesaw(null, null, $this->container);
-        $this->router->setStrategy(new PistonStrategy);
+        $this->router->setStrategy(new PistonStrategy());
         $this->container->add('PistonRouter', $this->router);
     }
 
@@ -188,6 +191,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     /**
      * @param $url
+     *
      * @return RedirectResponse
      */
     public static function redirect($url)

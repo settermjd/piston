@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston\Pipeline\Stage;
+<?php
+
+namespace Refinery29\Piston\Pipeline\Stage;
 
 use League\Pipeline\StageInterface;
 use Refinery29\Piston\Http\Request;
@@ -6,9 +8,10 @@ use Refinery29\Piston\Http\Request;
 class IncludedResource implements StageInterface
 {
     use GetOnlyStage;
-    
+
     /**
      * @param Request $request
+     *
      * @return Request
      */
     public function process($request)
@@ -23,7 +26,7 @@ class IncludedResource implements StageInterface
             $include = explode(',', $include);
         }
 
-        foreach ((array)$include as $k => $resource) {
+        foreach ((array) $include as $k => $resource) {
             if (strpos($resource, '.') !== false) {
                 $resource = explode('.', $resource);
 
