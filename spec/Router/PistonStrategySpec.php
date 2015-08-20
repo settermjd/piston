@@ -2,14 +2,14 @@
 
 namespace spec\Refinery29\Piston\Router;
 
-use Kayladnls\Seesaw\RouteCollection;
 use League\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\JsonResponse as Response;
-use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Piston;
-use Refinery29\Piston\Router\Routes\Route;
+use Refinery29\Piston\Http\Request;
+use Kayladnls\Seesaw\RouteCollection;
+use Kayladnls\Seesaw\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
 
@@ -17,9 +17,8 @@ class PistonStrategySpec extends ObjectBehavior
 {
     public function let(RouteCollection $collection, ContainerInterface $container)
     {
-        $container->get('PistonRequest')->willReturn(Request::create('/alias'));
-        $container->get('Symfony\Component\HttpFoundation\Request')->willReturn(Request::create('/alias'));
-        $container->get('Symfony\Component\HttpFoundation\Response')->willReturn(Response::create());
+        $container->get('Request')->willReturn(Request::create('/alias'));
+        $container->get('Response')->willReturn(Response::create());
         $container->get('Refinery29\Piston\Stubs\FooController')->willReturn(new FooController());
         $container->get('app')->willReturn(new Piston());
 
@@ -51,7 +50,6 @@ class PistonStrategySpec extends ObjectBehavior
         $this->dispatch(
             function ($req, $resp) {
                 $resp->setContent('YOLO');
-
                 return $resp;
             }, [])->getContent()->shouldReturn('YOLO');
     }
