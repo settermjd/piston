@@ -178,7 +178,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
     private function bootstrapRouter()
     {
         $this->router = new Seesaw(null, null, $this->container);
-        $this->router->setStrategy(new PistonStrategy);
+        $this->router->setStrategy(new PistonStrategy());
         $this->container->add('PistonRouter', $this->router, true);
     }
 

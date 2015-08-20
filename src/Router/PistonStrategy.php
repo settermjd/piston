@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston\Router;
+<?php
+
+namespace Refinery29\Piston\Router;
 
 use Closure;
 use League\Route\Strategy\RequestResponseStrategy;
@@ -13,7 +15,8 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
     /**
      * @param array|callable|string $controller
-     * @param array $vars
+     * @param array                 $vars
+     *
      * @return mixed
      */
     public function dispatch($controller, array $vars = [])
@@ -52,8 +55,9 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
     /**
      * Invoke a controller action
      *
-     * @param  string|\Closure $action
-     * @param  array $vars
+     * @param string|\Closure $action
+     * @param array           $vars
+     *
      * @return Response
      */
     public function invokeAction($action, array $vars = [])
@@ -65,6 +69,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
     /**
      * @param $action
+     *
      * @return array
      */
     public function resolveController($action)
@@ -72,7 +77,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
         if (is_array($action) && !($action[0] instanceof Routeable)) {
             return [
                 $this->container->get($action[0]),
-                $action[1]
+                $action[1],
             ];
         }
 
@@ -84,6 +89,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      * @param $request
      * @param $response
      * @param array $vars
+     *
      * @return mixed
      */
     public function dispatchClosure($action, $request, $response, $vars = [])
@@ -93,8 +99,10 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
     /**
      * @param $response
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function validateResponse($response)
     {

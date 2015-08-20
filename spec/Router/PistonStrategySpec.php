@@ -2,14 +2,14 @@
 
 namespace spec\Refinery29\Piston\Router;
 
+use Kayladnls\Seesaw\Route;
+use Kayladnls\Seesaw\RouteCollection;
 use League\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Refinery29\Piston\Http\JsonResponse as Response;
-use Refinery29\Piston\Piston;
 use Refinery29\Piston\Http\Request;
-use Kayladnls\Seesaw\RouteCollection;
-use Kayladnls\Seesaw\Route;
+use Refinery29\Piston\Piston;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
 
@@ -50,6 +50,7 @@ class PistonStrategySpec extends ObjectBehavior
         $this->dispatch(
             function ($req, $resp) {
                 $resp->setContent('YOLO');
+
                 return $resp;
             }, [])->getContent()->shouldReturn('YOLO');
     }
