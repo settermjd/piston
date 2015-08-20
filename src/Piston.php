@@ -3,6 +3,7 @@
 namespace Refinery29\Piston;
 
 use ArrayAccess;
+use Kayladnls\Seesaw\Route;
 use Kayladnls\Seesaw\Seesaw;
 use League\Container\Container;
 use League\Container\ContainerAwareInterface;
@@ -14,7 +15,6 @@ use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Pipeline\HasPipelines;
 use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
-use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,17 +45,14 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
     /**
      * @param ContainerInterface $container
-     * @param array              $config
      */
-    public function __construct(ContainerInterface $container = null, array $config = [])
+    public function __construct(ContainerInterface $container = null)
     {
         $this->container = $container ?: new Container();
         $this->container['app'] = $this;
 
         $this->bootstrapRouter();
         $this->bootstrapPipelines();
-
-        $this->config = $config;
     }
 
     /**
@@ -132,19 +129,15 @@ class Piston implements ContainerAwareInterface, HasPipelines
     {
         $this->preProcessRequest();
 
-        $this->container->singleton('PistonRequest', $this->request);
-        $this->container->singleton('Symfony\Component\HttpFoundation\Request', $this->request);
-
-        $this->container->add('Symfony\Component\HttpFoundation\Response', $this->getResponse($this->request), true);
+        $this->container->add('Request', $this->request, true);
+        $this->container->add('Response', $this->getResponse($this->request), true);
     }
 
     protected function preProcessRequest()
     {
         $this->request = $this->getRequest();
 
-        $pipeline = new RequestPipeline();
-
-        return $pipeline->process($this->request);
+        return (new RequestPipeline())->process($this->request);
     }
 
     /**
@@ -174,11 +167,19 @@ class Piston implements ContainerAwareInterface, HasPipelines
         return $this->container;
     }
 
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     private function bootstrapRouter()
     {
         $this->router = new Seesaw(null, null, $this->container);
-        $this->router->setStrategy(new PistonStrategy());
-        $this->container->add('PistonRouter', $this->router);
+        $this->router->setStrategy(new PistonStrategy);
+        $this->container->add('PistonRouter', $this->router, true);
     }
 
     /**
@@ -197,29 +198,5 @@ class Piston implements ContainerAwareInterface, HasPipelines
     public static function redirect($url)
     {
         return new RedirectResponse($url);
-    }
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * @return ArrayAccess
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * @param ArrayAccess $config
-     */
-    public function setConfig($config)
-    {
-        $this->config = $config;
     }
 }
