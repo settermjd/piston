@@ -28,7 +28,7 @@ trait PipelineProcessor
      *
      * @return Response
      */
-    protected function processPostHooks(HasPipelines $item, Request $request, Response $original_response)
+    protected function processPostPipeline(HasPipelines $item, Request $request, Response $original_response)
     {
         $response = $item->getPostPipeline()->process([$request, $original_response]);
 
