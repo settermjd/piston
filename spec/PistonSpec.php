@@ -2,6 +2,7 @@
 
 namespace spec\Refinery29\Piston;
 
+use Kayladnls\Seesaw\Route;
 use League\Container\Container;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
@@ -13,7 +14,6 @@ use Refinery29\Piston\Decorator;
 use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Piston;
-use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 
 class PistonSpec extends ObjectBehavior
@@ -141,19 +141,5 @@ class PistonSpec extends ObjectBehavior
         $response = $this->notFound();
         $response->shouldHaveType('Symfony\Component\HttpFoundation\Response');
         $response->getStatusCode()->shouldReturn(404);
-    }
-
-    public function it_can_set_config()
-    {
-        $this->setConfig(['yellow' => 'submarine']);
-
-        $this->getConfig()->shouldReturn(['yellow' => 'submarine']);
-    }
-
-    public function it_can_set_config_on_construct()
-    {
-        $this->beConstructedWith(null, ['yolo']);
-
-        $this->getConfig()->shouldContain('yolo');
     }
 }

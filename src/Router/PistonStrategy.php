@@ -21,43 +21,33 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      */
     public function dispatch($controller, array $vars = [])
     {
-        $request = $this->container->get('Symfony\Component\HttpFoundation\Request');
-
-        $original_response = $this->container->get('Symfony\Component\HttpFoundation\Response');
-
+        $request = $this->container->get('Request');
+        $original_response = $this->container->get('Response');
+        $router = $this->container->get('PistonRouter');
         $app = $this->container->get('app');
 
         $response = $this->processPrePipeline($app, $request, $original_response);
 
-        if (is_array($controller) && is_string($controller[0])) {
-            /* @var RouteCollection */
-            $router = $this->container->get('PistonRouter');
-
-            $active_route = $router->findByAction($controller);
-
-            if (!empty($active_route)) {
-                $group = $router->findGroupByRoute($active_route);
-                if ($group !== false) {
-                    $response = $this->processPrePipeline($group, $request, $original_response);
-                }
-            }
+        if ($controller instanceof Closure) {
+            return $controller($request, $response, $vars);
         }
 
-        $response = $this->invokeAction($controller, [
-            $request,
-            $response,
-            $vars,
-        ]);
+        $active_route = $router->findByAction($controller);
 
-        if (is_array($controller) && is_string($controller[0]) && isset($active_route) && !empty($active_route)) {
+        if (!empty($active_route)) {
+            $group = $router->findGroupByRoute($active_route);
             if ($group !== false) {
-                $this->processPostHooks($group, $request, $original_response);
+                $response = $this->processPrePipeline($group, $request, $original_response);
             }
-
-            $response = $this->processPostHooks($active_route, $request, $original_response);
         }
 
-        $this->processPostHooks($app, $request, $original_response);
+        $response = $this->invokeAction($controller, [$request, $response, $vars]);
+
+        if (!empty($active_route) && isset($group)) {
+            $response = $this->processPrePipeline($group, $request, $original_response);
+        }
+
+        $this->processPostPipeline($app, $request, $original_response);
 
         return $this->validateResponse($response);
     }
@@ -72,26 +62,9 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      */
     public function invokeAction($action, array $vars = [])
     {
-        if ($action instanceof Closure) {
-            return $this->dispatchClosure($action, $vars);
-        }
-
-        return $this->dispatchRoutable($action, $vars);
-    }
-
-    /**
-     * @param $action
-     * @param $vars
-     *
-     * @return mixed
-     */
-    public function dispatchRoutable($action, $vars)
-    {
         $controller = $this->resolveController($action);
 
-        $response = call_user_func_array($controller, $vars);
-
-        return $this->validateResponse($response);
+        return call_user_func_array($controller, $vars);
     }
 
     /**
@@ -113,19 +86,21 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
     /**
      * @param $action
+     * @param $request
+     * @param $response
      * @param array $vars
      *
      * @return mixed
      */
-    public function dispatchClosure($action, $vars = [])
+    public function dispatchClosure($action, $request, $response, $vars = [])
     {
-        $response = $action(array_shift($vars), array_shift($vars), $vars);
-
-        return $this->validateResponse($response);
+        return $action($request, $response, $vars);
     }
 
     /**
      * @param $response
+     *
+     * @throws \Exception
      *
      * @return mixed
      */
@@ -134,8 +109,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
         if ($response instanceof Response) {
             return $response;
         }
-        throw new \RuntimeException(
-            'Your request must return an instance of Response'
-        );
+
+        throw new \Exception('Your request must return an instance of Response');
     }
 }
