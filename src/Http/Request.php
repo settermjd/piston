@@ -36,6 +36,16 @@ class Request extends SRequest
     protected $after_cursor;
 
     /**
+     * @var int
+     */
+    private $offset;
+
+    /**
+     * @var int
+     */
+    private $limit;
+
+    /**
      * @return string
      */
     public function getPaginationCursor()
@@ -124,6 +134,22 @@ class Request extends SRequest
         $this->offset = $offset;
         $this->limit = $limit;
         $this->pagination_type = 'offset_limit';
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
     }
 
     /** @return string */
