@@ -29,10 +29,14 @@ class Request extends SRequest
      */
     protected $included_resources = null;
 
-    /** @var  var string */
+    /**
+     * @var string
+     */
     protected $before_cursor;
 
-    /** @var  var string */
+    /**
+     * @var string
+     */
     protected $after_cursor;
 
     /**
