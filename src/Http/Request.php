@@ -36,6 +36,16 @@ class Request extends SRequest
     protected $after_cursor;
 
     /**
+     * @var int
+     */
+    private $offset;
+
+    /**
+     * @var int
+     */
+    private $limit;
+
+    /**
      * @return string
      */
     public function getPaginationCursor()
