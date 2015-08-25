@@ -136,6 +136,22 @@ class Request extends SRequest
         $this->pagination_type = 'offset_limit';
     }
 
+    /**
+     * @return int
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
     /** @return string */
     public function getPaginationType()
     {

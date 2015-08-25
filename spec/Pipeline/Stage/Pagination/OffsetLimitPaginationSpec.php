@@ -40,28 +40,28 @@ class OffsetLimitPaginationSpec extends ObjectBehavior
     {
         $request = $this->process(Request::create('123/yolo?limit=20&offset=40', 'GET'));
 
-        $request->limit->shouldBe(20);
+        $request->getLimit()->shouldBe(20);
     }
 
     public function it_assigns_offset_to_request_as_integer()
     {
         $request = $this->process(Request::create('123/yolo?limit=20&offset=40', 'GET'));
 
-        $request->offset->shouldBe(40);
+        $request->getOffset()->shouldBe(40);
     }
 
     public function it_assigns_default_limit_of_ten_when_none_given()
     {
         $request = $this->process(Request::create('123/yolo?offset=20', 'GET'));
 
-        $request->limit->shouldBe(10);
+        $request->getLimit()->shouldBe(10);
     }
 
     public function it_assigns_default_offset_of_zero_when_none_given()
     {
         $request = $this->process(Request::create('123/yolo?limit=20', 'GET'));
 
-        $request->offset->shouldBe(0);
+        $request->getOffset()->shouldBe(0);
     }
 
     public function it_throws_if_offset_is_not_numeric()
