@@ -96,7 +96,7 @@ class Request extends SRequest
      */
     public function hasIncludedResources()
     {
-        return !is_null($this->included_resources);
+        return $this->included_resources !== null;
     }
 
     /**
@@ -104,7 +104,7 @@ class Request extends SRequest
      */
     public function hasRequestedFields()
     {
-        return !is_null($this->requested_fields);
+        return $this->requested_fields !== null;
     }
 
     /**
