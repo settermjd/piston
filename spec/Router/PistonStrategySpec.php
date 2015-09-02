@@ -21,6 +21,7 @@ class PistonStrategySpec extends ObjectBehavior
         $container->get('Response')->willReturn(Response::create());
         $container->get('Refinery29\Piston\Stubs\FooController')->willReturn(new FooController());
         $container->get('app')->willReturn(new Piston());
+        $container->get('FooController')->willReturn(new FooController());
 
         $collection->beConstructedWith([$container->getWrappedObject()]);
         $route = Route::get('alias', 'yolo');
@@ -43,16 +44,7 @@ class PistonStrategySpec extends ObjectBehavior
     public function it_must_return_a_response()
     {
         $this->dispatch(
-            function ($req, $resp) {
-                return $resp;
-            }, [])->shouldHaveType('Symfony\Component\HttpFoundation\Response');
-
-        $this->dispatch(
-            function ($req, $resp) {
-                $resp->setContent('YOLO');
-
-                return $resp;
-            }, [])->getContent()->shouldReturn('YOLO');
+           ['FooController', 'fooAction'], [])->shouldHaveType('Symfony\Component\HttpFoundation\Response');
     }
 
     public function it_throws_exceptions_on_invalid_response()
