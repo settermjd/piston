@@ -28,10 +28,6 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
         $response = $this->processPrePipeline($app, $request, $original_response);
 
-        if ($controller instanceof Closure) {
-            return $controller($request, $response, $vars);
-        }
-
         $active_route = $router->findByAction($controller);
 
         if (!empty($active_route)) {
@@ -82,19 +78,6 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
         }
 
         return $action;
-    }
-
-    /**
-     * @param $action
-     * @param $request
-     * @param $response
-     * @param array $vars
-     *
-     * @return mixed
-     */
-    public function dispatchClosure($action, $request, $response, $vars = [])
-    {
-        return $action($request, $response, $vars);
     }
 
     /**

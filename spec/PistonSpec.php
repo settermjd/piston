@@ -130,16 +130,4 @@ class PistonSpec extends ObjectBehavior
 
         $this->shouldThrow('\InvalidArgumentException')->duringAddDecorator($decorator);
     }
-
-    public function it_can_redirect()
-    {
-        $this->redirect('123/something')->shouldHaveType('Symfony\Component\HttpFoundation\RedirectResponse');
-    }
-
-    public function it_can_404()
-    {
-        $response = $this->notFound();
-        $response->shouldHaveType('Symfony\Component\HttpFoundation\Response');
-        $response->getStatusCode()->shouldReturn(404);
-    }
 }

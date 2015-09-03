@@ -181,22 +181,4 @@ class Piston implements ContainerAwareInterface, HasPipelines
         $this->router->setStrategy(new PistonStrategy());
         $this->container->add('PistonRouter', $this->router, true);
     }
-
-    /**
-     * @return Response
-     */
-    public function notFound()
-    {
-        return new Response('', 404);
-    }
-
-    /**
-     * @param $url
-     *
-     * @return RedirectResponse
-     */
-    public static function redirect($url)
-    {
-        return new RedirectResponse($url);
-    }
 }
