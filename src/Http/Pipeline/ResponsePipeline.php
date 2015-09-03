@@ -23,5 +23,4 @@ class ResponsePipeline
     {
         return $this->pipeline->process($payload);
     }
-
 }

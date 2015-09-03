@@ -7,7 +7,6 @@ use Refinery29\Piston\Http\JsonResponse;
 
 class PaginationOutput implements StageInterface
 {
-
     /**
      * Process the payload.
      *
