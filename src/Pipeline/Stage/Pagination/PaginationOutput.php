@@ -39,18 +39,18 @@ class PaginationOutput implements StageInterface
     private function buildOffsetLimitOutput($content, $offsetLimit)
     {
         $output = '    "pagination": {
-        "offset": '.array_shift($offsetLimit).',
-        "limit": '.array_shift($offsetLimit).'
+        "offset": ' . $offsetLimit['offset'] . ',
+        "limit": ' . $offsetLimit['limit'] . '
         }';
 
         return $content . $output;
     }
 
-    private function buildCursorOutput($content, $cursors)
+    private function buildCursorOutput($content, array $cursors)
     {
         $output = '    "pagination": {
-        "prev": '.array_shift($cursors).',
-        "next": '.array_shift($cursors).'
+        "prev": ' . $cursors['prev'] . ',
+        "next": ' . $cursors['next'] . '
         }';
 
         return $content . $output;

@@ -79,6 +79,8 @@ class Piston implements ContainerAwareInterface, HasPipelines
         $negotiator = new ResponseNegotiator($request);
 
         $this->response = $negotiator->negotiateResponse();
+
+        return $this->response;
     }
 
     /**

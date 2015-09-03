@@ -17,7 +17,7 @@ trait PaginatedResponse
 
     public function getPaginationCursors()
     {
-        return [$this->previous, $this->next];
+        return ['prev' => $this->previous, 'next' => $this->next];
     }
 
     public function setOffsetLimit($offset, $limit)
@@ -28,6 +28,6 @@ trait PaginatedResponse
 
     public function getOffsetLimit()
     {
-        return [$this->offset, $this->limit];
+        return ['offset' => $this->offset, 'limit' => $this->limit];
     }
 }
