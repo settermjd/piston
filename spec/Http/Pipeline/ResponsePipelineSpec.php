@@ -8,7 +8,7 @@ use Refinery29\Piston\Http\JsonResponse;
 
 class ResponsePipelineSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Refinery29\Piston\Http\Pipeline\ResponsePipeline');
     }

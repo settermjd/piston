@@ -37,7 +37,7 @@ class PaginationOutput implements StageInterface
 
     private function buildOffsetLimitOutput($content, $offsetLimit)
     {
-        $pagination = ', "pagination" : ' . json_encode(["offset" => $offsetLimit['offset'], 'limit' => $offsetLimit['limit']]);
+        $pagination = ', "pagination" : ' . json_encode(['offset' => $offsetLimit['offset'], 'limit' => $offsetLimit['limit']]);
 
         return $content . $pagination;
     }
