@@ -4,12 +4,13 @@ namespace spec\Refinery29\Piston\Http;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Refinery29\Piston\Http\Request;
 
 class RequestSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Http\Request');
+        $this->shouldHaveType(Request::class);
     }
 
     public function it_can_set_requested_fields()

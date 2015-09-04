@@ -10,6 +10,7 @@ use Prophecy\Argument;
 use Refinery29\Piston\Http\JsonResponse as Response;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Piston;
+use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
 
@@ -38,7 +39,7 @@ class PistonStrategySpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Router\PistonStrategy');
+        $this->shouldHaveType(PistonStrategy::class);
     }
 
     public function it_must_return_a_response()
