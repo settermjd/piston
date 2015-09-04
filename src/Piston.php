@@ -2,7 +2,6 @@
 
 namespace Refinery29\Piston;
 
-use ArrayAccess;
 use Kayladnls\Seesaw\Route;
 use Kayladnls\Seesaw\Seesaw;
 use League\Container\Container;
@@ -16,7 +15,6 @@ use Refinery29\Piston\Pipeline\HasPipelines;
 use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class Piston implements ContainerAwareInterface, HasPipelines
