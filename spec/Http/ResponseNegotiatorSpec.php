@@ -3,7 +3,6 @@
 namespace spec\Refinery29\Piston\Http;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Stubs\FooBarResponse;

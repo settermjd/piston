@@ -9,7 +9,6 @@ use League\Container\ServiceProvider;
 use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Refinery29\Piston\Decorator;
 use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Request;

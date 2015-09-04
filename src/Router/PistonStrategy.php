@@ -2,7 +2,6 @@
 
 namespace Refinery29\Piston\Router;
 
-use Closure;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
 use Refinery29\Piston\Pipeline\PipelineProcessor;

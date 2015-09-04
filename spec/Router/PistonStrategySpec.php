@@ -6,7 +6,6 @@ use Kayladnls\Seesaw\Route;
 use Kayladnls\Seesaw\RouteCollection;
 use League\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Refinery29\Piston\Http\JsonResponse as Response;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Piston;

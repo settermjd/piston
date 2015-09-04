@@ -2,9 +2,7 @@
 
 namespace spec\Refinery29\Piston\Http\Pipeline;
 
-use League\Pipeline\PipelineBuilder;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
 use Refinery29\Piston\Http\Request;
 
