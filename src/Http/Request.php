@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Request as SRequest;
  */
 class Request extends SRequest
 {
+    const OFFSET_LIMIT_PAGINATION = "offset_limi";
+    const CURSOR_PAGINATION = "cursor";
+
     /**
      * @var null
      */
@@ -117,7 +120,7 @@ class Request extends SRequest
     public function setAfterCursor($after_cursor)
     {
         $this->after_cursor = $after_cursor;
-        $this->pagination_type = 'cursor';
+        $this->pagination_type = self::CURSOR_PAGINATION;
     }
 
     /**
@@ -126,7 +129,7 @@ class Request extends SRequest
     public function setBeforeCursor($before_cursor)
     {
         $this->before_cursor = $before_cursor;
-        $this->pagination_type = 'cursor';
+        $this->pagination_type = self::CURSOR_PAGINATION;
     }
 
     /**
@@ -137,23 +140,15 @@ class Request extends SRequest
     {
         $this->offset = $offset;
         $this->limit = $limit;
-        $this->pagination_type = 'offset_limit';
+        $this->pagination_type = self::OFFSET_LIMIT_PAGINATION;
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getOffset()
+    public function getOffsetLimit()
     {
-        return $this->offset;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLimit()
-    {
-        return $this->limit;
+        return [ 'offset' => $this->offset, 'limit' => $this->limit ];
     }
 
     /** @return string */
