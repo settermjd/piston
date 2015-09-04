@@ -37,5 +37,8 @@
       "Refinery29\\Piston\\Stubs\\": "spec/stubs"
     }
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "config": {
+    "bin-dir": "bin"
+  }
 }
