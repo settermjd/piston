@@ -5,15 +5,13 @@ namespace spec\Refinery29\Piston\Router\Routes;
 use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-use Refinery29\Piston\Router\Routes\Route;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 
 class RouteGroupSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Router\Routes\RouteGroup');
+        $this->shouldHaveType(RouteGroup::class);
     }
 
     public function it_can_add_pre_hooks(StageInterface $operation)

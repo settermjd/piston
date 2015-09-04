@@ -26,7 +26,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Refinery29\Piston\Piston');
+        $this->shouldHaveType(Piston::class);
     }
 
     public function it_should_create_container_if_none_is_injected()
