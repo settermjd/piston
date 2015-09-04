@@ -29,6 +29,7 @@ class RequestPipeline
 
     /**
      * @param $payload
+     *
      * @return Request
      */
     public function process(Request $payload)
@@ -37,7 +38,7 @@ class RequestPipeline
             ->add(new Stage\IncludedResource())
             ->add(new Stage\RequestedFields());
 
-        if ($payload->isPaginated()){
+        if ($payload->isPaginated()) {
             $this->addPagination();
         }
 
@@ -51,7 +52,7 @@ class RequestPipeline
      */
     private function addPagination()
     {
-       return $this->builder->add(new Stage\Pagination\OffsetLimitPagination())
+        return $this->builder->add(new Stage\Pagination\OffsetLimitPagination())
             ->add(new Stage\Pagination\CursorBasedPagination());
     }
 }

@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\Request as SRequest;
  */
 class Request extends SRequest
 {
-    const OFFSET_LIMIT_PAGINATION = "offset_limi";
-    const CURSOR_PAGINATION = "cursor";
+    const OFFSET_LIMIT_PAGINATION = 'offset_limi';
+    const CURSOR_PAGINATION = 'cursor';
 
     /**
      * @var null
@@ -148,7 +148,7 @@ class Request extends SRequest
      */
     public function getOffsetLimit()
     {
-        return [ 'offset' => $this->offset, 'limit' => $this->limit ];
+        return ['offset' => $this->offset, 'limit' => $this->limit];
     }
 
     /** @return string */
