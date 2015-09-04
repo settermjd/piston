@@ -9,6 +9,6 @@ class %name% extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(%subject%::class);
+        $this->shouldHaveType(\%subject%::class);
     }
 }
