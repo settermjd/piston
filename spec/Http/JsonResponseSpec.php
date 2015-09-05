@@ -14,8 +14,8 @@ class JsonResponseSpec extends ObjectBehavior
 
     public function it_can_get_pagination_cursors()
     {
-        $this->setPaginationCursors(['before' => 123, 'after' => 345]);
+        $this->setPaginationCursors(123, 345);
 
-        $this->getPaginationCursors()->shouldReturn(['before' => 123, 'after' => 345]);
+        $this->getPaginationCursors()->shouldReturn(['prev' => 123, 'next' => 345]);
     }
 }

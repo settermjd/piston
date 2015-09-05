@@ -9,6 +9,7 @@ use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
+use Refinery29\Piston\Http\Pipeline\ResponsePipeline;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Pipeline\HasPipelines;
@@ -40,6 +41,8 @@ class Piston implements ContainerAwareInterface, HasPipelines
      * @var array
      */
     protected $config;
+
+    protected $response;
 
     /**
      * @param ContainerInterface $container
@@ -73,7 +76,9 @@ class Piston implements ContainerAwareInterface, HasPipelines
     {
         $negotiator = new ResponseNegotiator($request);
 
-        return $negotiator->negotiateResponse();
+        $this->response = $negotiator->negotiateResponse();
+
+        return $this->response;
     }
 
     /**
@@ -120,22 +125,28 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
         $response = $dispatcher->dispatch($this->request->getMethod(), $this->request->getPathInfo());
 
+        $response = $this->postProcessResponse($response);
+
         return $response->send();
     }
 
     protected function loadContainer()
     {
         $this->preProcessRequest();
+        $this->getResponse($this->request);
 
         $this->container->add('Request', $this->request, true);
-        $this->container->add('Response', $this->getResponse($this->request), true);
+        $this->container->add('Response', $this->response, true);
     }
 
     protected function preProcessRequest()
     {
-        $this->request = $this->getRequest();
-
         return (new RequestPipeline())->process($this->request);
+    }
+
+    protected function postProcessResponse($response)
+    {
+        return (new ResponsePipeline())->process($this->response);
     }
 
     /**
