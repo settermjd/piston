@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request as SRequest;
  */
 class Request extends SRequest
 {
-    const OFFSET_LIMIT_PAGINATION = 'offset_limi';
+    const OFFSET_LIMIT_PAGINATION = 'offset_limit';
     const CURSOR_PAGINATION = 'cursor';
 
     /**
