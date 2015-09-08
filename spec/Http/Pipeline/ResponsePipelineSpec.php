@@ -3,7 +3,6 @@
 namespace spec\Refinery29\Piston\Http\Pipeline;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Refinery29\Piston\Http\JsonResponse;
 
 class ResponsePipelineSpec extends ObjectBehavior
