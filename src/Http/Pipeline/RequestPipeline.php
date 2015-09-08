@@ -4,10 +4,8 @@ namespace Refinery29\Piston\Http\Pipeline;
 
 use League\Pipeline\Pipeline;
 use League\Pipeline\PipelineBuilder;
-use Refinery29\Piston\Pipeline\Stage\IncludedResource;
-use Refinery29\Piston\Pipeline\Stage\Pagination\CursorBasedPagination;
-use Refinery29\Piston\Pipeline\Stage\Pagination\OffsetLimitPagination;
-use Refinery29\Piston\Pipeline\Stage\RequestedFields;
+use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Pipeline\Stage;
 
 class RequestPipeline
 {
@@ -16,19 +14,45 @@ class RequestPipeline
      */
     protected $pipeline;
 
+    /**
+     * @var PipelineBuilder
+     */
+    protected $builder;
+
+    /**
+     * @param PipelineBuilder $builder
+     */
     public function __construct(PipelineBuilder $builder = null)
     {
-        $builder = $builder ?:  new PipelineBuilder();
-
-        $this->pipeline = $builder->add(new CursorBasedPagination())
-            ->add(new OffsetLimitPagination())
-            ->add(new IncludedResource())
-            ->add(new RequestedFields())
-            ->build();
+        $this->builder = $builder ?:  new PipelineBuilder();
     }
 
-    public function process($payload)
+    /**
+     * @param $payload
+     *
+     * @return Request
+     */
+    public function process(Request $payload)
     {
+        $this->builder
+            ->add(new Stage\IncludedResource())
+            ->add(new Stage\RequestedFields());
+
+        if ($payload->isPaginated()) {
+            $this->addPagination();
+        }
+
+        $this->pipeline = $this->builder->build();
+
         return $this->pipeline->process($payload);
+    }
+
+    /**
+     * @return PipelineBuilder
+     */
+    private function addPagination()
+    {
+        return $this->builder->add(new Stage\Pagination\OffsetLimitPagination())
+            ->add(new Stage\Pagination\CursorBasedPagination());
     }
 }
