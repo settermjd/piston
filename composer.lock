@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "92d8fa5ae6fcf9918e68f335a9c7a0d3",
+    "hash": "535f201705e63342dba84d11c673d905",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -157,12 +157,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/route.git",
-                "reference": "d740c9d5606daad8ec37309974807541a1c98a61"
+                "reference": "b5e3f8a6c7783faa929bc52d031066e4fb0fe2c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/route/zipball/d740c9d5606daad8ec37309974807541a1c98a61",
-                "reference": "d740c9d5606daad8ec37309974807541a1c98a61",
+                "url": "https://api.github.com/repos/thephpleague/route/zipball/b5e3f8a6c7783faa929bc52d031066e4fb0fe2c0",
+                "reference": "b5e3f8a6c7783faa929bc52d031066e4fb0fe2c0",
                 "shasum": ""
             },
             "require": {
@@ -207,7 +207,7 @@
                 "league",
                 "route"
             ],
-            "time": "2015-08-24 12:47:30"
+            "time": "2015-09-08 08:39:47"
         },
         {
             "name": "nikic/fast-route",
@@ -309,16 +309,16 @@
     "packages-dev": [
         {
             "name": "codeclimate/php-test-reporter",
-            "version": "v0.1.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeclimate/php-test-reporter.git",
-                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646"
+                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
-                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/85b5de950678a25f3e85adb6bc26de7f7f231d18",
+                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18",
                 "shasum": ""
             },
             "require": {
@@ -328,6 +328,7 @@
                 "symfony/console": ">=2.0"
             },
             "require-dev": {
+                "ext-xdebug": "*",
                 "phpunit/phpunit": "3.7.*@stable"
             },
             "bin": [
@@ -362,7 +363,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2014-07-23 13:42:41"
+            "time": "2015-09-08 14:22:33"
         },
         {
             "name": "doctrine/instantiator",
@@ -424,12 +425,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "4bc3df84dddf2629e6d96d6216f9ccae61d99389"
+                "reference": "b6b9e99d0c3b06321d2c0f1daae60d284990ffed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/4bc3df84dddf2629e6d96d6216f9ccae61d99389",
-                "reference": "4bc3df84dddf2629e6d96d6216f9ccae61d99389",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/b6b9e99d0c3b06321d2c0f1daae60d284990ffed",
+                "reference": "b6b9e99d0c3b06321d2c0f1daae60d284990ffed",
                 "shasum": ""
             },
             "require": {
@@ -475,7 +476,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2015-08-07 14:31:41"
+            "time": "2015-09-08 19:14:07"
         },
         {
             "name": "guzzle/guzzle",
@@ -574,16 +575,16 @@
         },
         {
             "name": "henrikbjorn/phpspec-code-coverage",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/henrikbjorn/PhpSpecCodeCoverageExtension.git",
-                "reference": "689f1f173d6ddfac076b4430bf1b6ceb345cff46"
+                "reference": "508434c1753148e3ae46276f117bb5143aabaec6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/henrikbjorn/PhpSpecCodeCoverageExtension/zipball/689f1f173d6ddfac076b4430bf1b6ceb345cff46",
-                "reference": "689f1f173d6ddfac076b4430bf1b6ceb345cff46",
+                "url": "https://api.github.com/repos/henrikbjorn/PhpSpecCodeCoverageExtension/zipball/508434c1753148e3ae46276f117bb5143aabaec6",
+                "reference": "508434c1753148e3ae46276f117bb5143aabaec6",
                 "shasum": ""
             },
             "require": {
@@ -592,8 +593,7 @@
                 "phpunit/php-code-coverage": "~2.0"
             },
             "require-dev": {
-                "bossa/phpspec2-expect": "~1.0",
-                "ext-xdebug": ">=2.1.4"
+                "bossa/phpspec2-expect": "~1.0"
             },
             "type": "library",
             "extra": {
@@ -611,7 +611,7 @@
                 "MIT"
             ],
             "description": "Integrates CodeCoverage with PhpSpec",
-            "time": "2014-12-11 11:43:15"
+            "time": "2015-03-13 20:37:48"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -664,16 +664,16 @@
         },
         {
             "name": "phpspec/nyan-formatters",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/nyan-formatters.git",
-                "reference": "4aaef7454dc037208074798a34844e02300c33df"
+                "reference": "dd784dfb98e2231b02443f29c05707263b071e8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/nyan-formatters/zipball/4aaef7454dc037208074798a34844e02300c33df",
-                "reference": "4aaef7454dc037208074798a34844e02300c33df",
+                "url": "https://api.github.com/repos/phpspec/nyan-formatters/zipball/dd784dfb98e2231b02443f29c05707263b071e8c",
+                "reference": "dd784dfb98e2231b02443f29c05707263b071e8c",
                 "shasum": ""
             },
             "require": {
@@ -712,7 +712,7 @@
                 "nyan",
                 "phpspec"
             ],
-            "time": "2014-07-16 13:27:03"
+            "time": "2015-01-20 17:26:03"
         },
         {
             "name": "phpspec/php-diff",
@@ -750,16 +750,16 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "2.2.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "e9a40577323e67f1de2e214abf32976a0352d8f8"
+                "reference": "36635a903bdeb54899d7407bc95610501fd98559"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/e9a40577323e67f1de2e214abf32976a0352d8f8",
-                "reference": "e9a40577323e67f1de2e214abf32976a0352d8f8",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/36635a903bdeb54899d7407bc95610501fd98559",
+                "reference": "36635a903bdeb54899d7407bc95610501fd98559",
                 "shasum": ""
             },
             "require": {
@@ -771,15 +771,14 @@
                 "symfony/console": "~2.3",
                 "symfony/event-dispatcher": "~2.1",
                 "symfony/finder": "~2.1",
-                "symfony/process": "~2.1",
+                "symfony/process": "^2.6",
                 "symfony/yaml": "~2.1"
             },
             "require-dev": {
                 "behat/behat": "^3.0.11",
                 "bossa/phpspec2-expect": "~1.0",
                 "phpunit/phpunit": "~4.4",
-                "symfony/filesystem": "~2.1",
-                "symfony/process": "~2.1"
+                "symfony/filesystem": "~2.1"
             },
             "suggest": {
                 "phpspec/nyan-formatters": "~1.0 – Adds Nyan formatters"
@@ -824,7 +823,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2015-05-30 15:21:40"
+            "time": "2015-09-07 07:07:37"
         },
         {
             "name": "phpspec/prophecy",
@@ -1125,16 +1124,16 @@
         },
         {
             "name": "refinery29/php-cs-fixer-config",
-            "version": "0.1.3",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/refinery29/php-cs-fixer-config.git",
-                "reference": "ebc7b75a749a4f1f050a63415c62c349fdac20dd"
+                "reference": "049e5a80c18473d5adf6a1232255bd9c0df30879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/refinery29/php-cs-fixer-config/zipball/ebc7b75a749a4f1f050a63415c62c349fdac20dd",
-                "reference": "ebc7b75a749a4f1f050a63415c62c349fdac20dd",
+                "url": "https://api.github.com/repos/refinery29/php-cs-fixer-config/zipball/049e5a80c18473d5adf6a1232255bd9c0df30879",
+                "reference": "049e5a80c18473d5adf6a1232255bd9c0df30879",
                 "shasum": ""
             },
             "require": {
@@ -1167,9 +1166,9 @@
             ],
             "description": "Provides a configuration for fabpot/php-cs-fixer, used within Refinery29.",
             "support": {
-                "source": "https://github.com/refinery29/php-cs-fixer-config/tree/0.1.3"
+                "source": "https://github.com/refinery29/php-cs-fixer-config/tree/0.1.4"
             },
-            "time": "2015-08-18 12:22:37"
+            "time": "2015-09-04 15:09:45"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -1566,12 +1565,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "062888c020feb3dba4b5fd9f55e482ae6efea5e5"
+                "reference": "a128eea5ba356841c4a70a47b716711513b59cad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/062888c020feb3dba4b5fd9f55e482ae6efea5e5",
-                "reference": "062888c020feb3dba4b5fd9f55e482ae6efea5e5",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/a128eea5ba356841c4a70a47b716711513b59cad",
+                "reference": "a128eea5ba356841c4a70a47b716711513b59cad",
                 "shasum": ""
             },
             "require": {
@@ -1608,7 +1607,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-03 11:51:32"
+            "time": "2015-09-03 19:46:43"
         },
         {
             "name": "symfony/console",
@@ -1673,12 +1672,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "d7246885b7fe4cb5a2786bda34362d2f0e40b730"
+                "reference": "8deea7a9f5560b7e70eab8d72e5e8f2d45564d15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/d7246885b7fe4cb5a2786bda34362d2f0e40b730",
-                "reference": "d7246885b7fe4cb5a2786bda34362d2f0e40b730",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/8deea7a9f5560b7e70eab8d72e5e8f2d45564d15",
+                "reference": "8deea7a9f5560b7e70eab8d72e5e8f2d45564d15",
                 "shasum": ""
             },
             "require": {
@@ -1723,7 +1722,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2015-06-24 15:32:32"
+            "time": "2015-08-24 07:18:02"
         },
         {
             "name": "symfony/filesystem",
