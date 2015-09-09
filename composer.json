@@ -32,7 +32,11 @@
     {
       "name" : "Andreas Moller",
       "email" : "andreas.moller@refinery29.com"
-    } 
+    }, 
+    {
+      "name" : "Ryan Catlin", 
+      "email" : "ryan.catlin@refinery29.com"
+    }
   ],
   "license": "MIT",
   "autoload": {
