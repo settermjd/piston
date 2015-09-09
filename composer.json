@@ -22,9 +22,17 @@
   },
   "authors": [
     {
+      "name" : "Refinery29",
+      "email": "p.e@refinery29.com"
+    },
+    {
       "name": "Kayla Daniels",
       "email": "kayla.daniels@refinery29.com"
-    }
+    }, 
+    {
+      "name" : "Andreas Moller",
+      "email" : "andreas.moller@refinery29.com"
+    } 
   ],
   "license": "MIT",
   "autoload": {
