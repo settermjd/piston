@@ -11,6 +11,7 @@ use Refinery29\Piston\Http\Request;
 class RequestedFields implements StageInterface
 {
     use GetOnlyStage;
+
     /**
      * @param Request $request
      *
