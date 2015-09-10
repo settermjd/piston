@@ -54,6 +54,9 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
         $this->bootstrapRouter();
         $this->bootstrapPipelines();
+
+        $this->request = $this->getRequest();
+        $this->response = $this->getResponse($this->request);
     }
 
     /**
@@ -69,16 +72,18 @@ class Piston implements ContainerAwareInterface, HasPipelines
      */
     public function getRequest()
     {
-        return $this->request ? $this->request : Request::createFromGlobals();
+        if (!$this->request) {
+            return Request::createFromGlobals();
+        }
+
+        return $this->request;
     }
 
     public function getResponse(Request $request)
     {
         $negotiator = new ResponseNegotiator($request);
 
-        $this->response = $negotiator->negotiateResponse();
-
-        return $this->response;
+        return $negotiator->negotiateResponse();
     }
 
     /**
@@ -133,7 +138,6 @@ class Piston implements ContainerAwareInterface, HasPipelines
     protected function loadContainer()
     {
         $this->preProcessRequest();
-        $this->getResponse($this->request);
 
         $this->container->add('Request', $this->request, true);
         $this->container->add('Response', $this->response, true);
@@ -144,7 +148,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
         return (new RequestPipeline())->process($this->request);
     }
 
-    protected function postProcessResponse($response)
+    protected function postProcessResponse()
     {
         return (new ResponsePipeline())->process($this->response);
     }
