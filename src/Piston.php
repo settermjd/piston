@@ -56,7 +56,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
         $this->bootstrapPipelines();
 
         $this->request = $this->getRequest();
-        $this->response =$this->getResponse($this->request);
+        $this->response = $this->getResponse($this->request);
     }
 
     /**
@@ -72,7 +72,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
      */
     public function getRequest()
     {
-        if (!$this->request){
+        if (!$this->request) {
             return Request::createFromGlobals();
         }
 
