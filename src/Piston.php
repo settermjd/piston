@@ -8,10 +8,10 @@ use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
+use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
 use Refinery29\Piston\Http\Pipeline\ResponsePipeline;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\ResponseNegotiator;
 use Refinery29\Piston\Pipeline\HasPipelines;
 use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
@@ -79,11 +79,16 @@ class Piston implements ContainerAwareInterface, HasPipelines
         return $this->request;
     }
 
-    public function getResponse(Request $request)
+    /**
+     * @return JsonResponse
+     */
+    public function getResponse()
     {
-        $negotiator = new ResponseNegotiator($request);
+        if (!$this->response) {
+            return new JsonResponse();
+        }
 
-        return $negotiator->negotiateResponse();
+        return $this->response;
     }
 
     /**
