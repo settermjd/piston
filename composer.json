@@ -1,6 +1,25 @@
 {
   "name": "refinery29/piston",
   "description": "Opinionated Micro Framework for APIs",
+  "license": "MIT",
+  "authors": [
+    {
+      "name" : "Refinery29",
+      "email": "p.e@refinery29.com"
+    },
+    {
+      "name": "Kayla Daniels",
+      "email": "kayla.daniels@refinery29.com"
+    },
+    {
+      "name" : "Andreas Moller",
+      "email" : "andreas.moller@refinery29.com"
+    },
+    {
+      "name" : "Ryan Catlin",
+      "email" : "ryan.catlin@refinery29.com"
+    }
+  ],
   "repositories": [
     {
       "type": "vcs",
@@ -20,25 +39,6 @@
     "phpspec/phpspec": "~2.2",
     "refinery29/php-cs-fixer-config": "^0.1.1"
   },
-  "authors": [
-    {
-      "name" : "Refinery29",
-      "email": "p.e@refinery29.com"
-    },
-    {
-      "name": "Kayla Daniels",
-      "email": "kayla.daniels@refinery29.com"
-    }, 
-    {
-      "name" : "Andreas Moller",
-      "email" : "andreas.moller@refinery29.com"
-    }, 
-    {
-      "name" : "Ryan Catlin", 
-      "email" : "ryan.catlin@refinery29.com"
-    }
-  ],
-  "license": "MIT",
   "autoload": {
     "psr-4": {
       "Refinery29\\Piston\\": "src"
