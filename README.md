@@ -11,7 +11,7 @@ Opinionated Micro Framework for APIs
 Piston supports class based routing. The class being routed to must return an instance of `Refinery29\Piston\Http\Request`. Routes are implemented as simple value objects that hold url alias, http verb, and action. 
 
 ```php
-$application = new Application();
+$application = new Piston();
 $application->addRoute(Route::get('jedi/{id}', 'JediController::useTheForce'));
 ```
 
