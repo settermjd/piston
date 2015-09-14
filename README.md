@@ -66,6 +66,11 @@ $hook = new UseTheForceHook();
 $application->addPre($hook);
 ```
 
+### Decorators
+Piston allows itself to be decorated too add functionality. 
+
+Decorators must implement `Refinery29\Piston\Decorator` interface and define a `register()` function. The `register()` function must return an instance of 'Refinery29\Piston\Piston`.
+
 ### Service Providers
 [Service providers](http://container.thephpleague.com/service-providers/) can be easily added to encapsulate any service necessary to the application. Any service provider class must implement `League\Container\ServiceProvider`
 
