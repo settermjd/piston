@@ -8,23 +8,24 @@ Opinionated Micro Framework for APIs
 
 ## Routing
 
-Piston supports route based and closure based routing. In both cases, the action must return an instance of `Refinery29\Piston\Http\Request`. Routes are implemented as simple value objects that hold url alias, http verb, and action. 
+Piston supports class based routing. The class being routed to must return an instance of `Refinery29\Piston\Http\Request`. Routes are implemented as simple value objects that hold url alias, http verb, and action. 
 
-**Route Based**
 ```php
-$application = new Application();
+$application = new Piston();
 $application->addRoute(Route::get('jedi/{id}', 'JediController::useTheForce'));
 ```
 
-**Closure Based**
-```php
-$application = new Application();
-$application->addRoute(Route::get('jedi/{id}', function($request, $response) {
-	return $response;
-}));
-```
+Piston relies on [`kayladnls/seesaw`](http://github.com/kayladnls/seesaw) and [`league/route`](http://route.thephpleague.com/) for routing. 
 
-Piston relies on [`league/route`](http://route.thephpleague.com/) for routing. This allows for parameterized routes such as `/jedi/master/{name}`. You are able to enforce that the parameters be either a number of a word: `{id:number}/{name:word}`
+`league/route` allows for parameterized routes such as `/jedi/master/{name}`. You are able to enforce that the parameters be either a number of a word: `{id:number}/{name:word}`. 
+
+`kayladnls/seesaw` allows for the reverse routing. 
+
+
+```php
+$application->addNamedRoute('QuiGon', 'GET', 'jedi/quigon', JediController::QuiGon);
+echo $this->route('QuiGon'); // will output: /jedi/quigon'
+```
 
 ### Route Groups
 There is also the ability to create Route groups that can bundle certain routes together. For instance, if you have a set of routes that are Admin accessible, you can create a group for those routes. 
@@ -42,12 +43,6 @@ $group->addRoute($route2);
 $application->addRouteGroup($group);
 ```
 
-You can also use the convenience function `group()`. 
-
-```php
-$application->group($route1, $route2, $route2);
-```
-
 Route Groups also accept a url segment as a second parameter: 
 
 ```php
@@ -55,34 +50,26 @@ $group = new RouteGroup([], 'admin');
 ```
 All routes in this group will have urls that are prepended with this url segment, resulting in the URL `admin/route_url`.
 
-Route groups are able to be nested. 
+### Pipelines
+Piston provides a number of different points in the execution of the application that you can hook into to add functionality. This allows you to take action at different points, as you launch the app. 
 
-```php 
+Pipelines exist at two levels:
+- Application/Global level   
+- Route Group level
 
-$outer_group = new RouteGroup([Route::get('/somethingReallyCool', 'JediController::UseTheFource')], 'outer', ;
-
-$inner_group = new RouteGroup([], '/inner');
-$inner_group->addGroup($outer_grou);
-```
-
-The above route would result in having the URL `outer/inner/somethingReallyCool`. 
-
-### Hooks
-Piston provides another of different hookable points in the execute of the application. This allows you to take action at different points, as you launch the app. 
-
-Pre and Post Hooks are provided for each of these objects:   
-- Application   
-- Route Group  
-- Route   
-
-Hooks are applied in order from least specific to most specific. Application, then RouteGroup, then Route. 
+Hooks are applied in order from least specific to most specific. Application, then RouteGroup. 
 
 Hooks must implement `League\Pipeline\StageInterface` and define a `process()` method which must return an instance of `Refinery29\Piston\Http\Request`
 
 ```php
 $hook = new UseTheForceHook();
-$application->addPreHook($hook);
+$application->addPre($hook);
 ```
+
+### Decorators
+Piston allows itself to be decorated too add functionality. 
+
+Decorators must implement `Refinery29\Piston\Decorator` interface and define a `register()` function. The `register()` function must return an instance of 'Refinery29\Piston\Piston`.
 
 ### Service Providers
 [Service providers](http://container.thephpleague.com/service-providers/) can be easily added to encapsulate any service necessary to the application. Any service provider class must implement `League\Container\ServiceProvider`
@@ -146,24 +133,3 @@ array
 
 
 All of the above filters are only allowed on `GET` requests. Use of any of these parameters will result in an error if used with any other HTTP verb.
-
-### Configuration
-You are able to pass in configuration variables via the following method:  
-
-```php
-$config = [
-    'super_secret_key' => 'super_secret_value'
-];
-
-$application = new Piston();
-$application->setConfig($config);
-```
-
-Configuration is available through: 
-
-```php
-$app->getConfig()
-```
-
-### Todo:
-- [ ] CSRF Protection on POST and PUT routes

@@ -37,11 +37,6 @@ class Piston implements ContainerAwareInterface, HasPipelines
      */
     protected $request = null;
 
-    /**
-     * @var array
-     */
-    protected $config;
-
     protected $response;
 
     /**
