@@ -32,7 +32,7 @@
     "kayladnls/seesaw": "0.2.*"
   },
   "require-dev": {
-    "codeclimate/php-test-reporter": "^0.1.2",
+    "codeclimate/php-test-reporter": "0.2.0",
     "fabpot/php-cs-fixer": "2.0.*@dev",
     "henrikbjorn/phpspec-code-coverage": "~1.0",
     "phpspec/nyan-formatters": "~1.0",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "54095f3570a0674e1d7c871f837db499",
+    "hash": "4920df12a8f1776d4ac9bfc5566aae13",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -309,16 +309,16 @@
     "packages-dev": [
         {
             "name": "codeclimate/php-test-reporter",
-            "version": "v0.1.2",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeclimate/php-test-reporter.git",
-                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646"
+                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
-                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/85b5de950678a25f3e85adb6bc26de7f7f231d18",
+                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18",
                 "shasum": ""
             },
             "require": {
@@ -328,6 +328,7 @@
                 "symfony/console": ">=2.0"
             },
             "require-dev": {
+                "ext-xdebug": "*",
                 "phpunit/phpunit": "3.7.*@stable"
             },
             "bin": [
@@ -362,7 +363,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2014-07-23 13:42:41"
+            "time": "2015-09-08 14:22:33"
         },
         {
             "name": "doctrine/instantiator",
@@ -428,7 +429,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/43657f29db2496462367a813359421bb11d3a197",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/ead0d6d8f714cf1b60df49800b28a76a96bd9466",
                 "reference": "43657f29db2496462367a813359421bb11d3a197",
                 "shasum": ""
             },
