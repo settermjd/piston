@@ -29,7 +29,8 @@
   "require": {
     "php": ">=5.5",
     "league/pipeline": "^0.1.0",
-    "kayladnls/seesaw": "0.2.*"
+    "kayladnls/seesaw": "0.2.*",
+    "refinery29/api-output": "dev-master"
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "0.2.0",
