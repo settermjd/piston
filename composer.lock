@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4920df12a8f1776d4ac9bfc5566aae13",
+    "hash": "217ad65dc0876daaab755a656a5f2eff",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -253,6 +253,47 @@
             "time": "2015-06-18 19:15:47"
         },
         {
+            "name": "refinery29/api-output",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/refinery29/api-output.git",
+                "reference": "98446071e386ae001143acbf8a4af3bd57caa19e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/refinery29/api-output/zipball/98446071e386ae001143acbf8a4af3bd57caa19e",
+                "reference": "98446071e386ae001143acbf8a4af3bd57caa19e",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "^0.2.0",
+                "fabpot/php-cs-fixer": "2.0.*@dev",
+                "henrikbjorn/phpspec-code-coverage": "^1.0",
+                "phpspec/nyan-formatters": "^1.0",
+                "phpspec/phpspec": "^2.3",
+                "refinery29/php-cs-fixer-config": "^0.1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Refinery29\\ApiOutput\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kayla Daniels",
+                    "email": "kayladnls@gmail.com"
+                }
+            ],
+            "description": "Package for generating API output per refinery29/api-standards",
+            "time": "2015-09-16 12:54:39"
+        },
+        {
             "name": "symfony/http-foundation",
             "version": "v2.7.4",
             "source": {
@@ -309,16 +350,16 @@
     "packages-dev": [
         {
             "name": "codeclimate/php-test-reporter",
-            "version": "v0.2.0",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeclimate/php-test-reporter.git",
-                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18"
+                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/85b5de950678a25f3e85adb6bc26de7f7f231d18",
-                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
+                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +369,6 @@
                 "symfony/console": ">=2.0"
             },
             "require-dev": {
-                "ext-xdebug": "*",
                 "phpunit/phpunit": "3.7.*@stable"
             },
             "bin": [
@@ -363,7 +403,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2015-09-08 14:22:33"
+            "time": "2014-07-23 13:42:41"
         },
         {
             "name": "doctrine/instantiator",
@@ -429,7 +469,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/ead0d6d8f714cf1b60df49800b28a76a96bd9466",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/43657f29db2496462367a813359421bb11d3a197",
                 "reference": "43657f29db2496462367a813359421bb11d3a197",
                 "shasum": ""
             },
@@ -888,16 +928,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c"
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2d7c03c0e4e080901b8f33b2897b0577be18a13c",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
                 "shasum": ""
             },
             "require": {
@@ -946,7 +986,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-04 03:42:39"
+            "time": "2015-09-14 06:51:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1038,16 +1078,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.6",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
                 "shasum": ""
             },
             "require": {
@@ -1083,7 +1123,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "psr/log",
@@ -2080,6 +2120,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "refinery29/api-output": 20,
         "fabpot/php-cs-fixer": 20
     },
     "prefer-stable": true,
