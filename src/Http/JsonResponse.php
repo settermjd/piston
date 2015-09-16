@@ -104,7 +104,7 @@ class JsonResponse extends \Symfony\Component\HttpFoundation\JsonResponse
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function send()
     {

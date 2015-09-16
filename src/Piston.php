@@ -8,6 +8,7 @@ use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
+use Refinery29\ApiOutput\ResponseBody;
 use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
 use Refinery29\Piston\Http\Pipeline\ResponsePipeline;
@@ -17,8 +18,6 @@ use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\Response;
-use Refinery29\ApiOutput\ResponseBody;
-
 
 class Piston implements ContainerAwareInterface, HasPipelines
 {
