@@ -12,10 +12,23 @@ class JsonResponseSpec extends ObjectBehavior
         $this->shouldHaveType(JsonResponse::class);
     }
 
-    public function it_can_get_pagination_cursors()
+    public function it_can_get_prev_cursors()
     {
-        $this->setPaginationCursors(123, 345);
+        $this->setPreviousCursor(123);
 
-        $this->getPaginationCursors()->shouldReturn(['prev' => 123, 'next' => 345]);
+        $this->getPreviousCursor()->shouldReturn(123);
+    }
+
+    public function it_can_get_next_cursors()
+    {
+        $this->setNextCursor(456);
+        $this->getNextCursor()->shouldReturn(456);
+    }
+
+    public function it_can_get_offset_limit()
+    {
+        $this->setOffsetLimit(50, 75);
+
+        $this->getOffsetLimit()->shouldReturn(['offset' => 50, 'limit' => 75]);
     }
 }
