@@ -47,34 +47,20 @@ class JsonResponse extends \Symfony\Component\HttpFoundation\JsonResponse
 
     /**
      * @param $previous
-     */
-    public function setPreviousCursor($previous)
-    {
-        $this->previous = $previous;
-    }
-
-    /**
      * @param $next
      */
-    public function setNextCursor($next)
+    public function setPaginationCursors($previous, $next)
     {
+        $this->previous = $previous;
         $this->next = $next;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getPreviousCursor()
+    public function getPaginationCursors()
     {
-        return $this->previous;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNextCursor()
-    {
-        return $this->next;
+        return ['prev' => $this->previous, 'next' => $this->next];
     }
 
     /**
