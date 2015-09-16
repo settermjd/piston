@@ -17,6 +17,8 @@ use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\Response;
+use Refinery29\ApiOutput\ResponseBody;
+
 
 class Piston implements ContainerAwareInterface, HasPipelines
 {
@@ -51,7 +53,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
         $this->bootstrapPipelines();
 
         $this->request = $this->getRequest();
-        $this->response = $this->getResponse($this->request);
+        $this->response = $this->getResponse();
     }
 
     /**
@@ -80,7 +82,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
     public function getResponse()
     {
         if (!$this->response) {
-            return new JsonResponse();
+            return new JsonResponse(new ResponseBody());
         }
 
         return $this->response;
