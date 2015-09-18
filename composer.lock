@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "217ad65dc0876daaab755a656a5f2eff",
+    "hash": "4872673e4ae9bfdc1202f2440cbb7a05",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -254,16 +254,16 @@
         },
         {
             "name": "refinery29/api-output",
-            "version": "dev-master",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/refinery29/api-output.git",
-                "reference": "98446071e386ae001143acbf8a4af3bd57caa19e"
+                "reference": "526b6107b896d0f03bec3bbda18e1092ae643bab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/refinery29/api-output/zipball/98446071e386ae001143acbf8a4af3bd57caa19e",
-                "reference": "98446071e386ae001143acbf8a4af3bd57caa19e",
+                "url": "https://api.github.com/repos/refinery29/api-output/zipball/526b6107b896d0f03bec3bbda18e1092ae643bab",
+                "reference": "526b6107b896d0f03bec3bbda18e1092ae643bab",
                 "shasum": ""
             },
             "require-dev": {
@@ -272,7 +272,7 @@
                 "henrikbjorn/phpspec-code-coverage": "^1.0",
                 "phpspec/nyan-formatters": "^1.0",
                 "phpspec/phpspec": "^2.3",
-                "refinery29/php-cs-fixer-config": "^0.1.1"
+                "refinery29/php-cs-fixer-config": "^0.1.5"
             },
             "type": "library",
             "autoload": {
@@ -291,7 +291,7 @@
                 }
             ],
             "description": "Package for generating API output per refinery29/api-standards",
-            "time": "2015-09-16 12:54:39"
+            "time": "2015-09-18 15:02:10"
         },
         {
             "name": "symfony/http-foundation",
@@ -350,16 +350,16 @@
     "packages-dev": [
         {
             "name": "codeclimate/php-test-reporter",
-            "version": "v0.1.2",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeclimate/php-test-reporter.git",
-                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646"
+                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
-                "reference": "8ed24ff30f3663ecf40f1c12d6c97eb56c69e646",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/85b5de950678a25f3e85adb6bc26de7f7f231d18",
+                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18",
                 "shasum": ""
             },
             "require": {
@@ -369,6 +369,7 @@
                 "symfony/console": ">=2.0"
             },
             "require-dev": {
+                "ext-xdebug": "*",
                 "phpunit/phpunit": "3.7.*@stable"
             },
             "bin": [
@@ -403,7 +404,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2014-07-23 13:42:41"
+            "time": "2015-09-08 14:22:33"
         },
         {
             "name": "doctrine/instantiator",
@@ -465,12 +466,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "43657f29db2496462367a813359421bb11d3a197"
+                "reference": "db0a0212013ef0b796959d5ba9cc72538c451b8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/43657f29db2496462367a813359421bb11d3a197",
-                "reference": "43657f29db2496462367a813359421bb11d3a197",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/db0a0212013ef0b796959d5ba9cc72538c451b8c",
+                "reference": "db0a0212013ef0b796959d5ba9cc72538c451b8c",
                 "shasum": ""
             },
             "require": {
@@ -516,7 +517,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2015-09-10 19:54:34"
+            "time": "2015-09-15 17:18:15"
         },
         {
             "name": "guzzle/guzzle",
@@ -1165,21 +1166,21 @@
         },
         {
             "name": "refinery29/php-cs-fixer-config",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/refinery29/php-cs-fixer-config.git",
-                "reference": "049e5a80c18473d5adf6a1232255bd9c0df30879"
+                "reference": "f90e5958991a568e9352119a66b7551b1177bdb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/refinery29/php-cs-fixer-config/zipball/049e5a80c18473d5adf6a1232255bd9c0df30879",
-                "reference": "049e5a80c18473d5adf6a1232255bd9c0df30879",
+                "url": "https://api.github.com/repos/refinery29/php-cs-fixer-config/zipball/f90e5958991a568e9352119a66b7551b1177bdb0",
+                "reference": "f90e5958991a568e9352119a66b7551b1177bdb0",
                 "shasum": ""
             },
             "require": {
                 "fabpot/php-cs-fixer": "2.0.*@dev",
-                "php": ">=5.5"
+                "php": ">=5.4"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "^0.1.2",
@@ -1191,11 +1192,7 @@
                     "Refinery29\\CS\\Config\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Refinery29\\CS\\Config\\Test\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1206,10 +1203,7 @@
                 }
             ],
             "description": "Provides a configuration for fabpot/php-cs-fixer, used within Refinery29.",
-            "support": {
-                "source": "https://github.com/refinery29/php-cs-fixer-config/tree/0.1.4"
-            },
-            "time": "2015-09-04 15:09:45"
+            "time": "2015-09-14 12:18:40"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -2120,7 +2114,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "refinery29/api-output": 20,
         "fabpot/php-cs-fixer": 20
     },
     "prefer-stable": true,
