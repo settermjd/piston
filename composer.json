@@ -20,16 +20,11 @@
       "email" : "ryan.catlin@refinery29.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:refinery29/php-cs-fixer-config"
-    }
-  ],
   "require": {
     "php": ">=5.5",
     "league/pipeline": "^0.1.0",
-    "kayladnls/seesaw": "0.2.*"
+    "kayladnls/seesaw": "0.2.*",
+    "refinery29/api-output": "^0.2.0"
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "0.2.0",

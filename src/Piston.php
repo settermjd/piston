@@ -8,15 +8,15 @@ use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
-use Refinery29\Piston\Http\JsonResponse;
+use Refinery29\ApiOutput\ResponseBody;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
-use Refinery29\Piston\Http\Pipeline\ResponsePipeline;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Pipeline\HasPipelines;
 use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class Piston implements ContainerAwareInterface, HasPipelines
 {
@@ -51,7 +51,7 @@ class Piston implements ContainerAwareInterface, HasPipelines
         $this->bootstrapPipelines();
 
         $this->request = $this->getRequest();
-        $this->response = $this->getResponse($this->request);
+        $this->response = $this->getResponse();
     }
 
     /**
@@ -75,12 +75,12 @@ class Piston implements ContainerAwareInterface, HasPipelines
     }
 
     /**
-     * @return JsonResponse
+     * @return Response
      */
     public function getResponse()
     {
         if (!$this->response) {
-            return new JsonResponse();
+            return new Response(SymfonyResponse::create(), new ResponseBody());
         }
 
         return $this->response;
@@ -130,8 +130,6 @@ class Piston implements ContainerAwareInterface, HasPipelines
 
         $response = $dispatcher->dispatch($this->request->getMethod(), $this->request->getPathInfo());
 
-        $response = $this->postProcessResponse($response);
-
         return $response->send();
     }
 
@@ -146,11 +144,6 @@ class Piston implements ContainerAwareInterface, HasPipelines
     protected function preProcessRequest()
     {
         return (new RequestPipeline())->process($this->request);
-    }
-
-    protected function postProcessResponse()
-    {
-        return (new ResponsePipeline())->process($this->response);
     }
 
     /**

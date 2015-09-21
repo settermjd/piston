@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4920df12a8f1776d4ac9bfc5566aae13",
+    "hash": "4872673e4ae9bfdc1202f2440cbb7a05",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -253,6 +253,47 @@
             "time": "2015-06-18 19:15:47"
         },
         {
+            "name": "refinery29/api-output",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/refinery29/api-output.git",
+                "reference": "526b6107b896d0f03bec3bbda18e1092ae643bab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/refinery29/api-output/zipball/526b6107b896d0f03bec3bbda18e1092ae643bab",
+                "reference": "526b6107b896d0f03bec3bbda18e1092ae643bab",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "^0.2.0",
+                "fabpot/php-cs-fixer": "2.0.*@dev",
+                "henrikbjorn/phpspec-code-coverage": "^1.0",
+                "phpspec/nyan-formatters": "^1.0",
+                "phpspec/phpspec": "^2.3",
+                "refinery29/php-cs-fixer-config": "^0.1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Refinery29\\ApiOutput\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kayla Daniels",
+                    "email": "kayladnls@gmail.com"
+                }
+            ],
+            "description": "Package for generating API output per refinery29/api-standards",
+            "time": "2015-09-18 15:02:10"
+        },
+        {
             "name": "symfony/http-foundation",
             "version": "v2.7.4",
             "source": {
@@ -425,12 +466,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "43657f29db2496462367a813359421bb11d3a197"
+                "reference": "db0a0212013ef0b796959d5ba9cc72538c451b8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/ead0d6d8f714cf1b60df49800b28a76a96bd9466",
-                "reference": "43657f29db2496462367a813359421bb11d3a197",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/db0a0212013ef0b796959d5ba9cc72538c451b8c",
+                "reference": "db0a0212013ef0b796959d5ba9cc72538c451b8c",
                 "shasum": ""
             },
             "require": {
@@ -476,7 +517,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2015-09-10 19:54:34"
+            "time": "2015-09-15 17:18:15"
         },
         {
             "name": "guzzle/guzzle",
@@ -888,16 +929,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c"
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2d7c03c0e4e080901b8f33b2897b0577be18a13c",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
                 "shasum": ""
             },
             "require": {
@@ -946,7 +987,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-04 03:42:39"
+            "time": "2015-09-14 06:51:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1038,16 +1079,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.6",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
                 "shasum": ""
             },
             "require": {
@@ -1083,7 +1124,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "psr/log",
@@ -1125,21 +1166,21 @@
         },
         {
             "name": "refinery29/php-cs-fixer-config",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/refinery29/php-cs-fixer-config.git",
-                "reference": "049e5a80c18473d5adf6a1232255bd9c0df30879"
+                "reference": "f90e5958991a568e9352119a66b7551b1177bdb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/refinery29/php-cs-fixer-config/zipball/049e5a80c18473d5adf6a1232255bd9c0df30879",
-                "reference": "049e5a80c18473d5adf6a1232255bd9c0df30879",
+                "url": "https://api.github.com/repos/refinery29/php-cs-fixer-config/zipball/f90e5958991a568e9352119a66b7551b1177bdb0",
+                "reference": "f90e5958991a568e9352119a66b7551b1177bdb0",
                 "shasum": ""
             },
             "require": {
                 "fabpot/php-cs-fixer": "2.0.*@dev",
-                "php": ">=5.5"
+                "php": ">=5.4"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "^0.1.2",
@@ -1151,11 +1192,7 @@
                     "Refinery29\\CS\\Config\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Refinery29\\CS\\Config\\Test\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1166,10 +1203,7 @@
                 }
             ],
             "description": "Provides a configuration for fabpot/php-cs-fixer, used within Refinery29.",
-            "support": {
-                "source": "https://github.com/refinery29/php-cs-fixer-config/tree/0.1.4"
-            },
-            "time": "2015-09-04 15:09:45"
+            "time": "2015-09-14 12:18:40"
         },
         {
             "name": "satooshi/php-coveralls",
