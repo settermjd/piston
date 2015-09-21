@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4872673e4ae9bfdc1202f2440cbb7a05",
+    "hash": "d0cc430a32998b6696024f2fd2b22782",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -254,16 +254,16 @@
         },
         {
             "name": "refinery29/api-output",
-            "version": "0.2.1",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/refinery29/api-output.git",
-                "reference": "526b6107b896d0f03bec3bbda18e1092ae643bab"
+                "reference": "0a46ae319b380dbad1149d2dc0c0731614bb2e75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/refinery29/api-output/zipball/526b6107b896d0f03bec3bbda18e1092ae643bab",
-                "reference": "526b6107b896d0f03bec3bbda18e1092ae643bab",
+                "url": "https://api.github.com/repos/refinery29/api-output/zipball/0a46ae319b380dbad1149d2dc0c0731614bb2e75",
+                "reference": "0a46ae319b380dbad1149d2dc0c0731614bb2e75",
                 "shasum": ""
             },
             "require-dev": {
@@ -291,7 +291,7 @@
                 }
             ],
             "description": "Package for generating API output per refinery29/api-standards",
-            "time": "2015-09-18 15:02:10"
+            "time": "2015-09-21 19:03:47"
         },
         {
             "name": "symfony/http-foundation",
