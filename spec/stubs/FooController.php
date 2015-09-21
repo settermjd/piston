@@ -2,9 +2,9 @@
 
 namespace Refinery29\Piston\Stubs;
 
+use Refinery29\Piston\Http\JsonResponse;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\Routes\Routeable;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Created by PhpStorm.
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class FooController implements Routeable
 {
-    public function fooAction(Request $req, Response $resp)
+    public function fooAction(Request $req, JsonResponse $resp)
     {
         return $resp;
     }

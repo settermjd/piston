@@ -2,11 +2,11 @@
 
 namespace Refinery29\Piston\Http;
 
+use Symfony\Component\HttpFoundation\JsonResponse as SymfonyResponse;
 use Refinery29\ApiOutput\Resource\Error\ErrorCollection;
 use Refinery29\ApiOutput\Resource\Pagination\Pagination;
 use Refinery29\ApiOutput\Resource\Result;
 use Refinery29\ApiOutput\ResponseBody;
-use \Symfony\Component\HttpFoundation\JsonResponse as SymfonyResponse;
 
 class JsonResponse
 {
@@ -21,7 +21,7 @@ class JsonResponse
 
     /**
      * @param SymfonyResponse $response
-     * @param ResponseBody $responseBody
+     * @param ResponseBody    $responseBody
      */
     public function __construct(SymfonyResponse $response, ResponseBody $responseBody = null)
     {
