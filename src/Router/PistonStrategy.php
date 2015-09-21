@@ -92,6 +92,6 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
             return $response;
         }
 
-        throw new \Exception('Your request must return an instance of '. Response::class);
+        throw new \Exception('Your request must return an instance of ' . Response::class);
     }
 }

@@ -8,7 +8,7 @@ use Refinery29\ApiOutput\Resource\Result;
 use Refinery29\ApiOutput\ResponseBody;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-class Response
+class Response implements ResponseInterface
 {
     /**
      * @var ResponseBody
