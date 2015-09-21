@@ -2,39 +2,33 @@
 
 namespace Refinery29\Piston\Http;
 
-use Refinery29\ApiOutput\Resource\Error\Error;
+use Refinery29\ApiOutput\Resource\Error\ErrorCollection;
+use Refinery29\ApiOutput\Resource\Pagination\Pagination;
+use Refinery29\ApiOutput\Resource\Result;
 use Refinery29\ApiOutput\ResponseBody;
+use \Symfony\Component\HttpFoundation\JsonResponse as SymfonyResponse;
 
-class JsonResponse extends \Symfony\Component\HttpFoundation\JsonResponse
+class JsonResponse
 {
-    /**
-     * @var
-     */
-    protected $offset;
-    /**
-     * @var
-     */
-    protected $limit;
-    /**
-     * @var
-     */
-    protected $previous;
-    /**
-     * @var
-     */
-    protected $next;
-
     /**
      * @var ResponseBody
      */
     private $responseBody;
+    /**
+     * @var SymfonyResponse
+     */
+    private $response;
 
     /**
+     * @param SymfonyResponse $response
      * @param ResponseBody $responseBody
      */
-    public function __construct(ResponseBody $responseBody = null)
+    public function __construct(SymfonyResponse $response, ResponseBody $responseBody = null)
     {
         $this->responseBody = $responseBody;
+
+        $this->response = $response;
+        $this->response->headers->set('Content-Type', 'application/json');
     }
 
     /**
@@ -45,48 +39,30 @@ class JsonResponse extends \Symfony\Component\HttpFoundation\JsonResponse
         $this->responseBody = $responseBody;
     }
 
-    /**
-     * @param $previous
-     * @param $next
-     */
-    public function setPaginationCursors($previous, $next)
+    public function setPagination(Pagination $pagination)
     {
-        $this->previous = $previous;
-        $this->next = $next;
+        $this->responseBody->addMember($pagination->getSerializer());
     }
 
     /**
-     * @return array
+     * @param ErrorCollection $error
      */
-    public function getPaginationCursors()
-    {
-        return ['prev' => $this->previous, 'next' => $this->next];
-    }
-
-    /**
-     * @param int $offset
-     * @param int $limit
-     */
-    public function setOffsetLimit($offset, $limit)
-    {
-        $this->offset = $offset;
-        $this->limit = $limit;
-    }
-
-    /**
-     * @return array
-     */
-    public function getOffsetLimit()
-    {
-        return ['offset' => $this->offset, 'limit' => $this->limit];
-    }
-
-    /**
-     * @param Error $error
-     */
-    public function addError(Error $error)
+    public function setErrors(ErrorCollection $error)
     {
         $this->responseBody->addMember($error->getSerializer());
+    }
+
+    public function setResult(Result $result)
+    {
+        $this->responseBody->addMember($result->getSerializer());
+    }
+
+    /**
+     * @param $code
+     */
+    public function setStatusCode($code)
+    {
+        $this->response->setStatusCode($code);
     }
 
     /**
@@ -96,8 +72,8 @@ class JsonResponse extends \Symfony\Component\HttpFoundation\JsonResponse
     {
         $output = $this->responseBody->getOutput();
 
-        $this->setContent($output);
+        $this->response->setContent($output);
 
-        parent::send();
+        $this->response->send();
     }
 }
