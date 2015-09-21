@@ -2,11 +2,11 @@
 
 namespace Refinery29\Piston\Http;
 
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Refinery29\ApiOutput\Resource\Error\ErrorCollection;
 use Refinery29\ApiOutput\Resource\Pagination\Pagination;
 use Refinery29\ApiOutput\Resource\Result;
 use Refinery29\ApiOutput\ResponseBody;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class Response
 {

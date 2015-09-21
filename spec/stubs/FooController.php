@@ -2,8 +2,8 @@
 
 namespace Refinery29\Piston\Stubs;
 
-use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Router\Routes\Routeable;
 
 /**

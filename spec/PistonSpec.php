@@ -10,8 +10,8 @@ use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Decorator;
-use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 
