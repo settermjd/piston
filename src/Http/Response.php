@@ -58,7 +58,7 @@ class Response
     }
 
     /**
-     * @param $code
+     * @param int $code
      */
     public function setStatusCode($code)
     {

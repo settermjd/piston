@@ -3,7 +3,7 @@
 namespace Refinery29\Piston\Pipeline;
 
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response as Response;
+use Refinery29\Piston\Http\Response;
 
 trait PipelineProcessor
 {
