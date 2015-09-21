@@ -2,7 +2,7 @@
 
 namespace Refinery29\Piston\Stubs;
 
-use Refinery29\Piston\Http\JsonResponse;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Router\Routes\Routeable;
 
@@ -14,7 +14,7 @@ use Refinery29\Piston\Router\Routes\Routeable;
  */
 class FooController implements Routeable
 {
-    public function fooAction(Request $req, JsonResponse $resp)
+    public function fooAction(Request $req, Response $resp)
     {
         return $resp;
     }

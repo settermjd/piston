@@ -4,10 +4,9 @@ namespace Refinery29\Piston\Router;
 
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
-use Refinery29\Piston\Http\JsonResponse;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Pipeline\PipelineProcessor;
 use Refinery29\Piston\Router\Routes\Routeable;
-use Symfony\Component\HttpFoundation\Response;
 
 class PistonStrategy extends RequestResponseStrategy implements StrategyInterface
 {
@@ -89,7 +88,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      */
     public function validateResponse($response)
     {
-        if ($response instanceof JsonResponse) {
+        if ($response instanceof Response) {
             return $response;
         }
 

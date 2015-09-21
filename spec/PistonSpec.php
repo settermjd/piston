@@ -10,7 +10,7 @@ use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Decorator;
-use Refinery29\Piston\Http\JsonResponse;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Router\Routes\RouteGroup;
@@ -55,13 +55,13 @@ class PistonSpec extends ObjectBehavior
     public function it_can_negotiate_response_based_on_request(Request $request)
     {
         $request->getAcceptableContentTypes()->willReturn([]);
-        $this->getResponse($request)->shouldHaveType(JsonResponse::class);
+        $this->getResponse($request)->shouldHaveType(Response::class);
     }
 
     public function it_can_negotiate_json_response_based_on_request(Request $request)
     {
         $request->getAcceptableContentTypes()->willReturn(['application/json']);
-        $this->getResponse($request)->shouldHaveType(JsonResponse::class);
+        $this->getResponse($request)->shouldHaveType(Response::class);
     }
 
     public function it_can_add_a_route_group(RouteGroup $group)

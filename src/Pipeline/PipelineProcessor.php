@@ -2,7 +2,7 @@
 
 namespace Refinery29\Piston\Pipeline;
 
-use Refinery29\Piston\Http\JsonResponse as Response;
+use Refinery29\Piston\Http\Response as Response;
 use Refinery29\Piston\Http\Request;
 
 trait PipelineProcessor

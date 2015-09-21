@@ -6,20 +6,20 @@ use Kayladnls\Seesaw\Route;
 use Kayladnls\Seesaw\RouteCollection;
 use League\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;
-use Refinery29\Piston\Http\JsonResponse as Response;
+use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class PistonStrategySpec extends ObjectBehavior
 {
     public function let(RouteCollection $collection, ContainerInterface $container)
     {
         $container->get('Request')->willReturn(Request::create('/alias'));
-        $container->get('Response')->willReturn(new Response(JsonResponse::create()));
+        $container->get('Response')->willReturn(new Response(SymfonyResponse::create()));
         $container->get('Refinery29\Piston\Stubs\FooController')->willReturn(new FooController());
         $container->get('app')->willReturn(new Piston());
         $container->get('FooController')->willReturn(new FooController());
