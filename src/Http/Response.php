@@ -66,14 +66,26 @@ class Response implements ResponseInterface
     }
 
     /**
-     * {@inheritdoc}
+     *
      */
     public function send()
     {
-        $output = $this->responseBody->getOutput();
-
-        $this->response->setContent($output);
-
+        $this->setResponseContent();
         $this->response->send();
+    }
+
+    public function setResponseContent()
+    {
+        $output = $this->responseBody->getOutput();
+        $this->response->setContent($output);
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        $this->setResponseContent();
+        return $this->response->getContent();
     }
 }
