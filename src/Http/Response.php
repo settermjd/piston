@@ -86,6 +86,7 @@ class Response implements ResponseInterface
     public function getContent()
     {
         $this->setResponseContent();
+
         return $this->response->getContent();
     }
 }
