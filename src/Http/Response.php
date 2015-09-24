@@ -65,19 +65,10 @@ class Response implements ResponseInterface
         $this->response->setStatusCode($code);
     }
 
-    /**
-     *
-     */
     public function send()
     {
         $this->setResponseContent();
         $this->response->send();
-    }
-
-    public function setResponseContent()
-    {
-        $output = $this->responseBody->getOutput();
-        $this->response->setContent($output);
     }
 
     /**
@@ -88,5 +79,11 @@ class Response implements ResponseInterface
         $this->setResponseContent();
 
         return $this->response->getContent();
+    }
+
+    private function setResponseContent()
+    {
+        $output = $this->responseBody->getOutput();
+        $this->response->setContent($output);
     }
 }
