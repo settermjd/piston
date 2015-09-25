@@ -12,13 +12,13 @@ use Refinery29\ApiOutput\ResponseBody;
 use Refinery29\Piston\Http\Pipeline\RequestPipeline;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\Response;
-use Refinery29\Piston\Pipeline\HasPipelines;
+use Refinery29\Piston\Pipeline\HasPipeline;
 use Refinery29\Piston\Pipeline\LifeCyclePipelines;
 use Refinery29\Piston\Router\PistonStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-class Piston implements ContainerAwareInterface, HasPipelines
+class Piston implements ContainerAwareInterface, HasPipeline
 {
     use LifeCyclePipelines;
 

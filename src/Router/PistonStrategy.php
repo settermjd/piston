@@ -25,24 +25,22 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
         $router = $this->container->get('PistonRouter');
         $app = $this->container->get('app');
 
-        $response = $this->processPrePipeline($app, $request, $original_response);
+        $response = $this->processPipeline($app, $request, $original_response);
 
         $active_route = $router->findByAction($controller);
 
         if (!empty($active_route)) {
             $group = $router->findGroupByRoute($active_route);
             if ($group !== false) {
-                $response = $this->processPrePipeline($group, $request, $original_response);
+                $response = $this->processPipeline($group, $request, $original_response);
             }
         }
 
         $response = $this->invokeAction($controller, [$request, $response, $vars]);
 
         if (!empty($active_route) && isset($group)) {
-            $response = $this->processPrePipeline($group, $request, $original_response);
+            $response = $this->processPipeline($group, $request, $response);
         }
-
-        $this->processPostPipeline($app, $request, $original_response);
 
         return $this->validateResponse($response);
     }
