@@ -31,7 +31,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
 
     /**
      * @param string $controller
-     * @param array $vars
+     * @param array  $vars
      *
      * @return Response
      */
@@ -69,7 +69,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      * Invoke a controller action
      *
      * @param string|\Closure $action
-     * @param array $vars
+     * @param array           $vars
      *
      * @return Response
      */
@@ -93,6 +93,7 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
                 $action[1],
             ];
         }
+
         return $action;
     }
 
@@ -105,7 +106,6 @@ class PistonStrategy extends RequestResponseStrategy implements StrategyInterfac
      */
     private function validateResponse($response)
     {
-
         if ($response instanceof Response) {
             return $response;
         }

@@ -4,10 +4,8 @@ namespace spec\Refinery29\Piston\Router;
 
 use Kayladnls\Seesaw\Route;
 use Kayladnls\Seesaw\RouteCollection;
-use League\Container\Container;
 use League\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;
-use Refinery29\ApiOutput\ResponseBody;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Piston;
@@ -59,6 +57,5 @@ class PistonStrategySpec extends ObjectBehavior
     {
         $controller_response = $this->dispatch([new FooController(), 'fooAction']);
         $controller_response->shouldHaveType(Response::class);
-
     }
 }

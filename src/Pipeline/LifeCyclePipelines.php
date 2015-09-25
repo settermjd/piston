@@ -21,7 +21,7 @@ trait LifeCyclePipelines
      *
      * @return $this
      */
-    public function addMiddleware(StageInterface $stage)
+    public function addMiddlewareStage(StageInterface $stage)
     {
         $this->bootstrapPipelines();
         $this->pipeline->add($stage);
@@ -29,6 +29,9 @@ trait LifeCyclePipelines
         return $this;
     }
 
+    /**
+     * Instaniate a new pipeline if one doesn't exist.
+     */
     protected function bootstrapPipelines()
     {
         if ($this->pipeline == null) {
