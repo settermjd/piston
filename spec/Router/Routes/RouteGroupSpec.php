@@ -16,13 +16,7 @@ class RouteGroupSpec extends ObjectBehavior
 
     public function it_can_add_pre_hooks(StageInterface $operation)
     {
-        $this->addPre($operation);
-        $this->getPrePipeline()->shouldHaveType(Pipeline::class);
-    }
-
-    public function it_can_add_post_hooks(StageInterface $operation)
-    {
-        $this->addPost($operation);
-        $this->getPostPipeline()->shouldHaveType(Pipeline::class);
+        $this->addMiddlewareStage($operation);
+        $this->getPipeline()->shouldHaveType(Pipeline::class);
     }
 }

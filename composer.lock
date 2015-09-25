@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "d0cc430a32998b6696024f2fd2b22782",
+    "content-hash": "e6beee2a405cdcf464ce66826dd3221c",
     "packages": [
         {
             "name": "kayladnls/seesaw",
@@ -254,16 +255,16 @@
         },
         {
             "name": "refinery29/api-output",
-            "version": "0.3.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/refinery29/api-output.git",
-                "reference": "0a46ae319b380dbad1149d2dc0c0731614bb2e75"
+                "reference": "68bb0c8fc7c7ee65b0cb5da1d8ebd64f5ee2a99f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/refinery29/api-output/zipball/0a46ae319b380dbad1149d2dc0c0731614bb2e75",
-                "reference": "0a46ae319b380dbad1149d2dc0c0731614bb2e75",
+                "url": "https://api.github.com/repos/refinery29/api-output/zipball/68bb0c8fc7c7ee65b0cb5da1d8ebd64f5ee2a99f",
+                "reference": "68bb0c8fc7c7ee65b0cb5da1d8ebd64f5ee2a99f",
                 "shasum": ""
             },
             "require-dev": {
@@ -291,7 +292,7 @@
                 }
             ],
             "description": "Package for generating API output per refinery29/api-standards",
-            "time": "2015-09-21 19:03:47"
+            "time": "2015-09-22 15:20:59"
         },
         {
             "name": "symfony/http-foundation",
@@ -466,12 +467,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "db0a0212013ef0b796959d5ba9cc72538c451b8c"
+                "reference": "6fd5cb64fade985dc189e6601c20e743ac846afd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/db0a0212013ef0b796959d5ba9cc72538c451b8c",
-                "reference": "db0a0212013ef0b796959d5ba9cc72538c451b8c",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/6fd5cb64fade985dc189e6601c20e743ac846afd",
+                "reference": "6fd5cb64fade985dc189e6601c20e743ac846afd",
                 "shasum": ""
             },
             "require": {
@@ -517,7 +518,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2015-09-15 17:18:15"
+            "time": "2015-09-21 20:15:07"
         },
         {
             "name": "guzzle/guzzle",

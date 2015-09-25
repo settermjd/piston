@@ -53,27 +53,9 @@ class PistonStrategySpec extends ObjectBehavior
         $this->shouldThrow('\Exception')->duringValidateResponse('YOLO');
     }
 
-    public function it_can_resolve_injected_controller()
-    {
-        $controller = new FooController();
-        $this->resolveController([$controller, 'fooAction'])->shouldReturn([$controller, 'fooAction']);
-    }
-
-    public function it_can_resolve_string_controller()
-    {
-        $controller = $this->resolveController(['Refinery29\Piston\Stubs\FooController', 'fooAction'])[0];
-        $controller->shouldHaveType('Refinery29\Piston\Stubs\FooController');
-    }
-
-    public function it_can_resolve_controller(Request $request, Response $response)
-    {
-        $controller_response = $this->invokeAction(['Refinery29\Piston\Stubs\FooController', 'fooAction'], [$request, $response]);
-        $controller_response->shouldHaveType(Response::class);
-    }
-
     public function it_can_dispatch_controller()
     {
-        $controller_response = $this->dispatch(['Refinery29\Piston\Stubs\FooController', 'fooAction']);
+        $controller_response = $this->dispatch([new FooController(), 'fooAction']);
         $controller_response->shouldHaveType(Response::class);
     }
 }
