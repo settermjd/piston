@@ -25,18 +25,10 @@ class Response implements ResponseInterface
      */
     public function __construct(SymfonyResponse $response, ResponseBody $responseBody = null)
     {
-        $this->responseBody = $responseBody;
+        $this->responseBody = $responseBody ?: new ResponseBody();
 
         $this->response = $response;
         $this->response->headers->set('Content-Type', 'application/json');
-    }
-
-    /**
-     * @param ResponseBody $responseBody
-     */
-    public function setResponseBody(ResponseBody $responseBody)
-    {
-        $this->responseBody = $responseBody;
     }
 
     public function setPagination(Pagination $pagination)

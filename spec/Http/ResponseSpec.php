@@ -13,6 +13,13 @@ class ResponseSpec extends ObjectBehavior
         $this->beConstructedWith(\Symfony\Component\HttpFoundation\Response::create(), $body);
     }
 
+    public function it_can_be_constructed_without_response_body()
+    {
+        $this->beConstructedWith(\Symfony\Component\HttpFoundation\Response::create());
+
+        $this->getContent()->shouldReturn('{}');
+    }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType(Response::class);
