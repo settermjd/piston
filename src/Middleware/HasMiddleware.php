@@ -1,6 +1,6 @@
 <?php
 
-namespace Refinery29\Piston\Pipeline;
+namespace Refinery29\Piston\Middleware;
 
 use League\Pipeline\Pipeline;
 use League\Pipeline\PipelineBuilder;
@@ -9,7 +9,7 @@ use League\Pipeline\StageInterface;
 /**
  * Class Hookable
  */
-trait LifeCyclePipelines
+trait HasMiddleware
 {
     /**
      * @var PipelineBuilder
@@ -21,9 +21,9 @@ trait LifeCyclePipelines
      *
      * @return $this
      */
-    public function addMiddlewareStage(StageInterface $stage)
+    public function addMiddleware(StageInterface $stage)
     {
-        $this->bootstrapPipelines();
+        $this->getPipeline();
         $this->pipeline->add($stage);
 
         return $this;
@@ -32,7 +32,7 @@ trait LifeCyclePipelines
     /**
      * Instaniate a new pipeline if one doesn't exist.
      */
-    protected function bootstrapPipelines()
+    protected function getPipeline()
     {
         if ($this->pipeline == null) {
             $this->pipeline = new PipelineBuilder();
@@ -42,9 +42,9 @@ trait LifeCyclePipelines
     /**
      * @return PipeLine
      */
-    public function getPipeline()
+    public function buildPipeline()
     {
-        $this->bootstrapPipelines();
+        $this->getPipeline();
 
         return $this->pipeline->build();
     }

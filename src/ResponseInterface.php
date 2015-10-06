@@ -1,6 +1,6 @@
 <?php
 
-namespace Refinery29\Piston\Http;
+namespace Refinery29\Piston;
 
 use Refinery29\ApiOutput\Resource\Error\ErrorCollection;
 use Refinery29\ApiOutput\Resource\Pagination\Pagination;

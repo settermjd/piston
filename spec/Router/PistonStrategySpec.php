@@ -9,7 +9,7 @@ use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Http\Response;
 use Refinery29\Piston\Piston;
-use Refinery29\Piston\Router\PistonStrategy;
+use Refinery29\Piston\Router\MiddlewareStrategy;
 use Refinery29\Piston\Router\Routes\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
@@ -39,7 +39,7 @@ class PistonStrategySpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType(PistonStrategy::class);
+        $this->shouldHaveType(MiddlewareStrategy::class);
     }
 
     public function it_must_return_a_response()

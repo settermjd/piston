@@ -1,6 +1,6 @@
 <?php
 
-namespace Refinery29\Piston\Pipeline\Stage\Pagination;
+namespace Refinery29\Piston\Middleware\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Http\Request;

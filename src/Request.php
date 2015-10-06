@@ -1,46 +1,50 @@
 <?php
 
-namespace Refinery29\Piston\Http;
+namespace Refinery29\Piston;
 
-use Symfony\Component\HttpFoundation\Request as SRequest;
+use Refinery29\Piston\Middleware\HasPipeline;
+use Zend\Diactoros\ServerRequest;
+use Refinery29\Piston\Middleware\HasMiddleware;
 
 /**
  * Class Request
  */
-class Request extends SRequest
+class Request extends ServerRequest implements HasPipeline
 {
+    use HasMiddleware;
+
     const OFFSET_LIMIT_PAGINATION = 'offset_limit';
     const CURSOR_PAGINATION = 'cursor';
 
     /**
      * @var null
      */
-    protected $pagination_cursor = null;
+    protected $paginationCursor = null;
 
     /**
      * @var null
      */
-    protected $pagination_type = null;
+    protected $paginationType = null;
 
     /**
      * @var null
      */
-    protected $requested_fields = null;
+    protected $requestedFields = null;
 
     /**
      * @var null
      */
-    protected $included_resources = null;
+    protected $includedResources = null;
 
     /**
      * @var string
      */
-    protected $before_cursor;
+    protected $beforeCursor;
 
     /**
      * @var string
      */
-    protected $after_cursor;
+    protected $afterCursor;
 
     /**
      * @var int
@@ -57,29 +61,29 @@ class Request extends SRequest
      */
     public function getPaginationCursor()
     {
-        return $this->before_cursor ? $this->before_cursor : $this->after_cursor;
+        return $this->beforeCursor ? $this->beforeCursor : $this->afterCursor;
     }
 
     /**
      */
     public function getRequestedFields()
     {
-        return $this->requested_fields;
+        return $this->requestedFields;
     }
 
     /**
-     * @param null $requested_fields
+     * @param null $requestedFields
      */
-    public function setRequestedFields($requested_fields)
+    public function setRequestedFields($requestedFields)
     {
-        $this->requested_fields = $requested_fields;
+        $this->requestedFields = $requestedFields;
     }
 
     /**
      */
     public function getIncludedResources()
     {
-        return $this->included_resources;
+        return $this->includedResources;
     }
 
     /**
@@ -87,7 +91,7 @@ class Request extends SRequest
      */
     public function setIncludedResources($included_resources)
     {
-        $this->included_resources = $included_resources;
+        $this->includedResources = $included_resources;
     }
 
     /**
@@ -95,7 +99,7 @@ class Request extends SRequest
      */
     public function isPaginated()
     {
-        return $this->pagination_type !== null;
+        return $this->paginationType !== null;
     }
 
     /**
@@ -103,7 +107,7 @@ class Request extends SRequest
      */
     public function hasIncludedResources()
     {
-        return $this->included_resources !== null;
+        return $this->includedResources !== null;
     }
 
     /**
@@ -111,7 +115,7 @@ class Request extends SRequest
      */
     public function hasRequestedFields()
     {
-        return $this->requested_fields !== null;
+        return $this->requestedFields !== null;
     }
 
     /**
@@ -119,8 +123,8 @@ class Request extends SRequest
      */
     public function setAfterCursor($after_cursor)
     {
-        $this->after_cursor = $after_cursor;
-        $this->pagination_type = self::CURSOR_PAGINATION;
+        $this->afterCursor = $after_cursor;
+        $this->paginationType = self::CURSOR_PAGINATION;
     }
 
     /**
@@ -128,8 +132,8 @@ class Request extends SRequest
      */
     public function setBeforeCursor($before_cursor)
     {
-        $this->before_cursor = $before_cursor;
-        $this->pagination_type = self::CURSOR_PAGINATION;
+        $this->beforeCursor = $before_cursor;
+        $this->paginationType = self::CURSOR_PAGINATION;
     }
 
     /**
@@ -140,7 +144,7 @@ class Request extends SRequest
     {
         $this->offset = $offset;
         $this->limit = $limit;
-        $this->pagination_type = self::OFFSET_LIMIT_PAGINATION;
+        $this->paginationType = self::OFFSET_LIMIT_PAGINATION;
     }
 
     /**
@@ -154,6 +158,6 @@ class Request extends SRequest
     /** @return string */
     public function getPaginationType()
     {
-        return $this->pagination_type;
+        return $this->paginationType;
     }
 }

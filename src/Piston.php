@@ -2,121 +2,82 @@
 
 namespace Refinery29\Piston;
 
-use Kayladnls\Seesaw\Route;
-use Kayladnls\Seesaw\Seesaw;
 use League\Container\Container;
-use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
-use Refinery29\ApiOutput\ResponseBody;
-use Refinery29\Piston\Http\Pipeline\RequestPipeline;
-use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response;
-use Refinery29\Piston\Pipeline\HasPipeline;
-use Refinery29\Piston\Pipeline\LifeCyclePipelines;
-use Refinery29\Piston\Router\PistonStrategy;
-use Refinery29\Piston\Router\Routes\RouteGroup;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use League\Route\RouteCollection;
+use Psr\Http\Message\RequestInterface;
+use Refinery29\Piston\Middleware\Request\RequestPipeline;
+use Refinery29\Piston\Request;
+use Refinery29\Piston\RequestFactory;
+use Refinery29\Piston\Response;
+use Refinery29\Piston\Middleware\HasMiddleware;
+use Refinery29\Piston\Middleware\HasPipeline;
+use Refinery29\Piston\Middleware\PipelineProcessor;
+use Refinery29\Piston\Middleware\Subject;
+use Refinery29\Piston\Router\MiddlewareStrategy;
+use Refinery29\Piston\Router\RouteGroup;
+use Zend\Diactoros\Response as DiactorosResponse;
+use Zend\Diactoros\Response\EmitterInterface;
+use Zend\Diactoros\Response\SapiEmitter;
 
-class Piston implements ContainerAwareInterface, HasPipeline
+
+final class Piston extends RouteCollection implements HasPipeline
 {
-    use LifeCyclePipelines;
-
-    /**
-     * @var Container
-     */
-    protected $container;
-
-    /**
-     * @var Seesaw
-     */
-    protected $router;
+    use HasMiddleware;
 
     /**
      * @var Request
      */
     protected $request = null;
 
+    /**
+     * @var Response
+     */
     protected $response;
+
+
+    /**
+     * @var SapiEmitter
+     */
+    protected $emitter;
 
     /**
      * @param ContainerInterface $container
+     * @param RequestInterface $request
+     * @param EmitterInterface $emitter
      */
-    public function __construct(ContainerInterface $container = null)
-    {
+    public function __construct(
+        ContainerInterface $container = null,
+        RequestInterface $request = null,
+        EmitterInterface $emitter = null
+    ) {
         $this->container = $container ?: new Container();
-        $this->container['app'] = $this;
+        $this->emitter = $emitter ?: new SapiEmitter();
+        $this->request = $request ?: RequestFactory::fromGlobals();
+        $this->response = $this->response ?: new Response();
 
-        $this->bootstrapRouter();
-        $this->bootstrapPipelines();
+        $this->loadContainer();
+        parent::__construct($this->container);
 
-        $this->request = $this->getRequest();
-        $this->response = $this->getResponse();
+        $this->setStrategy(new MiddlewareStrategy($this->container));
     }
 
     /**
-     * @param Request $request
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-    }
-
-    /**
-     * @return Request
-     */
-    public function getRequest()
-    {
-        if (!$this->request) {
-            return Request::createFromGlobals();
-        }
-
-        return $this->request;
-    }
-
-    /**
-     * @return Response
-     */
-    public function getResponse()
-    {
-        if (!$this->response) {
-            return new Response(SymfonyResponse::create(), new ResponseBody());
-        }
-
-        return $this->response;
-    }
-
-    /**
-     * @param Route $route
+     * Add a group of routes to the collection.
      *
-     * @return Piston
-     */
-    public function addRoute(Route $route)
-    {
-        $this->router->add($route);
-
-        return $this;
-    }
-
-    /**
-     * @param RouteGroup $group
+     * @param string $prefix
+     * @param callable $group
      *
-     * @return $this
+     * @return \League\Route\RouteGroup
      */
-    public function addRouteGroup(RouteGroup $group)
+    public function group($prefix, callable $group)
     {
-        $this->router->addGroup($group);
+        $group = new RouteGroup($prefix, $group, $this);
 
-        return $this;
-    }
+        $this->groups[] = $group;
 
-    /**
-     * @param string $name
-     * @param Route  $route
-     */
-    public function addNamedRoute($name, Route $route)
-    {
-        $this->router->addNamedRoute($name, $route->getVerb(), $route->getUrl(), $route->getAction());
+        return $group;
     }
 
     /**
@@ -124,67 +85,27 @@ class Piston implements ContainerAwareInterface, HasPipeline
      */
     public function launch()
     {
-        $dispatcher = $this->router->getDispatcher();
+        $this->response = (new PipelineProcessor())
+            ->processPipeline(new Subject($this, $this->request, $this->response));
 
-        $this->loadContainer();
+        $this->response = $this->dispatch($this->request, $this->response);
+        $this->response->compileContent();
 
-        $response = $dispatcher->dispatch($this->request->getMethod(), $this->request->getPathInfo());
-
-        return $response->send();
+        $this->emitter->emit($this->response);
     }
 
-    protected function loadContainer()
+    private function loadContainer()
     {
-        $this->preProcessRequest();
+        (new RequestPipeline())->process(new Subject($this->request, $this->request, $this->response));
 
         $this->container->add('Request', $this->request, true);
         $this->container->add('Response', $this->response, true);
     }
 
-    protected function preProcessRequest()
-    {
-        return (new RequestPipeline())->process($this->request);
-    }
-
     /**
-     * @param ServiceProvider $service_provider
+     * @param ServiceProvider\AbstractServiceProvider $serviceProvider
      */
-    public function register(ServiceProvider $service_provider)
-    {
-        $this->container->addServiceProvider($service_provider);
-    }
-
-    public function addDecorator(Decorator $decorator)
-    {
-        $app = $decorator->register();
-
-        if (!$app instanceof Piston) {
-            throw new \InvalidArgumentException('Decorators Must Return an Instance of Piston');
-        }
-
-        return $app;
-    }
-
-    /**
-     * @return Container
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
-    private function bootstrapRouter()
-    {
-        $this->router = new Seesaw(null, null, $this->container);
-        $this->router->setStrategy(new PistonStrategy());
-        $this->container->add('PistonRouter', $this->router, true);
+    public function register(ServiceProvider\AbstractServiceProvider $serviceProvider) {
+        $this->container->addServiceProvider($serviceProvider);
     }
 }

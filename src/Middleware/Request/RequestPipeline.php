@@ -1,13 +1,15 @@
 <?php
 
-namespace Refinery29\Piston\Http\Pipeline;
+namespace Refinery29\Piston\Middleware\Request;
 
 use League\Pipeline\Pipeline;
 use League\Pipeline\PipelineBuilder;
+use League\Pipeline\StageInterface;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Pipeline\Stage;
+use Refinery29\Piston\Middleware;
+use Zend\Diactoros\ServerRequest;
 
-class RequestPipeline
+class RequestPipeline implements StageInterface
 {
     /**
      * @var Pipeline
@@ -32,13 +34,13 @@ class RequestPipeline
      *
      * @return Request
      */
-    public function process(Request $payload)
+    public function process($payload)
     {
         $this->builder
-            ->add(new Stage\IncludedResource())
-            ->add(new Stage\RequestedFields());
+            ->add(new Middleware\Request\IncludedResource())
+            ->add(new Middleware\Request\RequestedFields());
 
-        if ($payload->isPaginated()) {
+        if ($payload->getSubject()->isPaginated()) {
             $this->addPagination();
         }
 
@@ -52,7 +54,7 @@ class RequestPipeline
      */
     private function addPagination()
     {
-        return $this->builder->add(new Stage\Pagination\OffsetLimitPagination())
-            ->add(new Stage\Pagination\CursorBasedPagination());
+        return $this->builder->add(new Middleware\Pagination\OffsetLimitPagination())
+            ->add(new Middleware\Pagination\CursorBasedPagination());
     }
 }

@@ -1,34 +1,33 @@
 <?php
 
-namespace Refinery29\Piston\Http;
+namespace Refinery29\Piston;
 
 use Refinery29\ApiOutput\Resource\Error\ErrorCollection;
 use Refinery29\ApiOutput\Resource\Pagination\Pagination;
 use Refinery29\ApiOutput\Resource\Result;
 use Refinery29\ApiOutput\ResponseBody;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Zend\Diactoros\Response as DiactorosResponse;
 
-class Response implements ResponseInterface
+class Response extends DiactorosResponse
 {
     /**
      * @var ResponseBody
      */
     private $responseBody;
     /**
-     * @var SymfonyResponse
+     * @var DiactorosResponse
      */
     private $response;
 
     /**
-     * @param SymfonyResponse $response
-     * @param ResponseBody    $responseBody
+     * @param ResponseBody $responseBody
      */
-    public function __construct(SymfonyResponse $response, ResponseBody $responseBody = null)
+    public function __construct(ResponseBody $responseBody = null)
     {
+        parent::__construct();
         $this->responseBody = $responseBody ?: new ResponseBody();
 
-        $this->response = $response;
-        $this->response->headers->set('Content-Type', 'application/json');
+        $this->withHeader('Content-Type', 'application/json');
     }
 
     public function setPagination(Pagination $pagination)
@@ -47,6 +46,7 @@ class Response implements ResponseInterface
     public function setResult(Result $result)
     {
         $this->responseBody->addMember($result->getSerializer());
+
     }
 
     /**
@@ -54,28 +54,18 @@ class Response implements ResponseInterface
      */
     public function setStatusCode($code)
     {
-        $this->response->setStatusCode($code);
-    }
-
-    public function send()
-    {
-        $this->setResponseContent();
-        $this->response->send();
+        $this->response = $this->withStatus($code);
     }
 
     /**
      * @return string
      */
-    public function getContent()
-    {
-        $this->setResponseContent();
-
-        return $this->response->getContent();
-    }
-
-    private function setResponseContent()
+    public function compileContent()
     {
         $output = $this->responseBody->getOutput();
-        $this->response->setContent($output);
+
+        $this->getBody()->write($output);
+
+        return $this->getBody();
     }
 }

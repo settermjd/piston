@@ -1,11 +1,11 @@
 <?php
 
-namespace Refinery29\Piston\Pipeline\Stage\Pagination;
+namespace Refinery29\Piston\Middleware\Pagination;
 
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Pipeline\Stage\GetOnlyStage;
+use Refinery29\Piston\Middleware\Stage\GetOnlyStage;
 
 class CursorBasedPagination implements StageInterface
 {
@@ -35,13 +35,13 @@ class CursorBasedPagination implements StageInterface
 
             if ($before) {
                 $request->setBeforeCursor($before);
+                return $request;
             }
 
             if ($after) {
                 $request->setAfterCursor($after);
+                return $request;
             }
         }
-
-        return $request;
     }
 }
