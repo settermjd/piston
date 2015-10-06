@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Refinery29\Piston\Pipeline\Stage\Pagination;
+namespace spec\Refinery29\Piston\Middlware\Request\Pagination;
 
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Http\Request;
