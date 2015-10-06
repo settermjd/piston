@@ -3,7 +3,7 @@
 namespace Refinery29\Piston\Middleware\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
-use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Request;
 
 trait SinglePagination
 {

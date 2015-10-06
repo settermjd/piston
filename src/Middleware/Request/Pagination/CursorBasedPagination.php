@@ -4,8 +4,8 @@ namespace Refinery29\Piston\Middleware\Pagination;
 
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
-use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Middleware\Stage\GetOnlyStage;
+use Refinery29\Piston\Request;
+use Refinery29\Piston\Middleware\GetOnlyStage;
 
 class CursorBasedPagination implements StageInterface
 {
