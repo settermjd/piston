@@ -3,10 +3,11 @@
 namespace Refinery29\Piston\Router;
 
 use League\Route\Route;
+use League\Route\RouteCollection;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
-use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response;
+use Refinery29\Piston\Request;
+use Refinery29\Piston\Response;
 use Refinery29\Piston\Middleware\PipelineProcessor;
 use Refinery29\Piston\Middleware\Subject;
 
@@ -46,7 +47,7 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
         $this->response = $this->container->get('Response');
 
         if ($group = $route->getParentGroup()) {
-            (new PipelineProcessor())->processPipeline(new Subject($group, $this->request, $this->response));
+            $this->response = (new PipelineProcessor())->processPipeline(new Subject($group, $this->request, $this->response));
         }
 
         $response = call_user_func_array(
