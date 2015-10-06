@@ -4,6 +4,7 @@ namespace Refinery29\Piston\Middleware\Request;
 
 use League\Pipeline\StageInterface;
 use Refinery29\Piston\Middleware\GetOnlyStage;
+use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Request;
 
 /**
@@ -14,9 +15,9 @@ class RequestedFields implements StageInterface
     use GetOnlyStage;
 
     /**
-     * @param Request $request
+     * @param Subject $payload
      *
-     * @return Request
+     * @return Subject
      */
     public function process($payload)
     {
@@ -38,6 +39,6 @@ class RequestedFields implements StageInterface
             $request->setRequestedFields((array) $fields);
         }
 
-        return $payload->getSubject();
+        return $payload;
     }
 }

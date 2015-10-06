@@ -6,6 +6,7 @@ use League\Route\Route;
 use League\Route\RouteCollection;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
+use PistonException;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 use Refinery29\Piston\Middleware\PipelineProcessor;
@@ -90,6 +91,6 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
             return $response;
         }
 
-        throw new \PistonException('Your request must return an instance of ' . Response::class);
+        throw new PistonException('Your request must return an instance of ' . Response::class);
     }
 }

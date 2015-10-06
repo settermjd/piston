@@ -5,6 +5,7 @@ namespace Refinery29\Piston;
 use Refinery29\Piston\Middleware\HasPipeline;
 use Zend\Diactoros\ServerRequest;
 use Refinery29\Piston\Middleware\HasMiddleware;
+use Zend\Diactoros\Uri;
 
 /**
  * Class Request
@@ -159,5 +160,11 @@ class Request extends ServerRequest implements HasPipeline
     public function getPaginationType()
     {
         return $this->paginationType;
+    }
+
+    public static function createFromUri($uri)
+    {
+        return RequestFactory::fromGlobals()->withUri(new Uri($uri));
+
     }
 }

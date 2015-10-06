@@ -3,7 +3,7 @@
 namespace spec\Refinery29\Piston\Http;
 
 use PhpSpec\ObjectBehavior;
-use Refinery29\Piston\Http\Request;
+use Refinery29\Piston\Request;
 
 class RequestSpec extends ObjectBehavior
 {
