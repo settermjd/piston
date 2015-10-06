@@ -6,25 +6,20 @@ use Refinery29\Piston\Response;
 class Subject
 {
     /**
-     * @var
+     * @var HasPipeline
      */
     private $subject;
 
     /**
-     * @var
+     * @var Request
      */
     private $request;
 
     /**
-     * @var
+     * @var Response
      */
     private $response;
 
-    /**
-     * @param $subject
-     * @param $request
-     * @param $response
-     */
     public function __construct(HasPipeline $subject, Request $request, Response $response)
     {
         $this->subject = $subject;
@@ -33,7 +28,7 @@ class Subject
     }
 
     /**
-     * @return mixed
+     * @return HasPipeline
      */
     public function getSubject()
     {
@@ -41,7 +36,7 @@ class Subject
     }
 
     /**
-     * @return mixed
+     * @return Request
      */
     public function getRequest()
     {
@@ -49,7 +44,7 @@ class Subject
     }
 
     /**
-     * @return mixed
+     * @return Response
      */
     public function getResponse()
     {
