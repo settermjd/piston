@@ -6,9 +6,6 @@ use League\Pipeline\Pipeline;
 use League\Pipeline\PipelineBuilder;
 use League\Pipeline\StageInterface;
 
-/**
- * Class Hookable
- */
 trait HasMiddleware
 {
     /**
