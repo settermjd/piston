@@ -28,18 +28,18 @@ final class Piston extends RouteCollection implements HasPipeline
     /**
      * @var Request
      */
-    protected $request = null;
+    private $request = null;
 
     /**
      * @var Response
      */
-    protected $response;
+    private $response;
 
 
     /**
      * @var SapiEmitter
      */
-    protected $emitter;
+    private $emitter;
 
     /**
      * @param ContainerInterface $container
