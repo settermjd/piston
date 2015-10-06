@@ -90,6 +90,6 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
             return $response;
         }
 
-        throw new \Exception('Your request must return an instance of ' . Response::class);
+        throw new \PistonException('Your request must return an instance of ' . Response::class);
     }
 }
