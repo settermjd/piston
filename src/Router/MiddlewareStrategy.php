@@ -27,7 +27,7 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
      */
     protected $response;
 
-    function __construct($container)
+    public function __construct($container)
     {
         $this->container = $container;
     }
@@ -45,7 +45,7 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
         $this->request = $this->container->get('Request');
         $this->response = $this->container->get('Response');
 
-        if ($group = $route->getParentGroup()){
+        if ($group = $route->getParentGroup()) {
             (new PipelineProcessor())->processPipeline(new Subject($group, $this->request, $this->response));
         }
 
@@ -65,7 +65,6 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
     private function resolveController($action)
     {
         if (is_array($action)) {
-
             $controller = $action[0];
             $class = get_class($controller);
             return [

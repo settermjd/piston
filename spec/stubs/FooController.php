@@ -3,7 +3,6 @@
 namespace Refinery29\Piston\Stubs;
 
 use Refinery29\ApiOutput\Resource\ResourceFactory;
-
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 
@@ -22,7 +21,8 @@ class FooController
 
     public function test($req, Response $response)
     {
-        echo "<pre>".print_r($req, true)."</pre>"; exit;
+        echo "<pre>".print_r($req, true)."</pre>";
+        exit;
 
         $response->setResult(ResourceFactory::result(['something' => "yolo"]));
         $response->compileContent();

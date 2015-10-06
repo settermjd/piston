@@ -25,7 +25,7 @@ class Subject
      * @param $request
      * @param $response
      */
-    function __construct(HasPipeline $subject, Request $request, Response $response)
+    public function __construct(HasPipeline $subject, Request $request, Response $response)
     {
         $this->subject = $subject;
         $this->request = $request;
@@ -55,8 +55,4 @@ class Subject
     {
         return $this->response;
     }
-
-
-
-
 }

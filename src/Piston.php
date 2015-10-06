@@ -21,7 +21,6 @@ use Zend\Diactoros\Response as DiactorosResponse;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 
-
 final class Piston extends RouteCollection implements HasPipeline
 {
     use HasMiddleware;
@@ -105,7 +104,8 @@ final class Piston extends RouteCollection implements HasPipeline
     /**
      * @param ServiceProvider\AbstractServiceProvider $serviceProvider
      */
-    public function register(ServiceProvider\AbstractServiceProvider $serviceProvider) {
+    public function register(ServiceProvider\AbstractServiceProvider $serviceProvider)
+    {
         $this->container->addServiceProvider($serviceProvider);
     }
 }

@@ -26,5 +26,4 @@ class RouteGroup extends \League\Route\RouteGroup implements HasPipeline
 
         return $route;
     }
-
 }

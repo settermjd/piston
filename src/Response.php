@@ -46,7 +46,6 @@ class Response extends DiactorosResponse
     public function setResult(Result $result)
     {
         $this->responseBody->addMember($result->getSerializer());
-
     }
 
     /**
