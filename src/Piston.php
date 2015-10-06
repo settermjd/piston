@@ -37,15 +37,10 @@ final class Piston extends RouteCollection implements HasPipeline
 
 
     /**
-     * @var SapiEmitter
+     * @var EmitterInterface
      */
     private $emitter;
 
-    /**
-     * @param ContainerInterface $container
-     * @param RequestInterface $request
-     * @param EmitterInterface $emitter
-     */
     public function __construct(
         ContainerInterface $container = null,
         RequestInterface $request = null,
@@ -54,7 +49,8 @@ final class Piston extends RouteCollection implements HasPipeline
         $this->container = $container ?: new Container();
         $this->emitter = $emitter ?: new SapiEmitter();
         $this->request = $request ?: RequestFactory::fromGlobals();
-        $this->response = $this->response ?: new Response();
+
+        $this->response = new Response();
 
         $this->loadContainer();
         parent::__construct($this->container);
