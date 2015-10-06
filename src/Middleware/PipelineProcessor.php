@@ -2,16 +2,12 @@
 
 namespace Refinery29\Piston\Middleware;
 
-use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response;
+use Refinery29\Piston\Response;
 
 class PipelineProcessor
 {
     /**
-     * @param $item
-     * @param $request
-     * @param $original_response
-     *
+     * @param Subject $subject
      * @return Response
      */
     public function processPipeline(Subject $subject)
