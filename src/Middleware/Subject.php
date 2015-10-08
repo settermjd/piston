@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston\Middleware;
+<?php
+
+namespace Refinery29\Piston\Middleware;
 
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;

@@ -13,9 +13,9 @@ class IncludedResource implements StageInterface
     /**
      * @param Subject $payload
      *
-     * @return Request
      * @throws \League\Route\Http\Exception\BadRequestException
      *
+     * @return Request
      */
     public function process($payload)
     {
@@ -30,7 +30,6 @@ class IncludedResource implements StageInterface
 
         $include = explode(',', $request->getQueryParams()['include']);
 
-
         if (!empty($include)) {
             foreach ((array) $include as $k => $resource) {
                 if (strpos($resource, '.') !== false) {
@@ -42,6 +41,7 @@ class IncludedResource implements StageInterface
 
             $request->setIncludedResources($include);
         }
+
         return $payload;
     }
 }

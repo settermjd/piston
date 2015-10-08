@@ -22,6 +22,7 @@ class PistonSpec extends ObjectBehavior
     {
         $this->shouldHaveType(Piston::class);
     }
+
 //
 //    public function it_can_add_a_route_group(RouteGroup $group)
 //    {

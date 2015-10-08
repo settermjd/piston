@@ -8,6 +8,7 @@ class PipelineProcessor
 {
     /**
      * @param Subject $subject
+     *
      * @return Response
      */
     public function processPipeline(Subject $subject)

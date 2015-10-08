@@ -7,7 +7,6 @@ use League\Pipeline\PipelineBuilder;
 use League\Pipeline\StageInterface;
 use Refinery29\Piston\Http\Request;
 use Refinery29\Piston\Middleware;
-use Zend\Diactoros\ServerRequest;
 
 class RequestPipeline implements StageInterface
 {

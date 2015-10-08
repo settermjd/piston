@@ -2,9 +2,9 @@
 
 namespace Refinery29\Piston;
 
+use Refinery29\Piston\Middleware\HasMiddleware;
 use Refinery29\Piston\Middleware\HasPipeline;
 use Zend\Diactoros\ServerRequest;
-use Refinery29\Piston\Middleware\HasMiddleware;
 use Zend\Diactoros\Uri;
 
 /**

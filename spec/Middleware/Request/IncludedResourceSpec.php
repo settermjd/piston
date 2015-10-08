@@ -3,9 +3,9 @@
 namespace spec\Refinery29\Piston\Middleware\Request;
 
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\Middleware\Request\IncludedResource;
 use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Request;
-use Refinery29\Piston\Middleware\Request\IncludedResource;
 use Refinery29\Piston\Response;
 
 class IncludedResourceSpec extends ObjectBehavior
@@ -35,7 +35,7 @@ class IncludedResourceSpec extends ObjectBehavior
     public function it_can_get_nested_resources()
     {
         /** @var Request $request */
-        $request = (new Request())->withQueryParams(['include'=>'foo.bing,bar,baz']);
+        $request = (new Request())->withQueryParams(['include' => 'foo.bing,bar,baz']);
 
         $result = $this->process(new Subject($request, $request, new Response()))->getSubject();
 

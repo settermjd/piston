@@ -10,9 +10,9 @@ use League\Route\Route;
 use League\Route\RouteCollection;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
-use Refinery29\Piston\Response;
 use Refinery29\Piston\Middleware\PipelineProcessor;
 use Refinery29\Piston\Middleware\Subject;
+use Refinery29\Piston\Response;
 
 class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInterface, RequestAwareInterface, ResponseAwareInterface
 {
@@ -25,11 +25,12 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
 
     /**
      * @param callable|string $controller
-     * @param array $vars
+     * @param array           $vars
+     * @param Route           $route
      *
-     * @param Route $route
-     * @return Response
      * @throws \Exception
+     *
+     * @return Response
      */
     public function dispatch(callable $controller, array $vars = [], Route $route = null)
     {

@@ -1,4 +1,6 @@
-<?php namespace Refinery29\Piston;
+<?php
+
+namespace Refinery29\Piston;
 
 use Zend\Diactoros\ServerRequestFactory;
 
@@ -11,8 +13,8 @@ class RequestFactory extends ServerRequestFactory
         array $cookies = null,
         array $files = null
     ) {
-        $server  = static::normalizeServer($server ?: $_SERVER);
-        $files   = static::normalizeFiles($files ?: $_FILES);
+        $server = static::normalizeServer($server ?: $_SERVER);
+        $files = static::normalizeFiles($files ?: $_FILES);
         $headers = static::marshalHeaders($server);
         $request = new Request(
             $server,

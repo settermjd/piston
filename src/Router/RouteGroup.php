@@ -2,7 +2,6 @@
 
 namespace Refinery29\Piston\Router;
 
-use League\Pipeline\StageInterface;
 use Refinery29\Piston\Middleware\HasMiddleware;
 use Refinery29\Piston\Middleware\HasPipeline;
 

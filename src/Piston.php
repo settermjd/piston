@@ -7,14 +7,13 @@ use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use League\Route\RouteCollection;
 use Psr\Http\Message\RequestInterface;
-use Refinery29\Piston\Middleware\Request\RequestPipeline;
 use Refinery29\Piston\Middleware\HasMiddleware;
 use Refinery29\Piston\Middleware\HasPipeline;
 use Refinery29\Piston\Middleware\PipelineProcessor;
+use Refinery29\Piston\Middleware\Request\RequestPipeline;
 use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Router\MiddlewareStrategy;
 use Refinery29\Piston\Router\RouteGroup;
-use Zend\Diactoros\Response as DiactorosResponse;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 
@@ -31,7 +30,6 @@ final class Piston extends RouteCollection implements HasPipeline
      * @var Response
      */
     private $response;
-
 
     /**
      * @var EmitterInterface
@@ -58,7 +56,7 @@ final class Piston extends RouteCollection implements HasPipeline
     /**
      * Add a group of routes to the collection.
      *
-     * @param string $prefix
+     * @param string   $prefix
      * @param callable $group
      *
      * @return \League\Route\RouteGroup

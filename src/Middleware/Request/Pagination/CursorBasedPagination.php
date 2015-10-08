@@ -4,8 +4,8 @@ namespace Refinery29\Piston\Middleware\Pagination;
 
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
-use Refinery29\Piston\Request;
 use Refinery29\Piston\Middleware\GetOnlyStage;
+use Refinery29\Piston\Request;
 
 class CursorBasedPagination implements StageInterface
 {
@@ -35,11 +35,13 @@ class CursorBasedPagination implements StageInterface
 
             if ($before) {
                 $request->setBeforeCursor($before);
+
                 return $request;
             }
 
             if ($after) {
                 $request->setAfterCursor($after);
+
                 return $request;
             }
         }
