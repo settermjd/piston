@@ -2,9 +2,9 @@
 
 namespace Refinery29\Piston\Stubs;
 
-use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Http\Response;
-use Refinery29\Piston\Router\Routes\Routeable;
+use Refinery29\ApiOutput\Resource\ResourceFactory;
+use Refinery29\Piston\Request;
+use Refinery29\Piston\Response;
 
 /**
  * Created by PhpStorm.
@@ -12,22 +12,21 @@ use Refinery29\Piston\Router\Routes\Routeable;
  * Date: 6/9/15
  * Time: 4:39 PM
  */
-class FooController implements Routeable
+class FooController
 {
     public function fooAction(Request $req, Response $resp)
     {
         return $resp;
     }
 
-    public function test($req, $resp)
+    public function test($req, Response $response)
     {
-        if ($req->isPaginated()) {
-            echo '<pre>' . print_r($req->getPaginationCursor(), true) . '</pre>';
-            exit;
-        }
+        echo '<pre>' . print_r($req->getRequestedFields(), true) . '</pre>';
+        exit;
 
-        $resp->setContent('Hello, friend');
+        $response->setResult(ResourceFactory::result(['something' => 'yolo']));
+        $response->compileContent();
 
-        return $resp;
+        return $response;
     }
 }
