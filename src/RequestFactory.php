@@ -3,6 +3,7 @@
 namespace Refinery29\Piston;
 
 use Zend\Diactoros\ServerRequestFactory;
+use Zend\Diactoros\Uri;
 
 class RequestFactory extends ServerRequestFactory
 {
@@ -29,5 +30,10 @@ class RequestFactory extends ServerRequestFactory
             ->withCookieParams($cookies ?: $_COOKIE)
             ->withQueryParams($query ?: $_GET)
             ->withParsedBody($body ?: $_POST);
+    }
+
+    public static function createFromUri($uri)
+    {
+        return self::fromGlobals()->withUri(new Uri($uri));
     }
 }

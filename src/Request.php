@@ -104,22 +104,6 @@ class Request extends ServerRequest implements HasMiddleware
     }
 
     /**
-     * @return bool
-     */
-    public function hasIncludedResources()
-    {
-        return $this->includedResources !== null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasRequestedFields()
-    {
-        return $this->requestedFields !== null;
-    }
-
-    /**
      * @param string $after_cursor
      */
     public function setAfterCursor($after_cursor)
@@ -160,10 +144,5 @@ class Request extends ServerRequest implements HasMiddleware
     public function getPaginationType()
     {
         return $this->paginationType;
-    }
-
-    public static function createFromUri($uri)
-    {
-        return RequestFactory::fromGlobals()->withUri(new Uri($uri));
     }
 }
