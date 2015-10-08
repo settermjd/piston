@@ -12,16 +12,12 @@ class RouteGroup extends \League\Route\RouteGroup implements HasMiddleware
 {
     use HasMiddlewareTrait;
 
-    protected $routes;
-
     /**
      * {@inheritdoc}
      */
     public function map($method, $path, $handler)
     {
         $route = parent::map($method, $path, $handler);
-
-        $this->routes[] = $route;
 
         return $route;
     }
