@@ -3,16 +3,16 @@
 namespace Refinery29\Piston;
 
 use Refinery29\Piston\Middleware\HasMiddleware;
-use Refinery29\Piston\Middleware\HasPipeline;
+use Refinery29\Piston\Middleware\HasMiddlewareTrait;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Uri;
 
 /**
  * Class Request
  */
-class Request extends ServerRequest implements HasPipeline
+class Request extends ServerRequest implements HasMiddleware
 {
-    use HasMiddleware;
+    use HasMiddlewareTrait;
 
     const OFFSET_LIMIT_PAGINATION = 'offset_limit';
     const CURSOR_PAGINATION = 'cursor';

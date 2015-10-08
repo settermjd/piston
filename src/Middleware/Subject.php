@@ -8,7 +8,7 @@ use Refinery29\Piston\Response;
 class Subject
 {
     /**
-     * @var HasPipeline
+     * @var HasMiddleware
      */
     private $subject;
 
@@ -22,7 +22,7 @@ class Subject
      */
     private $response;
 
-    public function __construct(HasPipeline $subject, Request $request, Response $response)
+    public function __construct(HasMiddleware $subject, Request $request, Response $response)
     {
         $this->subject = $subject;
         $this->request = $request;
@@ -30,7 +30,7 @@ class Subject
     }
 
     /**
-     * @return HasPipeline
+     * @return HasMiddleware
      */
     public function getSubject()
     {

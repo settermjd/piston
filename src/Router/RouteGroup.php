@@ -3,14 +3,14 @@
 namespace Refinery29\Piston\Router;
 
 use Refinery29\Piston\Middleware\HasMiddleware;
-use Refinery29\Piston\Middleware\HasPipeline;
+use Refinery29\Piston\Middleware\HasMiddlewareTrait;
 
 /**
  * Class RouteGroup
  */
-class RouteGroup extends \League\Route\RouteGroup implements HasPipeline
+class RouteGroup extends \League\Route\RouteGroup implements HasMiddleware
 {
-    use HasMiddleware;
+    use HasMiddlewareTrait;
 
     protected $routes;
 
