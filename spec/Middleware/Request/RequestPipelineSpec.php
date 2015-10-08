@@ -18,7 +18,9 @@ class RequestPipelineSpec extends ObjectBehavior
     public function it_can_be_processed()
     {
         $request = new Request();
+        $response = new Response();
+        $subject = new Subject($request, $request, $response);
 
-        $this->process(new Subject($request, $request, new Response()))->shouldReturn($request);
+        $this->process($subject)->shouldHaveType(Subject::class);
     }
 }

@@ -21,6 +21,9 @@ class FooController
 
     public function test($req, Response $response)
     {
+        echo "<pre>".print_r($req->getRequestedFields(), true)."</pre>";
+        exit;
+
         $response->setResult(ResourceFactory::result(['something' => "yolo"]));
         $response->compileContent();
 

@@ -18,7 +18,7 @@ class IncludedResourceSpec extends ObjectBehavior
     public function it_will_get_included_resources()
     {
         /** @var Request $request */
-        $request = (new Request())->createFromUri('123/yolo?include=foo,bar,baz');
+        $request = (new Request())->withQueryParams(['include' => 'foo,bar,baz']);
         $result = $this->process(new Subject($request, $request, new Response()));
 
         $result->shouldHaveType(Subject::class);
@@ -28,12 +28,14 @@ class IncludedResourceSpec extends ObjectBehavior
         $resources->shouldBeArray();
 
         $resources->shouldContain('foo');
+        $resources->shouldContain('bar');
+        $resources->shouldContain('baz');
     }
 
     public function it_can_get_nested_resources()
     {
         /** @var Request $request */
-        $request = (new Request())->createFromUri('123/yolo?include=foo.bing,bar,baz');
+        $request = (new Request())->withQueryParams(['include'=>'foo.bing,bar,baz']);
 
         $result = $this->process(new Subject($request, $request, new Response()))->getSubject();
 
@@ -43,5 +45,7 @@ class IncludedResourceSpec extends ObjectBehavior
         $resources->shouldBeArray();
 
         $resources->shouldContain(['foo',  'bing']);
+        $resources->shouldContain('bar');
+        $resources->shouldContain('baz');
     }
 }

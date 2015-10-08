@@ -17,7 +17,8 @@ class MiddlewareTwo implements \League\Pipeline\StageInterface
         /** @var Response $response */
         $response = $payload->getResponse();
 
-        $response->setErrors(ResourceFactory::errorCollection([ResourceFactory::error('something', 'blach')]));
+//        $response->setErrors(ResourceFactory::errorCollection([ResourceFactory::error('something', 'blach')]));
+        return $payload;
     }
 }
 
@@ -25,7 +26,7 @@ class Middleware implements \League\Pipeline\StageInterface
 {
     public function process($payload)
     {
-        $payload->getSubject()->group('/prefix', function ($router) {
+        $payload->getSubject()->group('/prefix', function (\Refinery29\Piston\Router\RouteGroup $router) {
 
             $router->get('/something', FooController::class . "::test")->setName('something'); // also still have convenience http methods (get, post, put etc
         })
@@ -37,7 +38,9 @@ class Middleware implements \League\Pipeline\StageInterface
 $container = new Container();
 $container->add(FooController::class, new FooController());
 
-$app = new \Refinery29\Piston\Piston($container);
+$request = \Refinery29\Piston\RequestFactory::fromGlobals()->withUri(new \Zend\Diactoros\Uri('/prefix/something'))->withQueryParams(['fields' =>"one,two,three"]);
+
+$app = new \Refinery29\Piston\Piston($container, $request);
 
 
 $app->addMiddleware(new Middleware());

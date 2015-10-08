@@ -7,6 +7,7 @@ use Refinery29\Piston\Middleware\Request\RequestedFields;
 use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
+use Zend\Diactoros\Uri;
 
 class RequestedFieldsSpec extends ObjectBehavior
 {
@@ -17,13 +18,18 @@ class RequestedFieldsSpec extends ObjectBehavior
 
     public function it_will_get_requested_fields()
     {
-        $request = Request::createFromUri('123/yolo?fields=model,blog,entry');
-        $result = $this->process(new Subject($request, $request, new Response()));
-        $result->getSubject();
+        $request = (new Request())->withQueryParams(['fields' => 'one,two,three']);
+
+        $subject = new Subject($request, $request, new Response);
+
+        $result = $this->process($subject);
+        $result = $result->getSubject();
 
         $resources = $result->getRequestedFields();
         $resources->shouldBeArray();
 
-        $resources->shouldContain('model');
+        $resources->shouldContain('one');
+        $resources->shouldContain('two');
+        $resources->shouldContain('three');
     }
 }

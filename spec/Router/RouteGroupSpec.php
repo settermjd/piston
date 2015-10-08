@@ -14,7 +14,7 @@ class RouteGroupSpec extends ObjectBehavior
     {
         $this->beConstructedWith(
             '/yolo',
-            function($router){},
+            function ($router) {},
             new RouteCollection());
     }
 

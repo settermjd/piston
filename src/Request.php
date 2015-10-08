@@ -165,6 +165,5 @@ class Request extends ServerRequest implements HasPipeline
     public static function createFromUri($uri)
     {
         return RequestFactory::fromGlobals()->withUri(new Uri($uri));
-
     }
 }

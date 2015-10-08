@@ -25,7 +25,7 @@ class RequestedFields implements StageInterface
         $request = $payload->getSubject();
 
         if (!isset($request->getQueryParams()['fields'])) {
-            return $request;
+            return $payload;
         }
 
         $fields = $request->getQueryParams()['fields'];

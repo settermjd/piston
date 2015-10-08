@@ -2,5 +2,4 @@
 
 class PistonException extends \Exception
 {
-
 }
