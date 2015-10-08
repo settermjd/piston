@@ -5,7 +5,6 @@ namespace Refinery29\Piston;
 use Refinery29\Piston\Middleware\HasMiddleware;
 use Refinery29\Piston\Middleware\HasMiddlewareTrait;
 use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Uri;
 
 /**
  * Class Request
