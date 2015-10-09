@@ -11,7 +11,7 @@ abstract class PipelineProcessor
      *
      * @return Response
      */
-    public static function processPipeline(Subject $subject)
+    public static function handleSubject(Subject $subject)
     {
         $response = $subject->getSubject()
             ->buildPipeline()

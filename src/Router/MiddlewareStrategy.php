@@ -23,7 +23,7 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
     public function dispatch(callable $controller, array $vars = [], Route $route = null)
     {
         if ($group = $route->getParentGroup()) {
-            $this->response = PipelineProcessor::processPipeline(new Subject($group, $this->request, $this->response));
+            $this->response = PipelineProcessor::handleSubject(new Subject($group, $this->request, $this->response));
         }
 
         return call_user_func_array($controller,
