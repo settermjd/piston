@@ -4,14 +4,14 @@ namespace Refinery29\Piston\Middleware;
 
 use Refinery29\Piston\Response;
 
-class PipelineProcessor
+abstract class PipelineProcessor
 {
     /**
      * @param Subject $subject
      *
      * @return Response
      */
-    public function processPipeline(Subject $subject)
+    public static function processPipeline(Subject $subject)
     {
         $response = $subject->getSubject()
             ->buildPipeline()
