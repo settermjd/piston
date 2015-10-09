@@ -73,7 +73,7 @@ final class Piston extends RouteCollection implements HasMiddleware
      */
     public function launch()
     {
-        $this->response = (new PipelineProcessor())->handleSubject($this->getSubject())
+        $this->response = (new PipelineProcessor())->handlePayload($this->getSubject())
                             ->getResponse();
 
         $this->response = $this->dispatch($this->request, $this->response);

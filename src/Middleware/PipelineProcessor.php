@@ -9,7 +9,7 @@ class PipelineProcessor
      *
      * @return Payload
      */
-    public function handleSubject(Payload $subject)
+    public function handlePayload(Payload $subject)
     {
         return $subject->getSubject()
             ->buildPipeline()

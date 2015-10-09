@@ -24,7 +24,7 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
     {
         if ($group = $route->getParentGroup()) {
             $this->response = (new PipelineProcessor())
-                ->handleSubject(new Payload($group, $this->request, $this->response))
+                ->handlePayload(new Payload($group, $this->request, $this->response))
                 ->getResponse();
         }
 
