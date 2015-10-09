@@ -3,8 +3,8 @@
 namespace spec\Refinery29\Piston\Middleware\Request;
 
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\RequestedFields;
-use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 
@@ -19,7 +19,7 @@ class RequestedFieldsSpec extends ObjectBehavior
     {
         $request = (new Request())->withQueryParams(['fields' => 'one,two,three']);
 
-        $subject = new Subject($request, $request, new Response());
+        $subject = new Payload($request, $request, new Response());
 
         $result = $this->process($subject);
         $result = $result->getSubject();

@@ -2,27 +2,15 @@
 
 namespace Refinery29\Piston\Router;
 
-use League\Route\Http\RequestAwareInterface;
-use League\Route\Http\RequestAwareTrait;
-use League\Route\Http\ResponseAwareInterface;
-use League\Route\Http\ResponseAwareTrait;
 use League\Route\Route;
-use League\Route\RouteCollection;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\PipelineProcessor;
-use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Response;
 
-class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInterface, RequestAwareInterface, ResponseAwareInterface
+class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInterface
 {
-    use RequestAwareTrait;
-    use ResponseAwareTrait;
-
-    /**
-     * @var RouteCollection
-     */
-
     /**
      * @param callable|string $controller
      * @param array           $vars
@@ -35,7 +23,9 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
     public function dispatch(callable $controller, array $vars = [], Route $route = null)
     {
         if ($group = $route->getParentGroup()) {
-            $this->response = (new PipelineProcessor())->processPipeline(new Subject($group, $this->request, $this->response));
+            $this->response = (new PipelineProcessor())
+                ->handlePayload(new Payload($group, $this->request, $this->response))
+                ->getResponse();
         }
 
         return call_user_func_array($controller,

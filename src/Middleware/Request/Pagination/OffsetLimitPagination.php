@@ -1,10 +1,11 @@
 <?php
 
-namespace Refinery29\Piston\Middleware\Pagination;
+namespace Refinery29\Piston\Middleware\Request\Pagination;
 
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Middleware\GetOnlyStage;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
 
 class OffsetLimitPagination implements StageInterface
@@ -23,18 +24,22 @@ class OffsetLimitPagination implements StageInterface
     protected $default_limit = 10;
 
     /**
-     * @param Request $request
+     * @param Payload $payload
      *
      * @throws BadRequestException
      *
-     * @return Request
+     * @return Payload
      */
-    public function process($request)
+    public function process($payload)
     {
+        /** @var Request $request */
+        $request = $payload->getRequest();
         $this->ensureNotPreviouslyPaginated($request);
 
-        $offset = $this->coerceToInteger($request->get('offset'), 'offset');
-        $limit = $this->coerceToInteger($request->get('limit'), 'limit');
+        $queryParams = $request->getQueryParams();
+
+        $offset = (isset($queryParams['offset'])) ? $this->coerceToInteger($queryParams['offset'], 'offset') : null;
+        $limit = (isset($queryParams['limit'])) ? $this->coerceToInteger($queryParams['limit'], 'limit') : null;
 
         if ($offset || $limit) {
             $this->ensureGetOnlyRequest($request);
@@ -44,7 +49,7 @@ class OffsetLimitPagination implements StageInterface
             $request->setOffsetLimit($offset, $limit);
         }
 
-        return $request;
+        return $payload;
     }
 
     /**
@@ -57,10 +62,6 @@ class OffsetLimitPagination implements StageInterface
      */
     private function coerceToInteger($param, $param_name)
     {
-        if (!$param) {
-            return;
-        }
-
         if (is_numeric($param)) {
             $integer_value = intval($param);
 

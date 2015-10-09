@@ -61,7 +61,10 @@ class Request extends ServerRequest implements HasMiddleware
      */
     public function getPaginationCursor()
     {
-        return $this->beforeCursor ? $this->beforeCursor : $this->afterCursor;
+        return $this->beforeCursor
+            ? ['before' => $this->beforeCursor]
+            : ['after' => $this->afterCursor]
+            ;
     }
 
     /**

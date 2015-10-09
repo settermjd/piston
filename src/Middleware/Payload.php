@@ -5,7 +5,7 @@ namespace Refinery29\Piston\Middleware;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 
-class Subject
+class Payload
 {
     /**
      * @var HasMiddleware

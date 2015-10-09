@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Refinery29\Piston\Http;
+namespace spec\Refinery29\Piston;
 
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Request;
@@ -18,7 +18,6 @@ class RequestSpec extends ObjectBehavior
         $this->setRequestedFields($req_fields);
 
         $this->getRequestedFields()->shouldReturn($req_fields);
-        $this->hasRequestedFields()->shouldReturn(true);
     }
 
     public function it_can_set_included_resources()
@@ -27,7 +26,6 @@ class RequestSpec extends ObjectBehavior
         $this->setIncludedResources($included_resources);
 
         $this->getIncludedResources()->shouldReturn($included_resources);
-        $this->hasIncludedResources()->shouldReturn(true);
     }
 
     public function it_can_set_a_before_cursor()
@@ -35,8 +33,7 @@ class RequestSpec extends ObjectBehavior
         $pagination_cursor = rand();
         $this->setBeforeCursor($pagination_cursor);
 
-        $this->getPaginationCursor()->shouldReturn($pagination_cursor);
-        $this->isPaginated()->shouldReturn(true);
+        $this->getPaginationCursor()->shouldReturn(['before' => $pagination_cursor]);
     }
 
     public function it_can_set_an_after_cursor()
@@ -44,7 +41,6 @@ class RequestSpec extends ObjectBehavior
         $pagination_cursor = rand();
         $this->setAfterCursor($pagination_cursor);
 
-        $this->getPaginationCursor()->shouldReturn($pagination_cursor);
-        $this->isPaginated()->shouldReturn(true);
+        $this->getPaginationCursor()->shouldReturn(['after' => $pagination_cursor]);
     }
 }
