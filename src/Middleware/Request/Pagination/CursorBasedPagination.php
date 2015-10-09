@@ -1,30 +1,36 @@
 <?php
 
-namespace Refinery29\Piston\Middleware\Pagination;
+namespace Refinery29\Piston\Middleware\Request\Pagination;
 
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Middleware\GetOnlyStage;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
 
 class CursorBasedPagination implements StageInterface
 {
-    use SinglePagination;
     use GetOnlyStage;
+    use SinglePagination;
 
     /**
-     * @param Request $request
+     * @param Payload $payload
      *
      * @throws BadRequestException
      *
-     * @return Request
+     * @return Payload
      */
-    public function process($request)
+    public function process($payload)
     {
+        /** @var Request $request */
+        $request = $payload->getRequest();
+
         $this->ensureNotPreviouslyPaginated($request);
 
-        $before = $request->get('before');
-        $after = $request->get('after');
+        $queryParams = $request->getQueryParams();
+
+        $before = (isset($queryParams['before'])) ? $queryParams['before'] : null;
+        $after = (isset($queryParams['after'])) ? $queryParams['after'] : null;
 
         if ($before && $after) {
             throw new BadRequestException('You may not specify both before and after');
@@ -36,14 +42,16 @@ class CursorBasedPagination implements StageInterface
             if ($before) {
                 $request->setBeforeCursor($before);
 
-                return $request;
+                return $payload;
             }
 
             if ($after) {
                 $request->setAfterCursor($after);
 
-                return $request;
+                return $payload;
             }
         }
+
+        return $payload;
     }
 }

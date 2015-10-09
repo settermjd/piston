@@ -33,8 +33,7 @@ class RequestSpec extends ObjectBehavior
         $pagination_cursor = rand();
         $this->setBeforeCursor($pagination_cursor);
 
-        $this->getPaginationCursor()->shouldReturn($pagination_cursor);
-        $this->isPaginated()->shouldReturn(true);
+        $this->getPaginationCursor()->shouldReturn(['before' => $pagination_cursor]);
     }
 
     public function it_can_set_an_after_cursor()
@@ -42,7 +41,6 @@ class RequestSpec extends ObjectBehavior
         $pagination_cursor = rand();
         $this->setAfterCursor($pagination_cursor);
 
-        $this->getPaginationCursor()->shouldReturn($pagination_cursor);
-        $this->isPaginated()->shouldReturn(true);
+        $this->getPaginationCursor()->shouldReturn(['after' => $pagination_cursor]);
     }
 }

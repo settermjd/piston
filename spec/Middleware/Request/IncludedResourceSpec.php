@@ -3,8 +3,8 @@
 namespace spec\Refinery29\Piston\Middleware\Request;
 
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\IncludedResource;
-use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 
@@ -19,9 +19,9 @@ class IncludedResourceSpec extends ObjectBehavior
     {
         /** @var Request $request */
         $request = (new Request())->withQueryParams(['include' => 'foo,bar,baz']);
-        $result = $this->process(new Subject($request, $request, new Response()));
+        $result = $this->process(new Payload($request, $request, new Response()));
 
-        $result->shouldHaveType(Subject::class);
+        $result->shouldHaveType(Payload::class);
         $result->getSubject()->shouldHaveType(Request::class);
 
         $resources = $result->getSubject()->getIncludedResources();
@@ -37,7 +37,7 @@ class IncludedResourceSpec extends ObjectBehavior
         /** @var Request $request */
         $request = (new Request())->withQueryParams(['include' => 'foo.bing,bar,baz']);
 
-        $result = $this->process(new Subject($request, $request, new Response()))->getSubject();
+        $result = $this->process(new Payload($request, $request, new Response()))->getSubject();
 
         $result->shouldHaveType(Request::class);
 

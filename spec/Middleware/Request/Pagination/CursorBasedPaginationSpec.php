@@ -1,10 +1,12 @@
 <?php
 
-namespace spec\Refinery29\Piston\Middlware\Request\Pagination;
+namespace spec\Refinery29\Piston\Middleware\Request\Pagination;
 
 use PhpSpec\ObjectBehavior;
-use Refinery29\Piston\Http\Request;
-use Refinery29\Piston\Pipeline\Stage\Pagination\CursorBasedPagination;
+use Refinery29\Piston\Middleware\Payload;
+use Refinery29\Piston\Middleware\Request\Pagination\CursorBasedPagination;
+use Refinery29\Piston\RequestFactory;
+use Refinery29\Piston\Response;
 
 class CursorBasedPaginationSpec extends ObjectBehavior
 {
@@ -15,33 +17,45 @@ class CursorBasedPaginationSpec extends ObjectBehavior
 
     public function it_will_not_allow_pagination_on_non_get_requests()
     {
-        $request = Request::create('123/yolo?before=123', 'PUT');
+        $request = RequestFactory::fromGlobals()->withMethod('PUT')->withQueryParams(['before' => 123]);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$request]);
+        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request)]);
     }
 
     public function it_will_not_allow_before_an_after()
     {
-        $request = Request::create('123/yolo?before=123&after=456', 'GET');
+        $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123, 'after' => 456]);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$request]);
+        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request)]);
     }
 
     public function it_will_allow_before_cursor_on_get_requests()
     {
-        $request = Request::create('123/yolo?before=123', 'GET');
-        $this->process($request);
+        $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123]);
+        $this->process($this->getPayload($request))
+            ->getRequest()
+            ->getPaginationCursor()->shouldReturn(['before' => 123]);
     }
 
     public function it_will_allow_after_cursor_on_get_requests()
     {
-        $request = Request::create('123/yolo?after=123', 'GET');
-        $this->process($request);
+        $request = RequestFactory::fromGlobals()->withQueryParams(['after' => 123]);
+        $this->process($this->getPayload($request))
+            ->getRequest()
+            ->getPaginationCursor()->shouldReturn(['after' => 123]);
     }
 
-    public function it_returns_a_request()
+    public function it_returns_a_payload_with_request()
     {
-        $request = Request::create('123/yolo?before=123', 'GET');
-        $this->process($request)->shouldReturn($request);
+        $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123]);
+
+        $response = $this->process($this->getPayload($request));
+        $response->shouldHaveType(Payload::class);
+        $response->getRequest()->shouldReturn($request);
+    }
+
+    private function getPayload($request)
+    {
+        return new Payload($request, $request, new Response());
     }
 }

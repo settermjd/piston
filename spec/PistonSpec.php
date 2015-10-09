@@ -23,13 +23,11 @@ class PistonSpec extends ObjectBehavior
         $this->shouldHaveType(Piston::class);
     }
 
-//
-//    public function it_can_add_a_route_group(RouteGroup $group)
-//    {
-//        $group->getRoutes()->willReturn([]);
-//        $group->updateRoutes()->willReturn(null);
-//        $this->addRouteGroup($group);
-//    }
+    public function it_can_add_a_route_group()
+    {
+        $this->shouldHaveType(Piston::class);
+        $this->group('prefix', function () {})->shouldHaveType(RouteGroup::class);
+    }
 
     public function it_can_add_middleware(StageInterface $operation)
     {

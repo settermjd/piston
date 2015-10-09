@@ -4,6 +4,7 @@ namespace spec\Refinery29\Piston\Router;
 
 use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
+use League\Route\Route;
 use League\Route\RouteCollection;
 use League\Route\RouteGroup;
 use PhpSpec\ObjectBehavior;
@@ -27,5 +28,15 @@ class RouteGroupSpec extends ObjectBehavior
     {
         $this->addMiddleware($operation);
         $this->buildPipeline()->shouldHaveType(Pipeline::class);
+    }
+
+    public function it_can_map_a_route()
+    {
+        $this->map('GET', 'path', 'handler')->shouldHaveType(Route::class);
+    }
+
+    public function it_sets_itself_as_parent_group()
+    {
+        $this->map('GET', 'path', 'handler')->getParentGroup()->shouldReturn($this);
     }
 }

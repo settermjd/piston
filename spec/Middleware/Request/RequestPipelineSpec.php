@@ -3,8 +3,8 @@
 namespace spec\Refinery29\Piston\Middleware\Request;
 
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\RequestPipeline;
-use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 
@@ -19,8 +19,8 @@ class RequestPipelineSpec extends ObjectBehavior
     {
         $request = new Request();
         $response = new Response();
-        $subject = new Subject($request, $request, $response);
+        $subject = new Payload($request, $request, $response);
 
-        $this->process($subject)->shouldHaveType(Subject::class);
+        $this->process($subject)->shouldHaveType(Payload::class);
     }
 }

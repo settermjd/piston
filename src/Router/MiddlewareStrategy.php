@@ -5,8 +5,8 @@ namespace Refinery29\Piston\Router;
 use League\Route\Route;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\PipelineProcessor;
-use Refinery29\Piston\Middleware\Subject;
 use Refinery29\Piston\Response;
 
 class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInterface
@@ -23,7 +23,9 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
     public function dispatch(callable $controller, array $vars = [], Route $route = null)
     {
         if ($group = $route->getParentGroup()) {
-            $this->response = PipelineProcessor::handleSubject(new Subject($group, $this->request, $this->response));
+            $this->response = (new PipelineProcessor())
+                ->handleSubject(new Payload($group, $this->request, $this->response))
+                ->getResponse();
         }
 
         return call_user_func_array($controller,

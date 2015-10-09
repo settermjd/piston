@@ -2,21 +2,17 @@
 
 namespace Refinery29\Piston\Middleware;
 
-use Refinery29\Piston\Response;
-
-abstract class PipelineProcessor
+class PipelineProcessor
 {
     /**
-     * @param Subject $subject
+     * @param Payload $subject
      *
-     * @return Response
+     * @return Payload
      */
-    public static function handleSubject(Subject $subject)
+    public function handleSubject(Payload $subject)
     {
-        $response = $subject->getSubject()
+        return $subject->getSubject()
             ->buildPipeline()
             ->process($subject);
-
-        return $response instanceof Response ? $response : $subject->getResponse();
     }
 }

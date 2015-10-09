@@ -21,7 +21,7 @@ class FooController
 
     public function test(Request $req, Response $response)
     {
-//        $response->setResult(ResourceFactory::result(['something' => 'yolo']));
+        //        $response->setResult(ResourceFactory::result(['something' => 'yolo']));
 //        $response->compileContent();
 
         return $response;

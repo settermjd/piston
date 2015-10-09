@@ -17,8 +17,8 @@ class Response extends DiactorosResponse
     private $responseBody;
 
     /**
-     * @param ResponseBody $responseBody
-     * @param string|resource|StreamInterface $body Stream identifier and/or actual stream resource
+     * @param ResponseBody                    $responseBody
+     * @param string|resource|StreamInterface $body         Stream identifier and/or actual stream resource
      */
     public function __construct(ResponseBody $responseBody = null, $body = 'php://memory')
     {
@@ -28,6 +28,9 @@ class Response extends DiactorosResponse
         $this->withHeader('Content-Type', 'application/json');
     }
 
+    /**
+     * @param Pagination $pagination
+     */
     public function setPagination(Pagination $pagination)
     {
         $this->responseBody->addMember($pagination->getSerializer());
@@ -41,6 +44,9 @@ class Response extends DiactorosResponse
         $this->responseBody->addMember($error->getSerializer());
     }
 
+    /**
+     * @param Result $result
+     */
     public function setResult(Result $result)
     {
         $this->responseBody->addMember($result->getSerializer());
@@ -48,6 +54,8 @@ class Response extends DiactorosResponse
 
     /**
      * @param int $code
+     *
+     * @return Response
      */
     public function setStatusCode($code)
     {
