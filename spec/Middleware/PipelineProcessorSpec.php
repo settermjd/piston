@@ -14,6 +14,6 @@ class PipelineProcessorSpec extends ObjectBehavior
         $request = new Request();
         $response = new Response();
         $subject = new Payload($request, $request, $response);
-        $this->handleSubject($subject)->shouldHaveType(Payload::class);
+        $this->handlePayload($subject)->shouldHaveType(Payload::class);
     }
 }
