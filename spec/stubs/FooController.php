@@ -19,13 +19,10 @@ class FooController
         return $resp;
     }
 
-    public function test($req, Response $response)
+    public function test(Request $req, Response $response)
     {
-        echo '<pre>' . print_r($req->getRequestedFields(), true) . '</pre>';
-        exit;
-
-        $response->setResult(ResourceFactory::result(['something' => 'yolo']));
-        $response->compileContent();
+//        $response->setResult(ResourceFactory::result(['something' => 'yolo']));
+//        $response->compileContent();
 
         return $response;
     }
