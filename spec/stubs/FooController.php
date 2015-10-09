@@ -2,7 +2,6 @@
 
 namespace Refinery29\Piston\Stubs;
 
-use Refinery29\ApiOutput\Resource\ResourceFactory;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 
