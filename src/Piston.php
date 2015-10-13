@@ -59,11 +59,13 @@ final class Piston extends RouteCollection implements HasMiddleware
      * @param string   $prefix
      * @param callable $group
      *
-     * @return \League\Route\RouteGroup
+     * @return RouteGroup
      */
     public function group($prefix, callable $group)
     {
         $group = new RouteGroup($prefix, $group, $this);
+
+        $this->groups[] = $group;
 
         return $group;
     }
