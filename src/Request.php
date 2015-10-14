@@ -63,8 +63,7 @@ class Request extends ServerRequest implements HasMiddleware
     {
         return $this->beforeCursor
             ? ['before' => $this->beforeCursor]
-            : ['after' => $this->afterCursor]
-            ;
+            : ['after' => $this->afterCursor];
     }
 
     /**
@@ -139,7 +138,11 @@ class Request extends ServerRequest implements HasMiddleware
      */
     public function getOffsetLimit()
     {
-        return ['offset' => $this->offset, 'limit' => $this->limit];
+        if ($this->offset || $this->limit) {
+            return ['offset' => $this->offset, 'limit' => $this->limit];
+        }
+
+        return [];
     }
 
     /** @return string */

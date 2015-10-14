@@ -75,21 +75,12 @@ final class Piston extends RouteCollection implements HasMiddleware
      */
     public function launch()
     {
-        $this->response = (new PipelineProcessor())->handlePayload($this->getSubject())
-                            ->getResponse();
+        $this->processPipeline();
 
         $this->response = $this->dispatch($this->request, $this->response);
         $this->response->compileContent();
 
         return $this->emitter->emit($this->response);
-    }
-
-    private function loadContainer()
-    {
-        (new RequestPipeline())->process($this->getSubject());
-
-        $this->container->add('Request', $this->request, true);
-        $this->container->add('Response', $this->response, true);
     }
 
     /**
@@ -98,6 +89,27 @@ final class Piston extends RouteCollection implements HasMiddleware
     public function register(ServiceProvider\AbstractServiceProvider $serviceProvider)
     {
         $this->container->addServiceProvider($serviceProvider);
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    private function processPipeline()
+    {
+        (new PipelineProcessor())->handlePayload($this->getSubject());
+    }
+
+    private function loadContainer()
+    {
+        (new RequestPipeline())->process($this->getSubject());
+
+        $this->container->add('Request', $this->request, true);
+        $this->container->add('Response', $this->response, true);
     }
 
     /**

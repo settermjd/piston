@@ -5,7 +5,6 @@ namespace Refinery29\Piston\Middleware\Request\Pagination;
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Middleware\GetOnlyStage;
-use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
 
 class OffsetLimitPagination implements StageInterface
@@ -23,18 +22,11 @@ class OffsetLimitPagination implements StageInterface
      */
     protected $default_limit = 10;
 
-    /**
-     * @param Payload $payload
-     *
-     * @throws BadRequestException
-     *
-     * @return Payload
-     */
     public function process($payload)
     {
         /** @var Request $request */
         $request = $payload->getRequest();
-        $this->ensureNotPreviouslyPaginated($request);
+
 
         $queryParams = $request->getQueryParams();
 
@@ -42,6 +34,7 @@ class OffsetLimitPagination implements StageInterface
         $limit = (isset($queryParams['limit'])) ? $this->coerceToInteger($queryParams['limit'], 'limit') : null;
 
         if ($offset || $limit) {
+            $this->ensureNotPreviouslyPaginated($request);
             $this->ensureGetOnlyRequest($request);
 
             $offset = $offset ?: $this->default_offset;
@@ -49,8 +42,39 @@ class OffsetLimitPagination implements StageInterface
             $request->setOffsetLimit($offset, $limit);
         }
 
+
         return $payload;
     }
+
+//    /**
+//     * @param Payload $payload
+//     *
+//     * @throws BadRequestException
+//     *
+//     * @return Payload
+//     */
+//    public function process($payload)
+//    {
+//        /** @var Request $request */
+//        $request = $payload->getRequest();
+//
+//        $this->ensureNotPreviouslyPaginated($request);
+//
+//        $queryParams = $request->getQueryParams();
+//
+//        $offset = (isset($queryParams['offset'])) ? $this->coerceToInteger($queryParams['offset'], 'offset') : null;
+//        $limit = (isset($queryParams['limit'])) ? $this->coerceToInteger($queryParams['limit'], 'limit') : null;
+//
+//        if ($offset || $limit) {
+//            $this->ensureGetOnlyRequest($request);
+//
+//            $offset = $offset ?: $this->default_offset;
+//            $limit = $limit ?: $this->default_limit;
+//            $request->setOffsetLimit($offset, $limit);
+//        }
+//
+//        return $payload;
+//    }
 
     /**
      * @param mixed  $param

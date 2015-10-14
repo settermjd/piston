@@ -25,7 +25,6 @@ class CursorBasedPagination implements StageInterface
         /** @var Request $request */
         $request = $payload->getRequest();
 
-        $this->ensureNotPreviouslyPaginated($request);
 
         $queryParams = $request->getQueryParams();
 
@@ -37,6 +36,7 @@ class CursorBasedPagination implements StageInterface
         }
 
         if ($before || $after) {
+            $this->ensureNotPreviouslyPaginated($request);
             $this->ensureGetOnlyRequest($request);
 
             if ($before) {
