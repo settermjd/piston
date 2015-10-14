@@ -27,7 +27,6 @@ class OffsetLimitPagination implements StageInterface
         /** @var Request $request */
         $request = $payload->getRequest();
 
-
         $queryParams = $request->getQueryParams();
 
         $offset = (isset($queryParams['offset'])) ? $this->coerceToInteger($queryParams['offset'], 'offset') : null;
@@ -41,7 +40,6 @@ class OffsetLimitPagination implements StageInterface
             $limit = $limit ?: $this->default_limit;
             $request->setOffsetLimit($offset, $limit);
         }
-
 
         return $payload;
     }

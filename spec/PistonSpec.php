@@ -90,7 +90,7 @@ class PistonSpec extends ObjectBehavior
         /** @var Request $request */
         $request = RequestFactory::fromGlobals()
             ->withUri(new Uri('/something'))
-            ->withQueryParams(['offset' =>  10]);
+            ->withQueryParams(['offset' => 10]);
 
         $emitter = new TestEmitter();
 
@@ -99,7 +99,7 @@ class PistonSpec extends ObjectBehavior
 
         $this->launch();
 
-        $this->getRequest()->getOffsetLimit()->shouldReturn(['offset' => 10, "limit" => 10]);
+        $this->getRequest()->getOffsetLimit()->shouldReturn(['offset' => 10, 'limit' => 10]);
     }
 
     public function it_can_add_middleware(StageInterface $operation)
