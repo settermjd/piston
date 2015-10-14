@@ -7,19 +7,14 @@ use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
 use League\Route\RouteCollection;
 use Psr\Http\Message\RequestInterface;
-use Refinery29\Piston\Middleware\HasMiddleware;
-use Refinery29\Piston\Middleware\HasMiddlewareTrait;
-use Refinery29\Piston\Middleware\Payload;
-use Refinery29\Piston\Middleware\PipelineProcessor;
-use Refinery29\Piston\Middleware\Request\RequestPipeline;
 use Refinery29\Piston\Router\MiddlewareStrategy;
 use Refinery29\Piston\Router\RouteGroup;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 
-final class Piston extends RouteCollection implements HasMiddleware
+final class Piston extends RouteCollection implements Middleware\HasMiddleware
 {
-    use HasMiddlewareTrait;
+    use Middleware\HasMiddlewareTrait;
 
     /**
      * @var Request
@@ -101,22 +96,22 @@ final class Piston extends RouteCollection implements HasMiddleware
 
     private function processPipeline()
     {
-        (new PipelineProcessor())->handlePayload($this->getSubject());
+        (new Middleware\PipelineProcessor())->handlePayload($this->getSubject());
     }
 
     private function loadContainer()
     {
-        (new RequestPipeline())->process($this->getSubject());
+        (new Middleware\Request\RequestPipeline())->process($this->getSubject());
 
-        $this->container->add('Request', $this->request, true);
-        $this->container->add('Response', $this->response, true);
+        $this->container->add(Request::class, $this->request, true);
+        $this->container->add(Response::class, $this->response, true);
     }
 
     /**
-     * @return Payload
+     * @return Middleware\Payload
      */
     private function getSubject()
     {
-        return new Payload($this, $this->request, $this->response);
+        return new Middleware\Payload($this, $this->request, $this->response);
     }
 }
