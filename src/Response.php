@@ -63,7 +63,7 @@ class Response extends DiactorosResponse
     }
 
     /**
-     * @return string
+     * @return StreamInterface
      */
     public function compileContent()
     {
