@@ -20,7 +20,7 @@ class IncludedResource implements StageInterface
     public function process($payload)
     {
         /** @var Request $request */
-        $request = $payload->getSubject();
+        $request = $payload->getRequest();
 
         $this->ensureGetOnlyRequest($request);
 

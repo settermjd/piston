@@ -22,7 +22,7 @@ class RequestedFields implements StageInterface
     public function process($payload)
     {
         /** @var Request $request */
-        $request = $payload->getSubject();
+        $request = $payload->getRequest();
 
         if (!isset($request->getQueryParams()['fields'])) {
             return $payload;

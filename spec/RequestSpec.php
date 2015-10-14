@@ -43,4 +43,15 @@ class RequestSpec extends ObjectBehavior
 
         $this->getPaginationCursor()->shouldReturn(['after' => $pagination_cursor]);
     }
+
+    public function it_can_set_offset_limit()
+    {
+        $this->setOffsetLimit(10, 10);
+        $this->getOffsetLimit()->shouldReturn(['offset' => 10, 'limit' => 10]);
+    }
+
+    public function it_returns_empty_array_when_no_offset_limit_is_set()
+    {
+        $this->getOffsetLimit()->shouldReturn([]);
+    }
 }

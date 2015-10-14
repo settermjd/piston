@@ -2,6 +2,7 @@
 
 namespace spec\Refinery29\Piston\Middleware\Request\Pagination;
 
+use League\Route\Http\Exception\BadRequestException;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\Pagination\OffsetLimitPagination;
@@ -96,6 +97,14 @@ class OffsetLimitPaginationSpec extends ObjectBehavior
         $request = RequestFactory::fromGlobals()->withQueryParams(['limit' => '10.35', 'offset' => '20']);
 
         $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request)]);
+    }
+
+    public function it_will_not_allow_previously_paginated_requests()
+    {
+        $request = RequestFactory::fromGlobals()->withQueryParams(['limit' => 123]);
+        $request->setBeforeCursor(rand());
+
+        $this->shouldThrow(BadRequestException::class)->duringprocess($this->getPayload($request));
     }
 
     private function getPayload($request)

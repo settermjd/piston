@@ -2,6 +2,7 @@
 
 namespace spec\Refinery29\Piston\Middleware\Request\Pagination;
 
+use League\Route\Http\Exception\BadRequestException;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\Pagination\CursorBasedPagination;
@@ -52,6 +53,14 @@ class CursorBasedPaginationSpec extends ObjectBehavior
         $response = $this->process($this->getPayload($request));
         $response->shouldHaveType(Payload::class);
         $response->getRequest()->shouldReturn($request);
+    }
+
+    public function it_will_not_allow_previously_paginated_requests()
+    {
+        $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123]);
+        $request->setOffsetLimit(10, 10);
+
+        $this->shouldThrow(BadRequestException::class)->duringprocess($this->getPayload($request));
     }
 
     private function getPayload($request)
