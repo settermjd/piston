@@ -8,7 +8,11 @@ use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Piston;
+use Refinery29\Piston\RequestFactory;
 use Refinery29\Piston\Router\RouteGroup;
+use Refinery29\Piston\Stubs\FooController;
+use Refinery29\Piston\Stubs\TestEmitter;
+use Zend\Diactoros\Uri;
 
 class PistonSpec extends ObjectBehavior
 {
@@ -40,5 +44,18 @@ class PistonSpec extends ObjectBehavior
         $provider->beADoubleOf('League\Container\ServiceProvider\AbstractServiceProvider');
 
         $this->register($provider);
+    }
+
+    public function it_launches_with_expected_result()
+    {
+        $request = RequestFactory::fromGlobals()->withUri(new Uri('/prefix/something'));
+        $emitter = new TestEmitter();
+
+        $this->beConstructedWith(null, $request, $emitter);
+        $this->group('/prefix', function (RouteGroup $router) {
+            $router->get('/something', FooController::class . '::test')->setName('something'); // also still have convenience http methods (get, post, put etc
+        });
+
+        $this->launch()->shouldReturn('{"result":{"something":"yolo"}}');
     }
 }

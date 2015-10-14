@@ -42,8 +42,8 @@ final class Piston extends RouteCollection implements HasMiddleware
         EmitterInterface $emitter = null
     ) {
         $this->container = $container ?: new Container();
-        $this->emitter = $emitter ?: new SapiEmitter();
         $this->request = $request ?: RequestFactory::fromGlobals();
+        $this->emitter = $emitter ?: new SapiEmitter();
 
         $this->response = new Response();
 
@@ -81,7 +81,7 @@ final class Piston extends RouteCollection implements HasMiddleware
         $this->response = $this->dispatch($this->request, $this->response);
         $this->response->compileContent();
 
-        $this->emitter->emit($this->response);
+        return $this->emitter->emit($this->response);
     }
 
     private function loadContainer()
@@ -105,6 +105,6 @@ final class Piston extends RouteCollection implements HasMiddleware
      */
     private function getSubject()
     {
-        return new Payload($this->request, $this->request, $this->response);
+        return new Payload($this, $this->request, $this->response);
     }
 }
