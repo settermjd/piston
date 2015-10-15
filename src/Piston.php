@@ -34,11 +34,13 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     public function __construct(
         ContainerInterface $container = null,
         RequestInterface $request = null,
-        EmitterInterface $emitter = null
+        EmitterInterface $emitter = null,
+        CookieJar $cookies = null
     ) {
         $this->container = $container ?: new Container();
         $this->request = $request ?: RequestFactory::fromGlobals();
         $this->emitter = $emitter ?: new SapiEmitter();
+        $this->cookies = $cookies ?: new CookieJar($this->request->getCookieParams());
 
         $this->response = new Response();
 
