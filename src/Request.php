@@ -9,7 +9,6 @@ use Zend\Diactoros\ServerRequest;
  */
 class Request extends ServerRequest
 {
-
     public function __construct(
         CookieJar $jar = null,
         array $serverParams = [],

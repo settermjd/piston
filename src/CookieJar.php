@@ -23,7 +23,6 @@ class CookieJar
 
     /**
      * @param $key
-     * @return null
      */
     public function get($key)
     {
@@ -64,6 +63,7 @@ class CookieJar
 
     /**
      * @param $array
+     *
      * @return bool
      */
     private function isAssociative($array)
