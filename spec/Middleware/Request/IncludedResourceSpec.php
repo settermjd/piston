@@ -5,6 +5,7 @@ namespace spec\Refinery29\Piston\Middleware\Request;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\IncludedResource;
+use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\Response;
 
@@ -15,16 +16,15 @@ class IncludedResourceSpec extends ObjectBehavior
         $this->shouldHaveType(IncludedResource::class);
     }
 
-    public function it_will_get_included_resources()
+    public function it_will_get_included_resources(Piston $middleware)
     {
         /** @var Request $request */
         $request = (new Request())->withQueryParams(['include' => 'foo,bar,baz']);
-        $result = $this->process(new Payload($request, $request, new Response()));
+        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new Response()))->getRequest();
 
-        $result->shouldHaveType(Payload::class);
-        $result->getSubject()->shouldHaveType(Request::class);
+        $result->shouldHaveType(Request::class);
 
-        $resources = $result->getSubject()->getIncludedResources();
+        $resources = $result->getIncludedResources();
         $resources->shouldBeArray();
 
         $resources->shouldContain('foo');
@@ -32,12 +32,12 @@ class IncludedResourceSpec extends ObjectBehavior
         $resources->shouldContain('baz');
     }
 
-    public function it_can_get_nested_resources()
+    public function it_can_get_nested_resources(Piston $middleware)
     {
         /** @var Request $request */
         $request = (new Request())->withQueryParams(['include' => 'foo.bing,bar,baz']);
 
-        $result = $this->process(new Payload($request, $request, new Response()))->getSubject();
+        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new Response()))->getRequest();
 
         $result->shouldHaveType(Request::class);
 
