@@ -12,7 +12,7 @@ use Refinery29\Piston\Router\RouteGroup;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 
-final class Piston extends RouteCollection implements Middleware\HasMiddleware
+class Piston extends RouteCollection implements Middleware\HasMiddleware
 {
     use Middleware\HasMiddlewareTrait;
 
