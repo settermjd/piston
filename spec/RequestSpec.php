@@ -3,6 +3,7 @@
 namespace spec\Refinery29\Piston;
 
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\CookieJar;
 use Refinery29\Piston\Request;
 
 class RequestSpec extends ObjectBehavior
@@ -53,5 +54,21 @@ class RequestSpec extends ObjectBehavior
     public function it_returns_empty_array_when_no_offset_limit_is_set()
     {
         $this->getOffsetLimit()->shouldReturn([]);
+    }
+
+    public function it_can_get_cookie_jar()
+    {
+        $this->getCookieJar()->shouldHaveType(CookieJar::class);
+    }
+
+    public function it_has_cookies_set_by_cookiejar()
+    {
+        $this->beConstructedWith(new CookieJar(['yoko' => 'ono']));
+
+        $request = $this->fromCookieJar();
+        $request->shouldHaveType(Request::class);
+        $request->getCookieJar()->shouldHaveType(CookieJar::class);
+
+        $this->getCookieJar()->get('yoko')->shouldReturn('ono');
     }
 }

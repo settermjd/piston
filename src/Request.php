@@ -9,6 +9,21 @@ use Zend\Diactoros\ServerRequest;
  */
 class Request extends ServerRequest
 {
+
+    public function __construct(
+        CookieJar $jar = null,
+        array $serverParams = [],
+        array $uploadedFiles = [],
+        $uri = null,
+        $method = null,
+        $body = 'php://input',
+        array $headers = []
+    ) {
+        $this->cookieJar = $jar ?: new CookieJar();
+
+        parent::__construct($serverParams, $uploadedFiles, $uri, $method, $body, $headers);
+    }
+
     const OFFSET_LIMIT_PAGINATION = 'offset_limit';
     const CURSOR_PAGINATION = 'cursor';
 
@@ -51,6 +66,8 @@ class Request extends ServerRequest
      * @var int
      */
     private $limit;
+
+    private $cookieJar;
 
     /**
      * @return string
@@ -145,5 +162,15 @@ class Request extends ServerRequest
     public function getPaginationType()
     {
         return $this->paginationType;
+    }
+
+    public function getCookieJar()
+    {
+        return $this->cookieJar;
+    }
+
+    public function fromCookieJar()
+    {
+        return $this->withCookieParams($this->cookieJar->all());
     }
 }
