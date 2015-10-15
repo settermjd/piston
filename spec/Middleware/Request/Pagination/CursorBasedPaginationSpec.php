@@ -6,6 +6,7 @@ use League\Route\Http\Exception\BadRequestException;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\Pagination\CursorBasedPagination;
+use Refinery29\Piston\Piston;
 use Refinery29\Piston\RequestFactory;
 use Refinery29\Piston\Response;
 
@@ -16,55 +17,55 @@ class CursorBasedPaginationSpec extends ObjectBehavior
         $this->shouldHaveType(CursorBasedPagination::class);
     }
 
-    public function it_will_not_allow_pagination_on_non_get_requests()
+    public function it_will_not_allow_pagination_on_non_get_requests(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withMethod('PUT')->withQueryParams(['before' => 123]);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request)]);
+        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $middleware)]);
     }
 
-    public function it_will_not_allow_before_an_after()
+    public function it_will_not_allow_before_an_after(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123, 'after' => 456]);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request)]);
+        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $middleware)]);
     }
 
-    public function it_will_allow_before_cursor_on_get_requests()
+    public function it_will_allow_before_cursor_on_get_requests(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123]);
-        $this->process($this->getPayload($request))
+        $this->process($this->getPayload($request, $middleware))
             ->getRequest()
             ->getPaginationCursor()->shouldReturn(['before' => 123]);
     }
 
-    public function it_will_allow_after_cursor_on_get_requests()
+    public function it_will_allow_after_cursor_on_get_requests(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['after' => 123]);
-        $this->process($this->getPayload($request))
+        $this->process($this->getPayload($request, $middleware))
             ->getRequest()
             ->getPaginationCursor()->shouldReturn(['after' => 123]);
     }
 
-    public function it_returns_a_payload_with_request()
+    public function it_returns_a_payload_with_request(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123]);
 
-        $response = $this->process($this->getPayload($request));
+        $response = $this->process($this->getPayload($request, $middleware));
         $response->shouldHaveType(Payload::class);
         $response->getRequest()->shouldReturn($request);
     }
 
-    public function it_will_not_allow_previously_paginated_requests()
+    public function it_will_not_allow_previously_paginated_requests(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123]);
         $request->setOffsetLimit(10, 10);
 
-        $this->shouldThrow(BadRequestException::class)->duringprocess($this->getPayload($request));
+        $this->shouldThrow(BadRequestException::class)->duringprocess($this->getPayload($request, $middleware));
     }
 
-    private function getPayload($request)
+    private function getPayload($request, Piston $middleware)
     {
-        return new Payload($request, $request, new Response());
+        return new Payload($middleware->getWrappedObject(), $request, new Response());
     }
 }
