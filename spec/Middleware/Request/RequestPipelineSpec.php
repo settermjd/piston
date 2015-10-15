@@ -3,7 +3,6 @@
 namespace spec\Refinery29\Piston\Middleware\Request;
 
 use PhpSpec\ObjectBehavior;
-use Refinery29\Piston\Middleware\HasMiddleware;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\RequestPipeline;
 use Refinery29\Piston\Piston;
