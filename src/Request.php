@@ -205,4 +205,18 @@ class Request extends ServerRequest
     {
         return $this->cookieJar->all();
     }
+
+    public function clearCookie($key)
+    {
+        $this->cookieJar->clear($key);
+
+        return $this->withCookieParams($this->cookieJar->all());
+    }
+
+    public function clearCookies()
+    {
+        $this->cookieJar->clearAll();
+
+        return $this->withCookieParams($this->cookieJar->all());
+    }
 }
