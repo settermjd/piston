@@ -6,6 +6,7 @@ use League\Container\Container;
 use League\Container\ServiceProvider;
 use League\Pipeline\CallableStage;
 use League\Pipeline\StageInterface;
+use League\Route\Http\Exception\NotFoundException;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\ExceptionalPipeline;
 use Refinery29\Piston\Piston;
@@ -162,5 +163,25 @@ class PistonSpec extends ObjectBehavior
         }));
 
         $this->shouldThrow(TestException::class)->duringLaunch();
+    }
+
+    public function it_can_override_already_registered_exceptions()
+    {
+        $emitter = new ReturnEmitter();
+        $this->beConstructedWith(null, null, $emitter);
+        $response = $this->launch();
+        $response->shouldHaveType(Response::class);
+
+        $response->getStatusCode()->shouldReturn(404);
+
+        $this->addMiddleware(CallableStage::forCallable(function () {
+            throw new NotFoundException();
+        }));
+
+        $this->registerException(NotFoundException::class, function () {
+            return 'How now, Brown Cow?';
+        });
+
+        $this->launch()->shouldReturn('How now, Brown Cow?');
     }
 }
