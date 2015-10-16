@@ -2,6 +2,7 @@
 
 namespace spec\Refinery29\Piston\Middleware\Request;
 
+use League\Route\Http\Exception\BadRequestException;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\IncludedResource;
@@ -47,5 +48,23 @@ class IncludedResourceSpec extends ObjectBehavior
         $resources->shouldContain(['foo',  'bing']);
         $resources->shouldContain('bar');
         $resources->shouldContain('baz');
+    }
+
+    public function it_does_not_ensure_get_only_request_when_no_resources_included(Piston $middleware)
+    {
+        $request = (new Request())->withMethod('POST');
+
+        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new Response()))->getRequest();
+
+        $result->shouldHaveType(Request::class);
+    }
+
+    public function it_ensures_get_only_request_when_resources_are_included(Piston $middleware)
+    {
+        $request = (new Request())->withMethod('POST')->withQueryParams(['include' => 'foo']);
+
+        $payload = new Payload($middleware->getWrappedObject(), $request, new Response());
+
+        $this->shouldThrow(BadRequestException::class)->duringProcess($payload);
     }
 }

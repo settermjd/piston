@@ -4,6 +4,7 @@ namespace Refinery29\Piston\Middleware\Request;
 
 use League\Pipeline\StageInterface;
 use Refinery29\Piston\Middleware\GetOnlyStage;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
 
 class IncludedResource implements StageInterface
@@ -11,7 +12,7 @@ class IncludedResource implements StageInterface
     use GetOnlyStage;
 
     /**
-     * @param Subject $payload
+     * @param Payload $payload
      *
      * @throws \League\Route\Http\Exception\BadRequestException
      *
@@ -22,11 +23,11 @@ class IncludedResource implements StageInterface
         /** @var Request $request */
         $request = $payload->getRequest();
 
-        $this->ensureGetOnlyRequest($request);
-
         if (!isset($request->getQueryParams()['include'])) {
             return $payload;
         }
+
+        $this->ensureGetOnlyRequest($request);
 
         $include = explode(',', $request->getQueryParams()['include']);
 
