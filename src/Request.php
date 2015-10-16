@@ -9,6 +9,15 @@ use Zend\Diactoros\ServerRequest;
  */
 class Request extends ServerRequest
 {
+    /**
+     * @param CookieJar $jar
+     * @param array     $serverParams
+     * @param array     $uploadedFiles
+     * @param null      $uri
+     * @param null      $method
+     * @param string    $body
+     * @param array     $headers
+     */
     public function __construct(
         CookieJar $jar = null,
         array $serverParams = [],
@@ -18,9 +27,9 @@ class Request extends ServerRequest
         $body = 'php://input',
         array $headers = []
     ) {
-        $this->cookieJar = $jar ?: new CookieJar();
-
         parent::__construct($serverParams, $uploadedFiles, $uri, $method, $body, $headers);
+
+        $this->cookieJar = $jar ?: new CookieJar();
     }
 
     const OFFSET_LIMIT_PAGINATION = 'offset_limit';
@@ -66,6 +75,9 @@ class Request extends ServerRequest
      */
     private $limit;
 
+    /**
+     * @var CookieJar
+     */
     private $cookieJar;
 
     /**
@@ -163,13 +175,34 @@ class Request extends ServerRequest
         return $this->paginationType;
     }
 
-    public function getCookieJar()
+    /**
+     * @param $key
+     * @param $val
+     *
+     * @return Request
+     */
+    public function withCookie($key, $val)
     {
-        return $this->cookieJar;
+        $this->cookieJar->set($key, $val);
+
+        return $this->withCookieParams($this->cookieJar->all());
     }
 
-    public function fromCookieJar()
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getCookie($key)
     {
-        return $this->withCookieParams($this->cookieJar->all());
+        return $this->cookieJar->get($key);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCookies()
+    {
+        return $this->cookieJar->all();
     }
 }

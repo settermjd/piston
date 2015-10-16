@@ -56,19 +56,50 @@ class RequestSpec extends ObjectBehavior
         $this->getOffsetLimit()->shouldReturn([]);
     }
 
-    public function it_can_get_cookie_jar()
-    {
-        $this->getCookieJar()->shouldHaveType(CookieJar::class);
-    }
-
     public function it_has_cookies_set_by_cookiejar()
     {
         $this->beConstructedWith(new CookieJar(['yoko' => 'ono']));
 
-        $request = $this->fromCookieJar();
-        $request->shouldHaveType(Request::class);
-        $request->getCookieJar()->shouldHaveType(CookieJar::class);
+        $this->getCookie('yoko')->shouldReturn('ono');
+    }
 
-        $this->getCookieJar()->get('yoko')->shouldReturn('ono');
+    public function it_can_set_a_cookie()
+    {
+        $request = $this->withCookie('yoko', 'ono');
+        $request->shouldHaveType(Request::class);
+
+        $request->getCookie('yoko')->shouldReturn('ono');
+    }
+
+    public function it_can_get_a_cookie()
+    {
+        $this->beConstructedWith(new CookieJar(['yoko' => 'ono']));
+
+        $this->getCookie('yoko')->shouldReturn('ono');
+    }
+
+    public function it_can_get_all_cookies()
+    {
+        $this->beConstructedWith(new CookieJar(['yoko' => 'ono', 'ringo' => 'starr']));
+
+        $this->getCookies()->shouldReturn(['yoko' => 'ono', 'ringo' => 'starr']);
+    }
+
+    public function it_can_clear_a_cookie()
+    {
+        $this->beConstructedWith(new CookieJar(['yoko' => 'ono', 'ringo' => 'starr']));
+
+        $this->clearCookie('yoko');
+
+        $this->getCookies()->shouldReturn(['ringo' => 'starr']);
+    }
+
+    public function it_can_clear_all_cookies()
+    {
+        $this->beConstructedWith(new CookieJar(['yoko' => 'ono', 'ringo' => 'starr']));
+
+        $this->clearCookies();
+
+        $this->getCookies()->shouldReturn([]);
     }
 }

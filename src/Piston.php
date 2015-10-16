@@ -75,8 +75,6 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         $this->response = $this->dispatch($this->request, $this->response);
         $this->response->compileContent();
 
-        $this->request = $this->request->fromCookieJar();
-
         return $this->emitter->emit($this->response);
     }
 
