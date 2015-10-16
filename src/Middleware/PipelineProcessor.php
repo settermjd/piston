@@ -12,7 +12,7 @@ class PipelineProcessor
     public function handlePayload(Payload $subject)
     {
         return $subject->getSubject()
-            ->buildPipeline()
+            ->getPipeline()
             ->process($subject);
     }
 }

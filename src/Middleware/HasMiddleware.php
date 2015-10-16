@@ -2,12 +2,14 @@
 
 namespace Refinery29\Piston\Middleware;
 
-use League\Pipeline\Pipeline;
+use League\Pipeline\StageInterface;
 
 interface HasMiddleware
 {
     /**
-     * @return Pipeline
+     * @param StageInterface $stage
+     *
+     * @return HasMiddleware
      */
-    public function buildPipeline();
+    public function addMiddleware(StageInterface $stage);
 }

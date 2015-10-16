@@ -5,7 +5,7 @@ namespace Refinery29\Piston\Stubs;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\EmitterInterface;
 
-class TestEmitter implements EmitterInterface
+class ReturnEmitter implements EmitterInterface
 {
     /**
      * Emit a response.
@@ -16,6 +16,6 @@ class TestEmitter implements EmitterInterface
      */
     public function emit(ResponseInterface $response)
     {
-        return $response->getBody()->__toString();
+        return $response;
     }
 }

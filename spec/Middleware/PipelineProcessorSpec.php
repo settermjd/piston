@@ -14,7 +14,7 @@ class PipelineProcessorSpec extends ObjectBehavior
     public function it_handles_a_subject(Piston $middleware)
     {
         $pipeline = new Pipeline([]);
-        $middleware->buildPipeline()->willReturn($pipeline);
+        $middleware->getPipeline()->willReturn($pipeline);
 
         $request = new Request();
         $response = new Response();

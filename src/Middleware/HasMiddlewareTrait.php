@@ -13,6 +13,8 @@ trait HasMiddlewareTrait
      */
     protected $pipeline = null;
 
+    private $stages = [];
+
     /**
      * @param $stage
      *
@@ -20,8 +22,8 @@ trait HasMiddlewareTrait
      */
     public function addMiddleware(StageInterface $stage)
     {
-        $this->getPipeline();
-        $this->pipeline->add($stage);
+        $this->pipeline = $this->getPipeline();
+        $this->pipeline = $this->pipeline->pipe($stage);
 
         return $this;
     }
@@ -29,20 +31,12 @@ trait HasMiddlewareTrait
     /**
      * Instaniate a new pipeline if one doesn't exist.
      */
-    protected function getPipeline()
+    public function getPipeline()
     {
-        if ($this->pipeline == null) {
-            $this->pipeline = new PipelineBuilder();
+        if (!$this->pipeline) {
+            $this->pipeline = new ExceptionalPipeline();
         }
-    }
 
-    /**
-     * @return PipeLine
-     */
-    public function buildPipeline()
-    {
-        $this->getPipeline();
-
-        return $this->pipeline->build();
+        return $this->pipeline;
     }
 }
