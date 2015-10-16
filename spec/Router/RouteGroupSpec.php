@@ -2,12 +2,12 @@
 
 namespace spec\Refinery29\Piston\Router;
 
-use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 use League\Route\Route;
 use League\Route\RouteCollection;
 use League\Route\RouteGroup;
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\Middleware\ExceptionalPipeline;
 
 class RouteGroupSpec extends ObjectBehavior
 {
@@ -27,7 +27,7 @@ class RouteGroupSpec extends ObjectBehavior
     public function it_can_add_middleware(StageInterface $operation)
     {
         $this->addMiddleware($operation);
-        $this->buildPipeline()->shouldHaveType(Pipeline::class);
+        $this->getPipeline()->shouldHaveType(ExceptionalPipeline::class);
     }
 
     public function it_can_map_a_route()

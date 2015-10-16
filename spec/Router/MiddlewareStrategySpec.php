@@ -42,9 +42,9 @@ class MiddlewareStrategySpec extends ObjectBehavior
     public function it_handles_group_middleware(RouteGroup $group, Route $route, FooController $foo, Request $request, Response $response)
     {
         $route->getParentGroup()->willReturn($group);
-        $group->buildPipeline()->willReturn(new Pipeline());
+        $group->getPipeline()->willReturn(new Pipeline());
 
-        $group->buildPipeline()->shouldBeCalled();
+        $group->getPipeline()->shouldBeCalled();
 
         $this->setResponse($response)
             ->setRequest($request);

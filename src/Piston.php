@@ -5,6 +5,7 @@ namespace Refinery29\Piston;
 use League\Container\Container;
 use League\Container\ContainerInterface;
 use League\Container\ServiceProvider;
+use League\Route\Http\Exception\NotFoundException;
 use League\Route\RouteCollection;
 use Psr\Http\Message\RequestInterface;
 use Refinery29\Piston\Router\MiddlewareStrategy;
@@ -31,6 +32,11 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
      */
     private $emitter;
 
+    /**
+     * @var array
+     */
+    private $exceptions = [];
+
     public function __construct(
         ContainerInterface $container = null,
         RequestInterface $request = null,
@@ -46,6 +52,15 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         parent::__construct($this->container);
 
         $this->setStrategy(new MiddlewareStrategy($this->container));
+
+        $this->setupDefaultExceptions();
+    }
+
+    private function setupDefaultExceptions()
+    {
+        $this->registerException(NotFoundException::class, function (Piston $piston) {
+            return $piston->notFound();
+        });
     }
 
     /**
@@ -70,12 +85,29 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
      */
     public function launch()
     {
-        $this->processPipeline();
+        try {
+            $this->processPipeline();
 
-        $this->response = $this->dispatch($this->request, $this->response);
-        $this->response->compileContent();
+            $this->response = $this->dispatch($this->request, $this->response);
+            $this->response->compileContent();
 
-        return $this->emitter->emit($this->response);
+            return $this->emitter->emit($this->response);
+        } catch (\Exception $e) {
+            foreach ($this->exceptions as $exception => $callable) {
+                if ($e instanceof $exception) {
+                    return $callable($this);
+                }
+            }
+
+            throw $e;
+        }
+    }
+
+    public function notFound()
+    {
+        $this->response->getBody()->write('{}');
+
+        return $this->emitter->emit($this->response->withStatus(404));
     }
 
     /**
@@ -96,12 +128,12 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
 
     private function processPipeline()
     {
-        (new Middleware\PipelineProcessor())->handlePayload($this->getSubject());
+        (new Middleware\PipelineProcessor())->handlePayload($this->buildPayload());
     }
 
     private function loadContainer()
     {
-        (new Middleware\Request\RequestPipeline())->process($this->getSubject());
+        (new Middleware\Request\RequestPipeline())->process($this->buildPayload());
 
         $this->container->add(Request::class, $this->request, true);
         $this->container->add(Response::class, $this->response, true);
@@ -110,8 +142,13 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     /**
      * @return Middleware\Payload
      */
-    private function getSubject()
+    private function buildPayload()
     {
         return new Middleware\Payload($this, $this->request, $this->response);
+    }
+
+    public function registerException($exception, callable $callback)
+    {
+        $this->exceptions[$exception] = $callback;
     }
 }

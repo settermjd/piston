@@ -4,15 +4,19 @@ namespace spec\Refinery29\Piston;
 
 use League\Container\Container;
 use League\Container\ServiceProvider;
-use League\Pipeline\Pipeline;
+use League\Pipeline\CallableStage;
 use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\Middleware\ExceptionalPipeline;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\RequestFactory;
+use Refinery29\Piston\Response;
 use Refinery29\Piston\Router\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
-use Refinery29\Piston\Stubs\TestEmitter;
+use Refinery29\Piston\Stubs\ReturnEmitter;
+use Refinery29\Piston\Stubs\StringEmitter;
+use Refinery29\Piston\Stubs\TestException;
 use Zend\Diactoros\Uri;
 
 class PistonSpec extends ObjectBehavior
@@ -41,7 +45,7 @@ class PistonSpec extends ObjectBehavior
             ->withUri(new Uri('/something'))
             ->withQueryParams(['include' => 'something']);
 
-        $emitter = new TestEmitter();
+        $emitter = new StringEmitter();
 
         $this->beConstructedWith(null, $request, $emitter);
         $this->get('/something', FooController::class . '::test');
@@ -58,7 +62,7 @@ class PistonSpec extends ObjectBehavior
             ->withUri(new Uri('/something'))
             ->withQueryParams(['fields' => 'something']);
 
-        $emitter = new TestEmitter();
+        $emitter = new StringEmitter();
 
         $this->beConstructedWith(null, $request, $emitter);
         $this->get('/something', FooController::class . '::test');
@@ -75,7 +79,7 @@ class PistonSpec extends ObjectBehavior
             ->withUri(new Uri('/something'))
             ->withQueryParams(['before' => 'something']);
 
-        $emitter = new TestEmitter();
+        $emitter = new StringEmitter();
 
         $this->beConstructedWith(null, $request, $emitter);
         $this->get('/something', FooController::class . '::test'); // also still have convenience http methods (get, post, put etc
@@ -92,7 +96,7 @@ class PistonSpec extends ObjectBehavior
             ->withUri(new Uri('/something'))
             ->withQueryParams(['offset' => 10]);
 
-        $emitter = new TestEmitter();
+        $emitter = new StringEmitter();
 
         $this->beConstructedWith(null, $request, $emitter);
         $this->get('/something', FooController::class . '::test'); // also still have convenience http methods (get, post, put etc
@@ -105,7 +109,7 @@ class PistonSpec extends ObjectBehavior
     public function it_can_add_middleware(StageInterface $operation)
     {
         $this->addMiddleware($operation);
-        $this->buildPipeline()->shouldHaveType(Pipeline::class);
+        $this->getPipeline()->shouldHaveType(ExceptionalPipeline::class);
     }
 
     public function it_can_add_service_providers(ServiceProvider\AbstractServiceProvider $provider)
@@ -118,7 +122,7 @@ class PistonSpec extends ObjectBehavior
     public function it_launches_with_expected_result()
     {
         $request = RequestFactory::fromGlobals()->withUri(new Uri('/prefix/something'));
-        $emitter = new TestEmitter();
+        $emitter = new StringEmitter();
 
         $this->beConstructedWith(null, $request, $emitter);
         $this->group('/prefix', function (RouteGroup $router) {
@@ -126,5 +130,37 @@ class PistonSpec extends ObjectBehavior
         });
 
         $this->launch()->shouldReturn('{"result":{"something":"yolo"}}');
+    }
+
+    public function it_can_register_and_catch_exceptions()
+    {
+        $this->addMiddleware(CallableStage::forCallable(function () {
+            throw new TestException();
+        }));
+
+        $this->registerException(TestException::class, function () {
+            return 'How now, Brown Cow?';
+        });
+
+        $this->launch()->shouldReturn('How now, Brown Cow?');
+    }
+
+    public function it_returns_404_when_not_found()
+    {
+        $emitter = new ReturnEmitter();
+        $this->beConstructedWith(null, null, $emitter);
+        $response = $this->launch();
+        $response->shouldHaveType(Response::class);
+
+        $response->getStatusCode()->shouldReturn(404);
+    }
+
+    public function it_rethrows_uncaught_exceptions()
+    {
+        $this->addMiddleware(CallableStage::forCallable(function () {
+            throw new TestException();
+        }));
+
+        $this->shouldThrow(TestException::class)->duringLaunch();
     }
 }
