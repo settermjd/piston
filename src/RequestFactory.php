@@ -14,10 +14,12 @@ class RequestFactory extends ServerRequestFactory
         array $cookies = null,
         array $files = null
     ) {
+        $cookies = new CookieJar($cookies ?: $_COOKIE);
         $server = static::normalizeServer($server ?: $_SERVER);
         $files = static::normalizeFiles($files ?: $_FILES);
         $headers = static::marshalHeaders($server);
         $request = new Request(
+            $cookies,
             $server,
             $files,
             static::marshalUriFromServer($server, $headers),
@@ -27,7 +29,6 @@ class RequestFactory extends ServerRequestFactory
         );
 
         return $request
-            ->withCookieParams($cookies ?: $_COOKIE)
             ->withQueryParams($query ?: $_GET)
             ->withParsedBody($body ?: $_POST);
     }

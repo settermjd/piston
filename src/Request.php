@@ -9,6 +9,29 @@ use Zend\Diactoros\ServerRequest;
  */
 class Request extends ServerRequest
 {
+    /**
+     * @param CookieJar $jar
+     * @param array     $serverParams
+     * @param array     $uploadedFiles
+     * @param null      $uri
+     * @param null      $method
+     * @param string    $body
+     * @param array     $headers
+     */
+    public function __construct(
+        CookieJar $jar = null,
+        array $serverParams = [],
+        array $uploadedFiles = [],
+        $uri = null,
+        $method = null,
+        $body = 'php://input',
+        array $headers = []
+    ) {
+        parent::__construct($serverParams, $uploadedFiles, $uri, $method, $body, $headers);
+
+        $this->cookieJar = $jar ?: new CookieJar();
+    }
+
     const OFFSET_LIMIT_PAGINATION = 'offset_limit';
     const CURSOR_PAGINATION = 'cursor';
 
@@ -51,6 +74,11 @@ class Request extends ServerRequest
      * @var int
      */
     private $limit;
+
+    /**
+     * @var CookieJar
+     */
+    private $cookieJar;
 
     /**
      * @return string
@@ -145,5 +173,50 @@ class Request extends ServerRequest
     public function getPaginationType()
     {
         return $this->paginationType;
+    }
+
+    /**
+     * @param $key
+     * @param $val
+     *
+     * @return Request
+     */
+    public function withCookie($key, $val)
+    {
+        $this->cookieJar->set($key, $val);
+
+        return $this->withCookieParams($this->cookieJar->all());
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getCookie($key)
+    {
+        return $this->cookieJar->get($key);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCookies()
+    {
+        return $this->cookieJar->all();
+    }
+
+    public function clearCookie($key)
+    {
+        $this->cookieJar->clear($key);
+
+        return $this->withCookieParams($this->cookieJar->all());
+    }
+
+    public function clearCookies()
+    {
+        $this->cookieJar->clearAll();
+
+        return $this->withCookieParams($this->cookieJar->all());
     }
 }
