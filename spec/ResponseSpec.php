@@ -66,4 +66,11 @@ class ResponseSpec extends ObjectBehavior
 
         $rb->addMember($result->getSerializer())->shouldBeCalled();
     }
+
+    public function it_has_json_header(ResponseBody $rb)
+    {
+        $this->beConstructedWith($rb);
+
+        $this->getHeaderLine('content-type')->shouldReturn('application/json');
+    }
 }

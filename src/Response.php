@@ -22,10 +22,8 @@ class Response extends DiactorosResponse
      */
     public function __construct(ResponseBody $responseBody = null, $body = 'php://memory')
     {
-        parent::__construct($body);
+        parent::__construct($body, 200, ['content-type' => 'application/json']);
         $this->responseBody = $responseBody ?: new ResponseBody();
-
-        $this->withHeader('Content-Type', 'application/json');
     }
 
     /**
