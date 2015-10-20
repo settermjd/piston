@@ -156,6 +156,44 @@ class PistonSpec extends ObjectBehavior
         $response->getStatusCode()->shouldReturn(404);
     }
 
+    public function it_returns_correct_error_code()
+    {
+        $emitter = new ReturnEmitter();
+        $this->beConstructedWith(null, null, $emitter);
+
+        $this->addMiddleware(CallableStage::forCallable(function () {
+            throw new TestException();
+        }));
+
+        $this->registerException(TestException::class, function () {
+            return $this->getErrorResponse(300);
+        });
+
+        $response = $this->launch()->getWrappedObject();
+        $response->shouldHaveType(Response::class);
+
+        $response->getStatusCode()->shouldReturn(300);
+    }
+
+    public function it_can_return_error_response_with_custom_body()
+    {
+        $emitter = new ReturnEmitter();
+        $this->beConstructedWith(null, null, $emitter);
+
+        $this->addMiddleware(CallableStage::forCallable(function () {
+            throw new TestException();
+        }));
+
+        $this->registerException(TestException::class, function () {
+            return $this->getErrorResponse(300, "I'm blue da ba dee");
+        });
+
+        $response = $this->launch()->getWrappedObject();
+        $response->shouldHaveType(Response::class);
+
+        $response->getBody()->__toString()->shouldReturn("I'm blue da ba dee");
+    }
+
     public function it_rethrows_uncaught_exceptions()
     {
         $this->addMiddleware(CallableStage::forCallable(function () {

@@ -10,6 +10,7 @@ use League\Route\RouteCollection;
 use Psr\Http\Message\RequestInterface;
 use Refinery29\Piston\Router\MiddlewareStrategy;
 use Refinery29\Piston\Router\RouteGroup;
+use Teapot\StatusCode;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 
@@ -105,9 +106,14 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
 
     public function notFound()
     {
-        $this->response->getBody()->write('{}');
+        return $this->getErrorResponse(404);
+    }
 
-        return $this->emitter->emit($this->response->withStatus(404));
+    public function getErrorResponse($code, $body = "{}")
+    {
+        $this->response->getBody()->write($body);
+
+        return $this->emitter->emit($this->response->withStatus($code));
     }
 
     /**
