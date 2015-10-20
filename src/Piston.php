@@ -10,7 +10,6 @@ use League\Route\RouteCollection;
 use Psr\Http\Message\RequestInterface;
 use Refinery29\Piston\Router\MiddlewareStrategy;
 use Refinery29\Piston\Router\RouteGroup;
-use Teapot\StatusCode;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 
@@ -109,7 +108,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         return $this->getErrorResponse(404);
     }
 
-    public function getErrorResponse($code, $body = "{}")
+    public function getErrorResponse($code, $body = '{}')
     {
         $this->response->getBody()->write($body);
 
