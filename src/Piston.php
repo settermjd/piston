@@ -37,6 +37,11 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
      */
     private $exceptions = [];
 
+    /**
+     * @param ContainerInterface $container
+     * @param RequestInterface   $request
+     * @param EmitterInterface   $emitter
+     */
     public function __construct(
         ContainerInterface $container = null,
         RequestInterface $request = null,
@@ -56,6 +61,9 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         $this->setupDefaultExceptions();
     }
 
+    /**
+     *
+     */
     private function setupDefaultExceptions()
     {
         $this->registerException(NotFoundException::class, function (Piston $piston) {
@@ -81,6 +89,8 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     }
 
     /**
+     * @throws \Exception
+     *
      * @return Response
      */
     public function launch()
@@ -104,7 +114,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     }
 
     /**
-     * @return void
+     *
      */
     public function notFound()
     {
@@ -112,7 +122,8 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     }
 
     /**
-     * @return void
+     * @param string $code
+     * @param string $body
      */
     public function getErrorResponse($code, $body = '{}')
     {
@@ -158,8 +169,12 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         return new Middleware\Payload($this, $this->request, $this->response);
     }
 
-    public function registerException($exception, callable $callback)
+    /**
+     * @param string   $exceptionClassName
+     * @param callable $callback
+     */
+    public function registerException($exceptionClassName, callable $callback)
     {
-        $this->exceptions[$exception] = $callback;
+        $this->exceptions[$exceptionClassName] = $callback;
     }
 }
