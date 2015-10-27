@@ -103,11 +103,17 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         }
     }
 
+    /**
+     * @return void
+     */
     public function notFound()
     {
         return $this->getErrorResponse(404);
     }
 
+    /**
+     * @return void
+     */
     public function getErrorResponse($code, $body = '{}')
     {
         $this->response->getBody()->write($body);
