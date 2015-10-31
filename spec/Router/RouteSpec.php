@@ -4,13 +4,12 @@ namespace spec\Refinery29\Piston\Router;
 
 use League\Pipeline\StageInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Refinery29\Piston\Middleware\ExceptionalPipeline;
 use Refinery29\Piston\Router\Route;
 
 class RouteSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Route::class);
     }
@@ -20,5 +19,4 @@ class RouteSpec extends ObjectBehavior
         $this->addMiddleware($operation);
         $this->getPipeline()->shouldHaveType(ExceptionalPipeline::class);
     }
-
 }

@@ -11,14 +11,4 @@ use Refinery29\Piston\Middleware\HasMiddlewareTrait;
 class RouteGroup extends \League\Route\RouteGroup implements HasMiddleware
 {
     use HasMiddlewareTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function map($method, $path, $handler)
-    {
-        $route = parent::map($method, $path, $handler);
-        
-        return $route;
-    }
 }
