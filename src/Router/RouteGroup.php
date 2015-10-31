@@ -18,7 +18,7 @@ class RouteGroup extends \League\Route\RouteGroup implements HasMiddleware
     public function map($method, $path, $handler)
     {
         $route = parent::map($method, $path, $handler);
-
+        
         return $route;
     }
 }

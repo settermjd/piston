@@ -28,6 +28,12 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
                 ->getResponse();
         }
 
+
+        $this->response = (new PipelineProcessor())
+            ->handlePayload(new Payload($route, $this->request, $this->response))
+            ->getResponse();
+
+
         return call_user_func_array($controller,
             [$this->request, $this->response, $vars]
         );

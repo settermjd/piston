@@ -9,6 +9,7 @@ use League\Route\Http\Exception\NotFoundException;
 use League\Route\RouteCollection;
 use Psr\Http\Message\RequestInterface;
 use Refinery29\Piston\Router\MiddlewareStrategy;
+use Refinery29\Piston\Router\Route;
 use Refinery29\Piston\Router\RouteGroup;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
@@ -87,6 +88,21 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
 
         return $group;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function map($method, $path, $handler)
+    {
+        $path = sprintf('/%s', ltrim($path, '/'));
+
+        $route = (new Route)->setMethods((array) $method)->setPath($path)->setCallable($handler);
+
+        $this->routes[] = $route;
+
+        return $route;
+    }
+
 
     /**
      * @throws \Exception
