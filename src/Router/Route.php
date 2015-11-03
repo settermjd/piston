@@ -8,7 +8,7 @@ use Refinery29\Piston\Middleware\HasMiddlewareTrait;
 /**
  * Class RouteGroup
  */
-class RouteGroup extends \League\Route\RouteGroup implements HasMiddleware
+class Route extends \League\Route\Route implements HasMiddleware
 {
     use HasMiddlewareTrait;
 }
