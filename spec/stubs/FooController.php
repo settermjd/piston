@@ -3,8 +3,8 @@
 namespace Refinery29\Piston\Stubs;
 
 use Refinery29\ApiOutput\Resource\ResourceFactory;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Request;
-use Refinery29\Piston\Response;
 
 /**
  * Created by PhpStorm.
@@ -14,12 +14,12 @@ use Refinery29\Piston\Response;
  */
 class FooController
 {
-    public function fooAction(Request $req, Response $resp)
+    public function fooAction(Request $req, ApiResponse $resp)
     {
         return $resp;
     }
 
-    public function test(Request $req, Response $response)
+    public function test(Request $req, ApiResponse $response)
     {
         $response->setResult(ResourceFactory::result(['something' => 'yolo']));
 

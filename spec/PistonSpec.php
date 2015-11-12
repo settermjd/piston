@@ -8,11 +8,11 @@ use League\Pipeline\CallableStage;
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\NotFoundException;
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\ExceptionalPipeline;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\RequestFactory;
-use Refinery29\Piston\Response;
 use Refinery29\Piston\Router\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
 use Refinery29\Piston\Stubs\ReturnEmitter;
@@ -151,7 +151,7 @@ class PistonSpec extends ObjectBehavior
         $emitter = new ReturnEmitter();
         $this->beConstructedWith(null, null, $emitter);
         $response = $this->launch();
-        $response->shouldHaveType(Response::class);
+        $response->shouldHaveType(ApiResponse::class);
 
         $response->getStatusCode()->shouldReturn(404);
     }
@@ -170,7 +170,7 @@ class PistonSpec extends ObjectBehavior
         });
 
         $response = $this->launch()->getWrappedObject();
-        $response->shouldHaveType(Response::class);
+        $response->shouldHaveType(ApiResponse::class);
 
         $response->getStatusCode()->shouldReturn(300);
     }
@@ -189,7 +189,7 @@ class PistonSpec extends ObjectBehavior
         });
 
         $response = $this->launch()->getWrappedObject();
-        $response->shouldHaveType(Response::class);
+        $response->shouldHaveType(ApiResponse::class);
 
         $response->getBody()->__toString()->shouldReturn("I'm blue da ba dee");
     }
@@ -208,7 +208,7 @@ class PistonSpec extends ObjectBehavior
         $emitter = new ReturnEmitter();
         $this->beConstructedWith(null, null, $emitter);
         $response = $this->launch();
-        $response->shouldHaveType(Response::class);
+        $response->shouldHaveType(ApiResponse::class);
 
         $response->getStatusCode()->shouldReturn(404);
 

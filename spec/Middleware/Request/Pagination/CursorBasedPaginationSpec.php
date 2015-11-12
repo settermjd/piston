@@ -4,11 +4,11 @@ namespace spec\Refinery29\Piston\Middleware\Request\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\Pagination\CursorBasedPagination;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\RequestFactory;
-use Refinery29\Piston\Response;
 
 class CursorBasedPaginationSpec extends ObjectBehavior
 {
@@ -66,6 +66,6 @@ class CursorBasedPaginationSpec extends ObjectBehavior
 
     private function getPayload($request, Piston $middleware)
     {
-        return new Payload($middleware->getWrappedObject(), $request, new Response());
+        return new Payload($middleware->getWrappedObject(), $request, new ApiResponse());
     }
 }

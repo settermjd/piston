@@ -4,11 +4,11 @@ namespace spec\Refinery29\Piston\Middleware\Request;
 
 use League\Route\Http\Exception\BadRequestException;
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\IncludedResource;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
-use Refinery29\Piston\Response;
 
 class IncludedResourceSpec extends ObjectBehavior
 {
@@ -21,7 +21,7 @@ class IncludedResourceSpec extends ObjectBehavior
     {
         /** @var Request $request */
         $request = (new Request())->withQueryParams(['include' => 'foo,bar,baz']);
-        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new Response()))->getRequest();
+        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new ApiResponse()))->getRequest();
 
         $result->shouldHaveType(Request::class);
 
@@ -38,7 +38,7 @@ class IncludedResourceSpec extends ObjectBehavior
         /** @var Request $request */
         $request = (new Request())->withQueryParams(['include' => 'foo.bing,bar,baz']);
 
-        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new Response()))->getRequest();
+        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new ApiResponse()))->getRequest();
 
         $result->shouldHaveType(Request::class);
 
@@ -54,7 +54,7 @@ class IncludedResourceSpec extends ObjectBehavior
     {
         $request = (new Request())->withMethod('POST');
 
-        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new Response()))->getRequest();
+        $result = $this->process(new Payload($middleware->getWrappedObject(), $request, new ApiResponse()))->getRequest();
 
         $result->shouldHaveType(Request::class);
     }
@@ -63,7 +63,7 @@ class IncludedResourceSpec extends ObjectBehavior
     {
         $request = (new Request())->withMethod('POST')->withQueryParams(['include' => 'foo']);
 
-        $payload = new Payload($middleware->getWrappedObject(), $request, new Response());
+        $payload = new Payload($middleware->getWrappedObject(), $request, new ApiResponse());
 
         $this->shouldThrow(BadRequestException::class)->duringProcess($payload);
     }

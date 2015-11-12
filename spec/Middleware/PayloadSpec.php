@@ -3,14 +3,14 @@
 namespace spec\Refinery29\Piston\Middleware;
 
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\HasMiddleware;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
-use Refinery29\Piston\Response;
 
 class PayloadSpec extends ObjectBehavior
 {
-    public function let(HasMiddleware $subject, Request $request, Response $response)
+    public function let(HasMiddleware $subject, Request $request, ApiResponse $response)
     {
         $this->beConstructedWith($subject, $request, $response);
     }
@@ -32,6 +32,6 @@ class PayloadSpec extends ObjectBehavior
 
     public function it_can_get_response()
     {
-        $this->getResponse()->shouldHaveType(Response::class);
+        $this->getResponse()->shouldHaveType(ApiResponse::class);
     }
 }

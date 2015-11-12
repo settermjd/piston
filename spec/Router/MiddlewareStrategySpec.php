@@ -5,9 +5,9 @@ namespace spec\Refinery29\Piston\Router;
 use League\Container\ContainerInterface;
 use League\Pipeline\Pipeline;
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\RequestFactory;
-use Refinery29\Piston\Response;
 use Refinery29\Piston\Router\MiddlewareStrategy;
 use Refinery29\Piston\Router\Route;
 use Refinery29\Piston\Router\RouteGroup;
@@ -18,7 +18,7 @@ class MiddlewareStrategySpec extends ObjectBehavior
     public function let(ContainerInterface $container)
     {
         $container->get('Request')->willReturn(RequestFactory::createFromUri('/alias'));
-        $container->get('Response')->willReturn(new Response());
+        $container->get('Response')->willReturn(new ApiResponse());
         $container->get('Refinery29\Piston\Stubs\FooController')->willReturn(new FooController());
     }
 
@@ -27,7 +27,7 @@ class MiddlewareStrategySpec extends ObjectBehavior
         $this->shouldHaveType(MiddlewareStrategy::class);
     }
 
-    public function it_can_dispatch_controller(Route $route, FooController $foo, Request $request, Response $response)
+    public function it_can_dispatch_controller(Route $route, FooController $foo, Request $request, ApiResponse $response)
     {
         $route->getParentGroup()->willReturn(false);
         $route->getPipeline()->willReturn(new Pipeline());
@@ -37,10 +37,10 @@ class MiddlewareStrategySpec extends ObjectBehavior
             ->setRequest($request);
 
         $this->dispatch(
-            [$foo, 'test'], [], $route)->shouldHaveType(Response::class);
+            [$foo, 'test'], [], $route)->shouldHaveType(ApiResponse::class);
     }
 
-    public function it_handles_group_middleware(RouteGroup $group, Route $route, FooController $foo, Request $request, Response $response)
+    public function it_handles_group_middleware(RouteGroup $group, Route $route, FooController $foo, Request $request, ApiResponse $response)
     {
         $route->getParentGroup()->willReturn($group);
         $route->getPipeline()->willReturn(new Pipeline());
@@ -58,7 +58,7 @@ class MiddlewareStrategySpec extends ObjectBehavior
             [$foo, 'test'], [], $route);
     }
 
-    public function it_handles_route_middleware(Route $route, FooController $foo, Request $request, Response $response)
+    public function it_handles_route_middleware(Route $route, FooController $foo, Request $request, ApiResponse $response)
     {
         $route->getParentGroup()->willReturn(false);
         $route->getPipeline()->willReturn(new Pipeline());
