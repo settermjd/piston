@@ -133,6 +133,21 @@ class PistonSpec extends ObjectBehavior
         $this->launch()->shouldReturn('{"result":{"something":"yolo"}}');
     }
 
+    public function it_can_launch_non_compiled_responses()
+    {
+        $request = RequestFactory::fromGlobals()->withUri(new Uri('/prefix/something'));
+        $emitter = new StringEmitter();
+
+        $this->beConstructedWith(null, $request, $emitter);
+        $this->group('/prefix', function (RouteGroup $router) {
+            $router->get('/something', FooController::class . '::testHTMLResponse')->setName('something');
+        });
+
+        $this->launch()->shouldReturn('<p>Hello World</p>');
+    }
+
+
+
     public function it_can_register_and_catch_exceptions()
     {
         $this->addMiddleware(CallableStage::forCallable(function () {

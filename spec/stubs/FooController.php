@@ -5,6 +5,7 @@ namespace Refinery29\Piston\Stubs;
 use Refinery29\ApiOutput\Resource\ResourceFactory;
 use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Request;
+use Zend\Diactoros\Response\HtmlResponse;
 
 /**
  * Created by PhpStorm.
@@ -24,5 +25,10 @@ class FooController
         $response->setResult(ResourceFactory::result(['something' => 'yolo']));
 
         return $response;
+    }
+
+    public function testHTMLResponse()
+    {
+        return new HTMLResponse('<p>Hello World</p>');
     }
 }
