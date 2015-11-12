@@ -143,10 +143,8 @@ class PistonSpec extends ObjectBehavior
             $router->get('/something', FooController::class . '::testHTMLResponse')->setName('something');
         });
 
-        $this->launch()->shouldReturn('<p>Hello World</p>');
+        $this->launch()->shouldReturn('<p>Hello Worldmake cs</p>');
     }
-
-
 
     public function it_can_register_and_catch_exceptions()
     {
