@@ -5,9 +5,9 @@ namespace Refinery29\Piston\Router;
 use League\Route\Route;
 use League\Route\Strategy\RequestResponseStrategy;
 use League\Route\Strategy\StrategyInterface;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\PipelineProcessor;
-use Refinery29\Piston\Response;
 
 class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInterface
 {
@@ -18,7 +18,7 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
      *
      * @throws \Exception
      *
-     * @return Response
+     * @return ApiResponse
      */
     public function dispatch(callable $controller, array $vars = [], Route $route = null)
     {

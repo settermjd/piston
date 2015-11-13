@@ -9,7 +9,7 @@ use Refinery29\ApiOutput\Resource\Result;
 use Refinery29\ApiOutput\ResponseBody;
 use Zend\Diactoros\Response as DiactorosResponse;
 
-class Response extends DiactorosResponse
+class ApiResponse extends DiactorosResponse implements CompiledResponse
 {
     /**
      * @var ResponseBody
@@ -53,7 +53,7 @@ class Response extends DiactorosResponse
     /**
      * @param int $code
      *
-     * @return Response
+     * @return ApiResponse
      */
     public function setStatusCode($code)
     {

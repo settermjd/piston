@@ -24,7 +24,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     private $request = null;
 
     /**
-     * @var Response
+     * @var ApiResponse
      */
     private $response;
 
@@ -52,7 +52,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         $this->request = $request ?: RequestFactory::fromGlobals();
         $this->emitter = $emitter ?: new SapiEmitter();
 
-        $this->response = new Response();
+        $this->response = new ApiResponse();
 
         $this->loadContainer();
         parent::__construct($this->container);
@@ -106,7 +106,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     /**
      * @throws \Exception
      *
-     * @return Response
+     * @return ApiResponse
      */
     public function launch()
     {
@@ -114,7 +114,10 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
             $this->processPipeline();
 
             $this->response = $this->dispatch($this->request, $this->response);
-            $this->response->compileContent();
+
+            if ($this->response instanceof CompiledResponse) {
+                $this->response->compileContent();
+            }
 
             return $this->emitter->emit($this->response);
         } catch (\Exception $e) {
@@ -173,7 +176,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         (new Middleware\Request\RequestPipeline())->process($this->buildPayload());
 
         $this->container->add(Request::class, $this->request, true);
-        $this->container->add(Response::class, $this->response, true);
+        $this->container->add(ApiResponse::class, $this->response, true);
     }
 
     /**

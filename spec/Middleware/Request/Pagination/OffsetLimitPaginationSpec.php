@@ -4,11 +4,11 @@ namespace spec\Refinery29\Piston\Middleware\Request\Pagination;
 
 use League\Route\Http\Exception\BadRequestException;
 use PhpSpec\ObjectBehavior;
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\Pagination\OffsetLimitPagination;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\RequestFactory;
-use Refinery29\Piston\Response;
 
 class OffsetLimitPaginationSpec extends ObjectBehavior
 {
@@ -110,6 +110,6 @@ class OffsetLimitPaginationSpec extends ObjectBehavior
 
     private function getPayload($request, Piston $piston)
     {
-        return new Payload($piston->getWrappedObject(), $request, new Response());
+        return new Payload($piston->getWrappedObject(), $request, new ApiResponse());
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Refinery29\Piston\Middleware;
 
+use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Request;
-use Refinery29\Piston\Response;
 
 class Payload
 {
@@ -18,11 +18,11 @@ class Payload
     private $request;
 
     /**
-     * @var Response
+     * @var ApiResponse
      */
     private $response;
 
-    public function __construct(HasMiddleware $subject, Request $request, Response $response)
+    public function __construct(HasMiddleware $subject, Request $request, ApiResponse $response)
     {
         $this->subject = $subject;
         $this->request = $request;
@@ -46,7 +46,7 @@ class Payload
     }
 
     /**
-     * @return Response
+     * @return ApiResponse
      */
     public function getResponse()
     {

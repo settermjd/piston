@@ -8,10 +8,10 @@ use Refinery29\ApiOutput\Resource\Error\ErrorCollection as ErrorCollectionResour
 use Refinery29\ApiOutput\Resource\Pagination\Pagination;
 use Refinery29\ApiOutput\Resource\Result;
 use Refinery29\ApiOutput\ResponseBody;
-use Refinery29\Piston\Response;
+use Refinery29\Piston\ApiResponse;
 use Zend\Diactoros\Stream;
 
-class ResponseSpec extends ObjectBehavior
+class ApiResponseSpec extends ObjectBehavior
 {
     public function it_can_be_constructed_without_response_body(Stream $stream)
     {
@@ -25,12 +25,12 @@ class ResponseSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType(Response::class);
+        $this->shouldHaveType(ApiResponse::class);
     }
 
     public function it_can_set_status_code()
     {
-        $this->setStatusCode('200')->shouldHaveType(Response::class);
+        $this->setStatusCode('200')->shouldHaveType(ApiResponse::class);
         $this->setStatusCode('400')->getStatusCode()->shouldReturn(400);
     }
 
