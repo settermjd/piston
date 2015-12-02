@@ -1,5 +1,5 @@
 suites:
-    ion:
+    piston:
         namespace: Refinery29\Piston
         psr4_prefix: Refinery29\Piston
 
