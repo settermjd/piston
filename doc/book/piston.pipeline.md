@@ -11,7 +11,7 @@ Pipelines exist at two levels:
 
 Hooks are, effectively, Middleware. If you’re not familiar with the term Middleware, think of it in terms of an onion. You have your basic application, which you can then wrap in layers of Middleware, each one providing a specific sevice, such as caching, logging, authentication, and so on.
 
-The image below, kindly borrowed from SitePoint, provides a good, visual, example of how Middleware works.
+The image below, kindly borrowed [from SitePoint](http://www.sitepoint.com/working-with-slim-middleware/), provides a good, visual, example of how Middleware works.
 
 !["Middleware - Courtesy of SitePoint"](http://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2013/02/middleware.jpg)
 
