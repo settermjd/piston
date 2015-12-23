@@ -58,14 +58,14 @@ Piston supports class based routing. The class being routed to must return an in
 
 ```php
 <?php
-namespace DummyPistonApp;
+namespace Refinery29\DummyPistonApp\Controller;
 
 use Refinery29\Piston\Request;
 use Refinery29\Piston\ApiResponse as Response;
 
 class JediController
 {
-    public function __invoke(Request $request, Response $response)
+    public function renderHomePage(Request $request, Response $response)
     {
         return $response;
     }
@@ -77,12 +77,12 @@ And here's the previous example revised to use that controller class as the rout
 ```php
 require_once('vendor/autoload.php');
 
-use DummyPistonApp\JediController;
+use DummyPistonApp\Controller;
 use Refinery29\Piston\Piston;
 
 $jediController = new JediController();
 $application = new Piston();
-$application->addRoute('GET', '/', $jediController);
+$application->addRoute('GET', '/', Controller\JediController::class . '::renderHomePage');
 
 $application->launch();
 ```
@@ -95,11 +95,14 @@ $application->launch();
 
 There is also the ability to create Route groups that can bundle certain routes together. If you wanted to build a series of routes about the Jedi, routes prefixed with `/jedi`, a route group is the best way to go about it.
 
-$group = new RouteGroup();
-$group->addRoute($route1);
-$group->addRoute($route2);
+```php
+// include the RouteGroup class
+use Refinery29\Piston\Router\RouteGroup;
 
-$application->addRouteGroup($group);
+$routeGroup = $application->group('/jedi', function (RouteGroup $group) {
+    $group->get('/masters', Controller\JediController::class . '::getJediMasters');
+    $group->get('/padawans’, Controller\JediController::class . '::getJediPadawans');
+});
 ```
 
 Route Groups also accept a URL segment as a second parameter:
@@ -123,7 +126,7 @@ Hooks are applied in order from least specific (`Application`) to most specific 
 
 ```php
 $hook = new UseTheForceHook();
-$application->addPre($hook);
+$application->addMiddleware($hook);
 ```
 
 To find out more detailed information, check out  [the pipeline section](./doc/book/piston.pipeline.md) of the documentation.
