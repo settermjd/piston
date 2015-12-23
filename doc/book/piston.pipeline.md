@@ -17,7 +17,7 @@ The image below, kindly borrowed from SitePoint, provides a good, visual, exampl
 
 ## A Working Example
 
-Let’s see how to refactor [the RouteGroup](./doc/book/piston.route.group.md) code example in to a Pipeline hook.
+Let’s see how to refactor [the RouteGroup](./piston.route.group.md) code example in to a Pipeline hook.
 
 > **Note:** Any classes referred to, which aren't contained below, you can find in that section of the documentation.
 
