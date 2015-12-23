@@ -48,13 +48,13 @@ $application->addRoute(
 $application->launch();
 ```
 
-After the routes have been setup, the `launch()` method is called. This then attempts to render the process pipeline and dispatch the client request, resulting in emitting a response back to the client. It won’t do anything special, simply returning a JSON response which, if rendered in the browser, would look like the following:
+After the routes have been setup, the `launch()` method is called. This then attempts to render the process pipeline and dispatch the client request, resulting in emitting a response back to the client. It won't do anything special, simply returning a JSON response which, if rendered in the browser, would look like the following:
 
 !["Basic Application Output"](./doc/image/basic-application.png)
 
 ## Routing
 
-Piston supports class based routing. The class being routed to must return an instance of `Refinery29\Piston\Http\Request`. Routes are implemented as simple value objects that hold a url alias, http verb, and an action. Here’s a basic implementation of a class:
+Piston supports class based routing. The class being routed to must return an instance of `Refinery29\Piston\Http\Request`. Routes are implemented as simple value objects that hold 4 properties. These are: a *url alias*, an *http verb*, and an *action*. Here’s a basic implementation of such a class.
 
 ```php
 <?php
@@ -92,13 +92,8 @@ $application->launch();
 `league/route` allows for parameterized routes such as `/jedi/master/{name}`. You are able to enforce that the parameters be either a number of a word: `{id:number}/{name:word}`.
 
 ### Route Groups
-There is also the ability to create Route groups that can bundle certain routes together. For instance, if you have a set of routes that are Admin accessible, you can create a group for those routes.
 
-```php
-$application = new Application();
-
-$route1 = Route::get('jedi/{id}', 'JediController::useTheForce'));
-$route2 = Route::get('sith/{id}', 'SithController::useTheForce'));
+There is also the ability to create Route groups that can bundle certain routes together. If you wanted to build a series of routes about the Jedi, routes prefixed with `/jedi`, a route group is the best way to go about it.
 
 $group = new RouteGroup();
 $group->addRoute($route1);
@@ -107,35 +102,40 @@ $group->addRoute($route2);
 $application->addRouteGroup($group);
 ```
 
-Route Groups also accept a url segment as a second parameter:
+Route Groups also accept a URL segment as a second parameter:
 
 ```php
 $group = new RouteGroup([], 'admin');
 ```
-All routes in this group will have urls that are prepended with this url segment, resulting in the URL `admin/route_url`.
 
-### Pipelines
+All routes in this group will have URLs that are prepended with this URL segment, resulting in the URL `admin/route_url`. To find out more detailed information, check out [the route groups section](./doc/book/piston.route.group.md) of the documentation.
+
+### Pipelines (Middleware)
+
 Piston provides a number of different points in the execution of the application that you can hook into to add functionality. This allows you to take action at different points, as you launch the app.
 
 Pipelines exist at two levels:
+
 - Application/Global level
 - Route Group level
 
-Hooks are applied in order from least specific to most specific. Application, then RouteGroup.
-
-Hooks must implement `League\Pipeline\StageInterface` and define a `process()` method which must return an instance of `Refinery29\Piston\Http\Request`
+Hooks are applied in order from least specific (`Application`) to most specific (`RouteGroup`). Hooks must implement `League\Pipeline\StageInterface` and define a `process()` method, which must return an instance of `Refinery29\Piston\Http\Request`, as in the following example.
 
 ```php
 $hook = new UseTheForceHook();
 $application->addPre($hook);
 ```
 
+To find out more detailed information, check out  [the pipeline section](./doc/book/piston.pipeline.md) of the documentation.
+
 ### Decorators
-Piston allows itself to be decorated too add functionality.
+
+Piston allows itself to be decorated to add functionality.
 
 Decorators must implement `Refinery29\Piston\Decorator` interface and define a `register()` function. The `register()` function must return an instance of 'Refinery29\Piston\Piston`.
 
 ### Service Providers
+
 [Service providers](http://container.thephpleague.com/service-providers/) can be easily added to encapsulate any service necessary to the application. Any service provider class must implement `League\Container\ServiceProvider`
 
 ```php
@@ -144,9 +144,11 @@ $application->register(new LightSaberProvider());
 ```
 
 ### Query Parameters
-Piston is an api focused framework, and therefore encapsulates a number of different query parameter options.
 
-**Fields**
+Piston is an API focused framework, and therefore encapsulates a number of different query parameter options.
+
+#### Fields
+
 Specific fields can be requested of the application, with the purpose of only returning those fields. Fields are specified as a comma separated list.
 
 `url.com?fields=jedi,sith,yoda`
@@ -158,7 +160,8 @@ The above URL is automatically parsed, and you are able to retrieve that informa
 You can determine if the request has requested fields:
 `$request->hasRequestedFields()`
 
-**Pagination**
+#### Pagination
+
 Piston currently supports only cursor based pagination.
 
 `url.com?before=124ksl&after=0809asdj`
@@ -171,7 +174,8 @@ This function returns an array with the keys `before` and `after`
 You can determine if the request is paginated:
 `$request->isPaginated()`
 
-**Included Resources**
+#### Included Resources
+
 You may also request different relations be included in the response.
 
 `url.com?include=master,padawan,planet`
@@ -179,7 +183,8 @@ You may also request different relations be included in the response.
 These parameters will be available:
 `$request->getIncludedResources()` which will return an array of requested relations.
 
-*Nested Relations*
+#### Nested Relations
+
 You are also able to request nested resources.
 
 `url.com?include=jedi.master.padawan,planet`
