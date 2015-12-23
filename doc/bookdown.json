@@ -1,0 +1,8 @@
+{
+    "title": "Refinery29\\Piston",
+    "target": "html/",
+    "content": [
+        "book/piston.route.group.md",
+        "book/piston.pipeline.md"
+    ]
+}
