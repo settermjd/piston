@@ -88,6 +88,11 @@ class Request extends ServerRequest
     private $cookieJar;
 
     /**
+     * @var array
+     */
+    private $sorts = null;
+
+    /**
      * @return string
      */
     public function getPaginationCursor()
@@ -225,5 +230,41 @@ class Request extends ServerRequest
         $this->cookieJar->clearAll();
 
         return $this->withCookieParams($this->cookieJar->all());
+    }
+
+    /**
+     * @param array $sorts
+     */
+    public function setSorts(array $sorts)
+    {
+        $this->sorts = $sorts;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasSort($name)
+    {
+        if ($this->sorts === null) {
+            return false;
+        }
+
+        return array_key_exists($name, $this->sorts);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public function getSort($name)
+    {
+        if (!$this->hasSort($name)) {
+            return;
+        }
+
+        return $this->sorts[$name];
     }
 }
