@@ -47,7 +47,8 @@ class RequestPipeline implements StageInterface
             ->add(new IncludedResource())
             ->add(new RequestedFields())
             ->add(new OffsetLimitPagination())
-            ->add(new CursorBasedPagination());
+            ->add(new CursorBasedPagination())
+            ->add(new Sorts());
 
         $this->pipeline = $this->builder->build();
 
