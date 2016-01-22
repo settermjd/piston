@@ -219,3 +219,7 @@ Sort values can be checked by calling `Request#getSort($name)` which will return
 
 
 All of the above filters are only allowed on `GET` requests. Use of any of these parameters will result in an error if used with any other HTTP verb.
+
+## Code of Conduct
+
+Please have a look at [CONDUCT.md](CONDUCT.md).
