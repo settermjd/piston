@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright (c) 2016 Refinery29, Inc.
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
 namespace Refinery29\Piston\Middleware\Request;
 
 use League\Pipeline\Pipeline;
@@ -40,7 +46,8 @@ class RequestPipeline implements StageInterface
             ->add(new IncludedResource())
             ->add(new RequestedFields())
             ->add(new OffsetLimitPagination())
-            ->add(new CursorBasedPagination());
+            ->add(new CursorBasedPagination())
+            ->add(new Sorts());
 
         $this->pipeline = $this->builder->build();
 

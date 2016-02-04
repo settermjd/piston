@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright (c) 2016 Refinery29, Inc.
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
 namespace Refinery29\Piston;
 
 use Zend\Diactoros\ServerRequest;
@@ -79,6 +85,11 @@ class Request extends ServerRequest
      * @var CookieJar
      */
     private $cookieJar;
+
+    /**
+     * @var array
+     */
+    private $sorts = null;
 
     /**
      * @return string
@@ -233,5 +244,41 @@ class Request extends ServerRequest
         $new->paginationType = self::OFFSET_LIMIT_PAGINATION;
 
         return $new;
+    }
+
+    /**
+     * @param array $sorts
+     */
+    public function setSorts(array $sorts)
+    {
+        $this->sorts = $sorts;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasSort($name)
+    {
+        if ($this->sorts === null) {
+            return false;
+        }
+
+        return array_key_exists($name, $this->sorts);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public function getSort($name)
+    {
+        if (!$this->hasSort($name)) {
+            return;
+        }
+
+        return $this->sorts[$name];
     }
 }

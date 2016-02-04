@@ -38,4 +38,14 @@ Run
 $ make test
 ```
 
+## Extra lazy?
+
+Run
+
+```
+$ make
+```
+
+to run both coding standards check and tests!
+
 **Happy coding**!

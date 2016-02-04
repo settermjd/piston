@@ -204,4 +204,22 @@ array
 ```
 
 
+### Sorting
+
+Sort parameters are provided on the request as a `sort` query parameter:
+
+`url.com?sort=-created,title`
+
+The sort query parameter should be a comma delimited list of sort attributes.
+
+Sort order is defined by negating the sort attribute with a minus sign as it's prefix (e.g. `-created` is negated while `created` is not negated). If the sort attribute is negated then the sort direction will be `'DESC'` (descending), otherwise `'ASC'` (ascending) is used.
+
+Sort values can be checked by calling `Request#getSort($name)` which will return either `'ASC'` or `'DESC'`.
+
+
+
 All of the above filters are only allowed on `GET` requests. Use of any of these parameters will result in an error if used with any other HTTP verb.
+
+## Code of Conduct
+
+Please have a look at [CONDUCT.md](CONDUCT.md).

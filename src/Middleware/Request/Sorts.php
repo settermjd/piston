@@ -9,13 +9,17 @@
 namespace Refinery29\Piston\Middleware\Request;
 
 use League\Pipeline\StageInterface;
+use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Middleware\GetOnlyStage;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
 
-class IncludedResource implements StageInterface
+class Sorts implements StageInterface
 {
     use GetOnlyStage;
+
+    const SORT_ASCENDING = 'ASC';
+    const SORT_DESCENDING = 'DESC';
 
     /**
      * @param Payload $payload
@@ -29,25 +33,34 @@ class IncludedResource implements StageInterface
         /** @var Request $request */
         $request = $payload->getRequest();
 
-        if (!isset($request->getQueryParams()['include'])) {
+        if (!isset($request->getQueryParams()['sort'])) {
             return $payload;
         }
 
         $this->ensureGetOnlyRequest($request);
 
-        $include = explode(',', $request->getQueryParams()['include']);
+        $providedSorts = explode(',', $request->getQueryParams()['sort']);
 
-        if (!empty($include)) {
-            foreach ((array) $include as $k => $resource) {
-                if (strpos($resource, '.') !== false) {
-                    $resource = explode('.', $resource);
+        if (empty($providedSorts)) {
+            return $payload;
+        }
 
-                    $include[$k] = $resource;
-                }
+        $sorts = [];
+
+        foreach ($providedSorts as $sort) {
+            if (strlen($sort) <= 0 || $sort === '-') {
+                throw new BadRequestException('Sort parameter cannot be empty.');
             }
 
-            $request->setIncludedResources($include);
+            if ($sort[0] === '-') {
+                $sorts[substr($sort, 1)] = self::SORT_DESCENDING;
+                continue;
+            }
+
+            $sorts[$sort] = self::SORT_ASCENDING;
         }
+
+        $request->setSorts($sorts);
 
         return $payload;
     }
