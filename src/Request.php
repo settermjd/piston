@@ -219,4 +219,19 @@ class Request extends ServerRequest
 
         return $this->withCookieParams($this->cookieJar->all());
     }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @return Request
+     */
+    public function withOffsetLimit($offset, $limit)
+    {
+        $new = clone $this;
+        $new->offset = $offset;
+        $new->limit = $limit;
+        $new->paginationType = self::OFFSET_LIMIT_PAGINATION;
+
+        return $new;
+    }
 }
