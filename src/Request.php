@@ -164,6 +164,7 @@ class Request extends ServerRequest
     /**
      * @param string $offset
      * @param string $limit
+     * @deprecated
      */
     public function setOffsetLimit($offset, $limit)
     {
