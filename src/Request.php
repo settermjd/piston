@@ -153,6 +153,7 @@ class Request extends ServerRequest
 
     /**
      * @param string $before_cursor
+     * @deprecated
      */
     public function setBeforeCursor($before_cursor)
     {
@@ -294,5 +295,19 @@ class Request extends ServerRequest
         $new->paginationType = self::OFFSET_LIMIT_PAGINATION;
 
         return $new;
+    }
+
+    public function withBeforeCursor($beforeCursor)
+    {
+        $new = clone $this;
+        $new->beforeCursor = $beforeCursor;
+        $new->paginationType = self::CURSOR_PAGINATION;
+
+        return $new;
+    }
+
+    public function getBeforeCursor()
+    {
+        return $this->beforeCursor;
     }
 }
