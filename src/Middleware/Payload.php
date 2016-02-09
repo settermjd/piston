@@ -59,4 +59,19 @@ class Payload
     {
         return $this->response;
     }
+
+    /**
+     * Set the Payload's request object
+     *
+     * @param Request $request
+     *
+     * @return Payload
+     */
+    public function withRequest(Request $request)
+    {
+        $new = clone $this;
+        $new->request = $request;
+
+        return $new;
+    }
 }

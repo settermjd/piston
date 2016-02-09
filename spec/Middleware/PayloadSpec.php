@@ -44,4 +44,12 @@ class PayloadSpec extends ObjectBehavior
     {
         $this->getResponse()->shouldHaveType(ApiResponse::class);
     }
+
+    public function it_can_set_request_immutably()
+    {
+        $request = new Request();
+        $payload = $this->withRequest($request);
+        $payload->shouldHaveType(Payload::class);
+        $payload->getRequest()->shouldEqual($request);
+    }
 }
