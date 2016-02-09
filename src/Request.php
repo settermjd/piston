@@ -71,12 +71,12 @@ class Request extends ServerRequest
 
     /**
      * @param CookieJar $jar
-     * @param array $serverParams
-     * @param array $uploadedFiles
-     * @param string $uri
-     * @param string $method
-     * @param string $body
-     * @param array $headers
+     * @param array     $serverParams
+     * @param array     $uploadedFiles
+     * @param string    $uri
+     * @param string    $method
+     * @param string    $body
+     * @param array     $headers
      */
     public function __construct(
         CookieJar $jar = null,
@@ -113,7 +113,7 @@ class Request extends ServerRequest
     /**
      * @param array $requestedFields
      */
-    public function setRequestedFields($requestedFields)
+    public function setRequestedFields(array $requestedFields = [])
     {
         $this->requestedFields = $requestedFields;
     }
@@ -129,7 +129,7 @@ class Request extends ServerRequest
     /**
      * @param array $included_resources
      */
-    public function setIncludedResources($included_resources)
+    public function setIncludedResources(array $included_resources)
     {
         $this->includedResources = $included_resources;
     }
@@ -144,7 +144,8 @@ class Request extends ServerRequest
 
     /**
      * @param string $after_cursor
-     * @deprecated 
+     *
+     * @deprecated
      */
     public function setAfterCursor($after_cursor)
     {
@@ -154,6 +155,7 @@ class Request extends ServerRequest
 
     /**
      * @param string $before_cursor
+     *
      * @deprecated
      */
     public function setBeforeCursor($before_cursor)
@@ -165,6 +167,7 @@ class Request extends ServerRequest
     /**
      * @param string $offset
      * @param string $limit
+     *
      * @deprecated
      */
     public function setOffsetLimit($offset, $limit)
@@ -301,6 +304,7 @@ class Request extends ServerRequest
 
     /**
      * @param string $beforeCursor
+     *
      * @return Request
      */
     public function withBeforeCursor($beforeCursor)
@@ -322,6 +326,7 @@ class Request extends ServerRequest
 
     /**
      * @param string $afterCursor
+     *
      * @return Request
      */
     public function withAfterCursor($afterCursor)
@@ -333,11 +338,18 @@ class Request extends ServerRequest
         return $new;
     }
 
+    /**
+     * @return string
+     */
     public function getAfterCursor()
     {
         return $this->afterCursor;
     }
 
+    /**
+     * @param array $includedResources
+     * @return Request
+     */
     public function withIncludedResources($includedResources)
     {
         $new = clone $this;
@@ -346,6 +358,10 @@ class Request extends ServerRequest
         return $new;
     }
 
+    /**
+     * @param array $requestedFields
+     * @return Request
+     */
     public function withRequestedFields($requestedFields)
     {
         $new = clone $this;
