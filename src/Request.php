@@ -144,6 +144,7 @@ class Request extends ServerRequest
 
     /**
      * @param string $after_cursor
+     * @deprecated 
      */
     public function setAfterCursor($after_cursor)
     {
@@ -310,5 +311,23 @@ class Request extends ServerRequest
     public function getBeforeCursor()
     {
         return $this->beforeCursor;
+    }
+
+    /**
+     * @param string $afterCursor
+     * @return Request
+     */
+    public function withAfterCursor($afterCursor)
+    {
+        $new = clone $this;
+        $new->afterCursor = $afterCursor;
+        $new->paginationType = self::CURSOR_PAGINATION;
+
+        return $new;
+    }
+
+    public function getAfterCursor()
+    {
+        return $this->afterCursor;
     }
 }

@@ -79,6 +79,14 @@ class RequestSpec extends ObjectBehavior
         $request->getPaginationType()->shouldReturn(Request::CURSOR_PAGINATION);
     }
 
+    public function it_can_set_after_cursor_returning_a_new_request_object()
+    {
+        $request = $this->withAfterCursor('after');
+        $request->shouldHaveType(Request::class);
+        $request->getAfterCursor()->shouldReturn('after');
+        $request->getPaginationType()->shouldReturn(Request::CURSOR_PAGINATION);
+    }
+
     public function it_returns_empty_array_when_no_offset_limit_is_set()
     {
         $this->getOffsetLimit()->shouldReturn([]);
