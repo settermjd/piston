@@ -345,4 +345,12 @@ class Request extends ServerRequest
 
         return $new;
     }
+
+    public function withRequestedFields($requestedFields)
+    {
+        $new = clone $this;
+        $new->requestedFields = $requestedFields;
+
+        return $new;
+    }
 }
