@@ -87,6 +87,13 @@ class RequestSpec extends ObjectBehavior
         $request->getPaginationType()->shouldReturn(Request::CURSOR_PAGINATION);
     }
 
+    public function it_can_set_included_resources_returning_a_new_request_object()
+    {
+        $request = $this->withIncludedResources('resources');
+        $request->shouldHaveType(Request::class);
+        $request->getIncludedResources()->shouldReturn('resources');
+    }
+
     public function it_returns_empty_array_when_no_offset_limit_is_set()
     {
         $this->getOffsetLimit()->shouldReturn([]);

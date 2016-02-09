@@ -337,4 +337,12 @@ class Request extends ServerRequest
     {
         return $this->afterCursor;
     }
+
+    public function withIncludedResources($includedResources)
+    {
+        $new = clone $this;
+        $new->includedResources = $includedResources;
+
+        return $new;
+    }
 }
