@@ -71,12 +71,12 @@ class Request extends ServerRequest
 
     /**
      * @param CookieJar $jar
-     * @param array     $serverParams
-     * @param array     $uploadedFiles
-     * @param null      $uri
-     * @param null      $method
-     * @param string    $body
-     * @param array     $headers
+     * @param array $serverParams
+     * @param array $uploadedFiles
+     * @param string $uri
+     * @param string $method
+     * @param string $body
+     * @param array $headers
      */
     public function __construct(
         CookieJar $jar = null,
@@ -299,6 +299,10 @@ class Request extends ServerRequest
         return $new;
     }
 
+    /**
+     * @param string $beforeCursor
+     * @return Request
+     */
     public function withBeforeCursor($beforeCursor)
     {
         $new = clone $this;
@@ -308,6 +312,9 @@ class Request extends ServerRequest
         return $new;
     }
 
+    /**
+     * @return string
+     */
     public function getBeforeCursor()
     {
         return $this->beforeCursor;
