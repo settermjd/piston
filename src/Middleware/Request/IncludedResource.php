@@ -23,7 +23,7 @@ class IncludedResource implements StageInterface
      *
      * @throws \League\Route\Http\Exception\BadRequestException
      *
-     * @return Request
+     * @return Payload
      */
     public function process($payload)
     {
@@ -47,8 +47,10 @@ class IncludedResource implements StageInterface
                 }
             }
 
-            //$request->setIncludedResources($include);
-            $payload->withRequest($request->withIncludedResources($include));
+            $payload = $payload->withRequest(
+                $request->withIncludedResources($include)
+            );
+
         }
 
         return $payload;
