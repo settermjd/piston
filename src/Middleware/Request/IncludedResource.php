@@ -42,15 +42,15 @@ class IncludedResource implements StageInterface
             foreach ((array) $include as $k => $resource) {
                 if (strpos($resource, '.') !== false) {
                     $resource = explode('.', $resource);
-
                     $include[$k] = $resource;
                 }
             }
 
-            $payload = $payload->withRequest(
-                $request->withIncludedResources($include)
+            $payload = new Payload(
+                $payload->getSubject(),
+                $request->withIncludedResources($include),
+                $payload->getResponse()
             );
-
         }
 
         return $payload;
