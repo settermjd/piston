@@ -128,6 +128,8 @@ class Request extends ServerRequest
 
     /**
      * @param array $included_resources
+     *
+     * @deprecated
      */
     public function setIncludedResources(array $included_resources)
     {
@@ -348,6 +350,7 @@ class Request extends ServerRequest
 
     /**
      * @param array $includedResources
+     *
      * @return Request
      */
     public function withIncludedResources($includedResources)
@@ -360,6 +363,7 @@ class Request extends ServerRequest
 
     /**
      * @param array $requestedFields
+     *
      * @return Request
      */
     public function withRequestedFields($requestedFields)
