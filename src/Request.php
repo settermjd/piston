@@ -112,6 +112,8 @@ class Request extends ServerRequest
 
     /**
      * @param array $requestedFields
+     *
+     * @deprecated 
      */
     public function setRequestedFields(array $requestedFields = [])
     {
@@ -223,7 +225,7 @@ class Request extends ServerRequest
     }
 
     /**
-     * @return array
+     * @return array[string]mixed
      */
     public function getCookies()
     {
