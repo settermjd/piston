@@ -174,12 +174,20 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
 
     private function processPipeline()
     {
-        (new Middleware\PipelineProcessor())->handlePayload($this->buildPayload());
+        $payload = (new Middleware\PipelineProcessor())
+            ->handlePayload($this->buildPayload());
+
+        $this->request = $payload->getRequest();
+        $this->response = $payload->getResponse();
     }
 
     private function loadContainer()
     {
-        (new Middleware\Request\RequestPipeline())->process($this->buildPayload());
+        $payload = (new Middleware\Request\RequestPipeline())
+            ->process($this->buildPayload());
+
+        $this->request = $payload->getRequest();
+        $this->response = $payload->getResponse();
 
         $this->container->add(Request::class, $this->request, true);
         $this->container->add(ApiResponse::class, $this->response, true);
