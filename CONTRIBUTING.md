@@ -38,6 +38,14 @@ Run
 $ make test
 ```
 
+Run
+
+```
+$ make coverage
+```
+
+if you are interested in code coverage.
+
 ## Extra lazy?
 
 Run
