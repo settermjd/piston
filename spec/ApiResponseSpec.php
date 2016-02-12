@@ -36,8 +36,8 @@ class ApiResponseSpec extends ObjectBehavior
 
     public function it_can_set_status_code()
     {
-        $this->setStatusCode('200')->shouldHaveType(ApiResponse::class);
-        $this->setStatusCode('400')->getStatusCode()->shouldReturn(400);
+        $this->setStatusCode(200)->shouldHaveType(ApiResponse::class);
+        $this->setStatusCode(400)->getStatusCode()->shouldReturn(400);
     }
 
     public function it_can_set_errors(ResponseBody $rb)
