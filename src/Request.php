@@ -12,29 +12,6 @@ use Zend\Diactoros\ServerRequest;
 
 class Request extends ServerRequest
 {
-    /**
-     * @param CookieJar $jar
-     * @param array     $serverParams
-     * @param array     $uploadedFiles
-     * @param null      $uri
-     * @param null      $method
-     * @param string    $body
-     * @param array     $headers
-     */
-    public function __construct(
-        CookieJar $jar = null,
-        array $serverParams = [],
-        array $uploadedFiles = [],
-        $uri = null,
-        $method = null,
-        $body = 'php://input',
-        array $headers = []
-    ) {
-        parent::__construct($serverParams, $uploadedFiles, $uri, $method, $body, $headers);
-
-        $this->cookieJar = $jar ?: new CookieJar();
-    }
-
     const OFFSET_LIMIT_PAGINATION = 'offset_limit';
     const CURSOR_PAGINATION = 'cursor';
 
@@ -87,6 +64,29 @@ class Request extends ServerRequest
      * @var array
      */
     private $sorts;
+
+    /**
+     * @param CookieJar $jar
+     * @param array     $serverParams
+     * @param array     $uploadedFiles
+     * @param null      $uri
+     * @param null      $method
+     * @param string    $body
+     * @param array     $headers
+     */
+    public function __construct(
+        CookieJar $jar = null,
+        array $serverParams = [],
+        array $uploadedFiles = [],
+        $uri = null,
+        $method = null,
+        $body = 'php://input',
+        array $headers = []
+    ) {
+        parent::__construct($serverParams, $uploadedFiles, $uri, $method, $body, $headers);
+
+        $this->cookieJar = $jar ?: new CookieJar();
+    }
 
     /**
      * @return array
