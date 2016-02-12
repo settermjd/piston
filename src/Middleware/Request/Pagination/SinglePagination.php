@@ -13,6 +13,11 @@ use Refinery29\Piston\Request;
 
 trait SinglePagination
 {
+    /**
+     * @param Request $request
+     *
+     * @throws BadRequestException
+     */
     public function ensureNotPreviouslyPaginated(Request $request)
     {
         if ($request->isPaginated()) {

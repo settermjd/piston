@@ -36,7 +36,7 @@ class RequestPipeline implements StageInterface
     }
 
     /**
-     * @param $payload
+     * @param Payload $payload
      *
      * @return Payload
      */

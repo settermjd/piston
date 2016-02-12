@@ -11,6 +11,7 @@ namespace Refinery29\Piston\Middleware\Request\Pagination;
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\BadRequestException;
 use Refinery29\Piston\Middleware\GetOnlyStage;
+use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
 
 class OffsetLimitPagination implements StageInterface
@@ -28,6 +29,13 @@ class OffsetLimitPagination implements StageInterface
      */
     protected $default_limit = 10;
 
+    /**
+     * @param Payload $payload
+     *
+     * @throws BadRequestException
+     *
+     * @return Payload
+     */
     public function process($payload)
     {
         /** @var Request $request */

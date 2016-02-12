@@ -28,7 +28,7 @@ class CursorBasedPagination implements StageInterface
      */
     public function process($payload)
     {
-        /** @var Request $request */
+        /* @var Request $request */
         $request = $payload->getRequest();
 
         $queryParams = $request->getQueryParams();

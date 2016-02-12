@@ -10,9 +10,6 @@ namespace Refinery29\Piston;
 
 use Zend\Diactoros\ServerRequest;
 
-/**
- * Class Request
- */
 class Request extends ServerRequest
 {
     /**
@@ -47,17 +44,17 @@ class Request extends ServerRequest
     protected $paginationCursor = null;
 
     /**
-     * @var null
+     * @var string
      */
     protected $paginationType = null;
 
     /**
-     * @var null
+     * @var array
      */
     protected $requestedFields = null;
 
     /**
-     * @var null
+     * @var array
      */
     protected $includedResources = null;
 
@@ -92,7 +89,7 @@ class Request extends ServerRequest
     private $sorts = null;
 
     /**
-     * @return string
+     * @return array
      */
     public function getPaginationCursor()
     {
@@ -102,6 +99,7 @@ class Request extends ServerRequest
     }
 
     /**
+     * @return array
      */
     public function getRequestedFields()
     {
@@ -109,7 +107,7 @@ class Request extends ServerRequest
     }
 
     /**
-     * @param null $requestedFields
+     * @param array $requestedFields
      */
     public function setRequestedFields($requestedFields)
     {
@@ -117,6 +115,7 @@ class Request extends ServerRequest
     }
 
     /**
+     * @return array
      */
     public function getIncludedResources()
     {
@@ -124,7 +123,7 @@ class Request extends ServerRequest
     }
 
     /**
-     * @param null $included_resources
+     * @param array $included_resources
      */
     public function setIncludedResources($included_resources)
     {
@@ -180,17 +179,19 @@ class Request extends ServerRequest
         return [];
     }
 
-    /** @return string */
+    /**
+     * @return string
+     */
     public function getPaginationType()
     {
         return $this->paginationType;
     }
 
     /**
-     * @param $key
-     * @param $val
+     * @param string $key
+     * @param mixed  $val
      *
-     * @return Request
+     * @return ServerRequest
      */
     public function withCookie($key, $val)
     {
@@ -217,6 +218,11 @@ class Request extends ServerRequest
         return $this->cookieJar->all();
     }
 
+    /**
+     * @param string $key
+     *
+     * @return ServerRequest
+     */
     public function clearCookie($key)
     {
         $this->cookieJar->clear($key);
@@ -224,6 +230,9 @@ class Request extends ServerRequest
         return $this->withCookieParams($this->cookieJar->all());
     }
 
+    /**
+     * @return ServerRequest
+     */
     public function clearCookies()
     {
         $this->cookieJar->clearAll();
