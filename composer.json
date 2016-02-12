@@ -41,7 +41,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Refinery29\\Piston\\Stubs\\": "spec/stubs"
+      "Refinery29\\Piston\\Stubs\\": "spec/Stubs"
     }
   },
   "minimum-stability": "dev",
