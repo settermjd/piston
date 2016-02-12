@@ -17,7 +17,7 @@ use Refinery29\Piston\RequestFactory;
 use Refinery29\Piston\Router\MiddlewareStrategy;
 use Refinery29\Piston\Router\Route;
 use Refinery29\Piston\Router\RouteGroup;
-use spec\Refinery29\Piston\Stubs\FooController;
+use spec\Refinery29\Piston\Stub\FooController;
 
 /**
  * @mixin MiddlewareStrategy

@@ -20,10 +20,10 @@ use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\RequestFactory;
 use Refinery29\Piston\Router\RouteGroup;
-use spec\Refinery29\Piston\Stubs\FooController;
-use spec\Refinery29\Piston\Stubs\ReturnEmitter;
-use spec\Refinery29\Piston\Stubs\StringEmitter;
-use spec\Refinery29\Piston\Stubs\TestException;
+use spec\Refinery29\Piston\Stub\FooController;
+use spec\Refinery29\Piston\Stub\ReturnEmitter;
+use spec\Refinery29\Piston\Stub\StringEmitter;
+use spec\Refinery29\Piston\Stub\TestException;
 use Zend\Diactoros\Uri;
 
 /**
