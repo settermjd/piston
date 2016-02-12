@@ -14,6 +14,9 @@ use Refinery29\Piston\Middleware\HasMiddleware;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Request;
 
+/**
+ * @mixin Payload
+ */
 class PayloadSpec extends ObjectBehavior
 {
     public function let(HasMiddleware $subject, Request $request, ApiResponse $response)

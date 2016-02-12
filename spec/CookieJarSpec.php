@@ -11,6 +11,9 @@ namespace spec\Refinery29\Piston;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\CookieJar;
 
+/**
+ * @mixin CookieJar
+ */
 class CookieJarSpec extends ObjectBehavior
 {
     public function it_is_initializable()

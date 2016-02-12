@@ -13,6 +13,9 @@ use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\ExceptionalPipeline;
 use Refinery29\Piston\Router\Route;
 
+/**
+ * @mixin Route
+ */
 class RouteSpec extends ObjectBehavior
 {
     public function it_is_initializable()

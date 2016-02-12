@@ -12,6 +12,9 @@ use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\CookieJar;
 use Refinery29\Piston\Request;
 
+/**
+ * @mixin Request
+ */
 class RequestSpec extends ObjectBehavior
 {
     public function it_is_initializable()

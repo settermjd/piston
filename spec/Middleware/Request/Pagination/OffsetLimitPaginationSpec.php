@@ -16,6 +16,9 @@ use Refinery29\Piston\Middleware\Request\Pagination\OffsetLimitPagination;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\RequestFactory;
 
+/**
+ * @mixin OffsetLimitPagination
+ */
 class OffsetLimitPaginationSpec extends ObjectBehavior
 {
     public function it_is_initializable()

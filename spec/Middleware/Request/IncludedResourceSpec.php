@@ -16,6 +16,9 @@ use Refinery29\Piston\Middleware\Request\IncludedResource;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 
+/**
+ * @mixin IncludedResource
+ */
 class IncludedResourceSpec extends ObjectBehavior
 {
     public function it_is_initializable()

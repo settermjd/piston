@@ -15,6 +15,9 @@ use League\Route\RouteGroup;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\Middleware\ExceptionalPipeline;
 
+/**
+ * @mixin RouteGroup
+ */
 class RouteGroupSpec extends ObjectBehavior
 {
     public function let()
