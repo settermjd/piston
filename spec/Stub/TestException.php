@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace spec\Refinery29\Piston\Stubs;
+namespace spec\Refinery29\Piston\Stub;
 
 class TestException extends \Exception
 {
