@@ -19,7 +19,7 @@ class StringEmitter implements EmitterInterface
      *
      * @param ResponseInterface $response
      *
-     * @return \Psr\Http\Message\StreamInterface
+     * @return string
      */
     public function emit(ResponseInterface $response)
     {

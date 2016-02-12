@@ -19,7 +19,7 @@ class ReturnEmitter implements EmitterInterface
      *
      * @param ResponseInterface $response
      *
-     * @return \Psr\Http\Message\StreamInterface
+     * @return ResponseInterface
      */
     public function emit(ResponseInterface $response)
     {
