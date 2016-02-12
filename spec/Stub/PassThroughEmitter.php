@@ -12,7 +12,7 @@ namespace spec\Refinery29\Piston\Stub;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\EmitterInterface;
 
-class ReturnEmitter implements EmitterInterface
+class PassThroughEmitter implements EmitterInterface
 {
     /**
      * Emit a response.
