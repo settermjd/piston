@@ -22,7 +22,7 @@ use Refinery29\Piston\Request;
 use Refinery29\Piston\RequestFactory;
 use Refinery29\Piston\Router\RouteGroup;
 use spec\Refinery29\Piston\Stub\FooController;
-use spec\Refinery29\Piston\Stub\ReturnEmitter;
+use spec\Refinery29\Piston\Stub\PassThroughEmitter;
 use spec\Refinery29\Piston\Stub\StringEmitter;
 use spec\Refinery29\Piston\Stub\TestException;
 use Zend\Diactoros\Uri;
@@ -171,7 +171,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_returns_404_when_not_found()
     {
-        $emitter = new ReturnEmitter();
+        $emitter = new PassThroughEmitter();
         $this->beConstructedWith(null, null, $emitter);
         $response = $this->launch();
         $response->shouldHaveType(ApiResponse::class);
@@ -181,7 +181,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_returns_correct_error_code()
     {
-        $emitter = new ReturnEmitter();
+        $emitter = new PassThroughEmitter();
         $this->beConstructedWith(null, null, $emitter);
 
         $this->addMiddleware(CallableStage::forCallable(function () {
@@ -200,7 +200,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_can_return_error_response_with_custom_body()
     {
-        $emitter = new ReturnEmitter();
+        $emitter = new PassThroughEmitter();
         $this->beConstructedWith(null, null, $emitter);
 
         $this->addMiddleware(CallableStage::forCallable(function () {
@@ -228,7 +228,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_can_override_already_registered_exceptions()
     {
-        $emitter = new ReturnEmitter();
+        $emitter = new PassThroughEmitter();
         $this->beConstructedWith(null, null, $emitter);
         $response = $this->launch();
         $response->shouldHaveType(ApiResponse::class);
