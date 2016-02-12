@@ -9,6 +9,8 @@
 
 namespace Refinery29\Piston;
 
+use Assert\Assertion;
+
 class CookieJar
 {
     /**
@@ -21,9 +23,7 @@ class CookieJar
      */
     public function __construct(array $cookies = [])
     {
-        if (!$this->isAssociative($cookies)) {
-            throw new \InvalidArgumentException('CookieJar must be instantiated with an associative array');
-        }
+        Assertion::allString(array_keys($cookies), 'CookieJar must be instantiated with an associative array');
 
         $this->cookies = $cookies;
     }
@@ -71,15 +71,5 @@ class CookieJar
     public function all()
     {
         return $this->cookies;
-    }
-
-    /**
-     * @param array $array
-     *
-     * @return bool
-     */
-    private function isAssociative($array)
-    {
-        return array_keys($array) !== range(0, count($array) - 1);
     }
 }

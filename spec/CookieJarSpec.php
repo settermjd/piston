@@ -50,7 +50,12 @@ class CookieJarSpec extends ObjectBehavior
 
     public function it_requires_an_associative_array()
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during__construct(['yellow', 'blue', 'green']);
+        $cookies = [
+            0 => 'yellow',
+            2 => 'blue',
+        ];
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during__construct($cookies);
     }
 
     public function it_can_clear()
