@@ -13,12 +13,6 @@ use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Request;
 use Zend\Diactoros\Response\HtmlResponse;
 
-/**
- * Created by PhpStorm.
- * User: kayla.daniels
- * Date: 6/9/15
- * Time: 4:39 PM
- */
 class FooController
 {
     public function fooAction(Request $req, ApiResponse $resp)
