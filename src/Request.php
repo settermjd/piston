@@ -41,22 +41,22 @@ class Request extends ServerRequest
     /**
      * @var null
      */
-    protected $paginationCursor = null;
+    protected $paginationCursor;
 
     /**
      * @var string
      */
-    protected $paginationType = null;
+    protected $paginationType;
 
     /**
      * @var array
      */
-    protected $requestedFields = null;
+    protected $requestedFields;
 
     /**
      * @var array
      */
-    protected $includedResources = null;
+    protected $includedResources;
 
     /**
      * @var string
@@ -86,7 +86,7 @@ class Request extends ServerRequest
     /**
      * @var array
      */
-    private $sorts = null;
+    private $sorts;
 
     /**
      * @return array

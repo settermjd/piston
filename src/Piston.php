@@ -27,7 +27,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     /**
      * @var Request
      */
-    private $request = null;
+    private $request;
 
     /**
      * @var ApiResponse

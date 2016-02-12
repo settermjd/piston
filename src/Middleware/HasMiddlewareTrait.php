@@ -15,7 +15,7 @@ trait HasMiddlewareTrait
     /**
      * @var ExceptionalPipeline
      */
-    protected $pipeline = null;
+    protected $pipeline;
 
     /**
      * @var StageInterface[]
