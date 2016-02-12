@@ -13,6 +13,11 @@ use Refinery29\Piston\Request;
 
 trait GetOnlyStage
 {
+    /**
+     * @param Request $request
+     *
+     * @throws BadRequestException
+     */
     public function ensureGetOnlyRequest(Request $request)
     {
         if ($request->getMethod() !== 'GET') {

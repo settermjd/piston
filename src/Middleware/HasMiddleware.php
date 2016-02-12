@@ -15,7 +15,7 @@ interface HasMiddleware
     /**
      * @param StageInterface $stage
      *
-     * @return HasMiddleware
+     * @return $this
      */
     public function addMiddleware(StageInterface $stage);
 }

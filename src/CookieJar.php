@@ -28,7 +28,9 @@ class CookieJar
     }
 
     /**
-     * @param $key
+     * @param string $key
+     *
+     * @return mixed
      */
     public function get($key)
     {
@@ -39,14 +41,17 @@ class CookieJar
     }
 
     /**
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed  $value
      */
     public function set($key, $value)
     {
         $this->cookies[$key] = $value;
     }
 
+    /**
+     * @param string $key
+     */
     public function clear($key)
     {
         if (isset($this->cookies[$key])) {
@@ -68,7 +73,7 @@ class CookieJar
     }
 
     /**
-     * @param $array
+     * @param array $array
      *
      * @return bool
      */

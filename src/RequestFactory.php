@@ -8,11 +8,21 @@
  */
 namespace Refinery29\Piston;
 
+use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Uri;
 
 class RequestFactory extends ServerRequestFactory
 {
+    /**
+     * @param array $server
+     * @param array $query
+     * @param array $body
+     * @param array $cookies
+     * @param array $files
+     *
+     * @return ServerRequest
+     */
     public static function fromGlobals(
         array $server = null,
         array $query = null,
@@ -39,6 +49,11 @@ class RequestFactory extends ServerRequestFactory
             ->withParsedBody($body ?: $_POST);
     }
 
+    /**
+     * @param string $uri
+     *
+     * @return ServerRequest
+     */
     public static function createFromUri($uri)
     {
         return self::fromGlobals()->withUri(new Uri($uri));

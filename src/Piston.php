@@ -40,7 +40,7 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
     private $emitter;
 
     /**
-     * @var array
+     * @var callable[]
      */
     private $exceptions = [];
 
@@ -68,9 +68,6 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         $this->setupDefaultExceptions();
     }
 
-    /**
-     *
-     */
     private function setupDefaultExceptions()
     {
         $this->registerException(NotFoundException::class, function (Piston $piston) {
@@ -137,9 +134,6 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
         }
     }
 
-    /**
-     *
-     */
     public function notFound()
     {
         return $this->getErrorResponse(404);

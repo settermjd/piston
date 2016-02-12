@@ -14,11 +14,12 @@ use League\Pipeline\StageInterface;
 
 class ExceptionalPipeline implements PipelineInterface
 {
+    /**
+     * @var StageInterface[]
+     */
     private $stages = [];
 
     /**
-     * Constructor.
-     *
      * @param StageInterface[] $stages
      *
      * @throws InvalidArgumentException
