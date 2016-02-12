@@ -30,7 +30,7 @@ class OffsetLimitPaginationSpec extends ObjectBehavior
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['limit' => 20, 'offset' => 40])->withMethod('PUT');
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $piston)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $piston)]);
     }
 
     public function it_returns_a_payload_with_request(Piston $piston)
@@ -47,7 +47,7 @@ class OffsetLimitPaginationSpec extends ObjectBehavior
         $request = RequestFactory::fromGlobals()->withQueryParams(['limit' => 20, 'offset' => 40]);
         $request->setBeforeCursor('abc');
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $piston)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $piston)]);
     }
 
     public function it_assigns_limit_to_request_as_integer(Piston $piston)
@@ -86,27 +86,27 @@ class OffsetLimitPaginationSpec extends ObjectBehavior
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['offset' => '20', 'limit' => 'nope']);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $piston)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $piston)]);
     }
 
     public function it_throws_if_limit_is_not_numeric(Piston $piston)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['limit' => '20', 'offset' => 'nope']);
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $piston)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $piston)]);
     }
 
     public function it_throws_if_offset_is_not_an_integer(Piston $piston)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['limit' => '20', 'offset' => '10.34']);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $piston)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $piston)]);
     }
 
     public function it_throws_if_limit_is_not_an_integer(Piston $piston)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['limit' => '10.35', 'offset' => '20']);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $piston)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $piston)]);
     }
 
     public function it_will_not_allow_previously_paginated_requests(Piston $piston)

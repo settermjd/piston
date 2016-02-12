@@ -30,14 +30,14 @@ class CursorBasedPaginationSpec extends ObjectBehavior
     {
         $request = RequestFactory::fromGlobals()->withMethod('PUT')->withQueryParams(['before' => 123]);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $middleware)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $middleware)]);
     }
 
     public function it_will_not_allow_before_an_after(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123, 'after' => 456]);
 
-        $this->shouldThrow('League\Route\Http\Exception\BadRequestException')->during('process', [$this->getPayload($request, $middleware)]);
+        $this->shouldThrow(BadRequestException::class)->during('process', [$this->getPayload($request, $middleware)]);
     }
 
     public function it_will_allow_before_cursor_on_get_requests(Piston $middleware)

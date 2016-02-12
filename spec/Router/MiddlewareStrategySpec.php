@@ -28,7 +28,7 @@ class MiddlewareStrategySpec extends ObjectBehavior
     {
         $container->get('Request')->willReturn(RequestFactory::createFromUri('/alias'));
         $container->get('Response')->willReturn(new ApiResponse());
-        $container->get('Refinery29\Piston\Stubs\FooController')->willReturn(new FooController());
+        $container->get(FooController::class)->willReturn(new FooController());
     }
 
     public function it_is_initializable()

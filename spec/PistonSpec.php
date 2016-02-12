@@ -33,7 +33,7 @@ class PistonSpec extends ObjectBehavior
 {
     public function let(Container $container)
     {
-        $container->beADoubleOf('League\Container\Container');
+        $container->beADoubleOf(Container::class);
         $this->beConstructedWith($container);
     }
 
@@ -124,7 +124,7 @@ class PistonSpec extends ObjectBehavior
 
     public function it_can_add_service_providers(ServiceProvider\AbstractServiceProvider $provider)
     {
-        $provider->beADoubleOf('League\Container\ServiceProvider\AbstractServiceProvider');
+        $provider->beADoubleOf(ServiceProvider\AbstractServiceProvider::class);
 
         $this->register($provider);
     }
