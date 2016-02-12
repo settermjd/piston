@@ -8,7 +8,6 @@
  */
 namespace Refinery29\Piston\Middleware;
 
-use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 
 trait HasMiddlewareTrait
