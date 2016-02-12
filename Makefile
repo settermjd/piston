@@ -4,12 +4,10 @@ composer:
 	composer install
 
 coverage: composer
-	cp phpspec.with-coverage.yml.dist phpspec.yml
-	bin/phpspec run
-	rm phpspec.yml
+	bin/phpspec run --config phpspec.with-coverage.yml
 
 cs: composer
 	bin/php-cs-fixer fix --config=.php_cs --verbose --diff
 
 test: composer
-	bin/phpspec run
+	bin/phpspec run --config phpspec.yml
