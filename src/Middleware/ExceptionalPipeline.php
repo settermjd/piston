@@ -9,6 +9,7 @@
 
 namespace Refinery29\Piston\Middleware;
 
+use Assert\Assertion;
 use InvalidArgumentException;
 use League\Pipeline\PipelineInterface;
 use League\Pipeline\StageInterface;
@@ -27,11 +28,10 @@ class ExceptionalPipeline implements PipelineInterface
      */
     public function __construct(array $stages = [])
     {
-        foreach ($stages as $stage) {
-            if (!$stage instanceof StageInterface) {
-                throw new InvalidArgumentException('All stages should implement the ' . StageInterface::class);
-            }
-        }
+        Assertion::allIsInstanceOf($stages, StageInterface::class, sprintf(
+            'All stages should implement the %s',
+            StageInterface::class
+        ));
 
         $this->stages = $stages;
     }
