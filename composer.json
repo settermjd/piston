@@ -22,6 +22,7 @@
   ],
   "require": {
     "php": ">=5.5",
+    "beberlei/assert": "^2.4",
     "league/pipeline": "^0.1.0",
     "league/route": "dev-develop",
     "refinery29/api-output": "^0.3.0",
