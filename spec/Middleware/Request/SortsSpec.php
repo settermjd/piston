@@ -16,6 +16,9 @@ use Refinery29\Piston\Middleware\Request\Sorts;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 
+/**
+ * @mixin Sorts
+ */
 class SortsSpec extends ObjectBehavior
 {
     public function it_is_initializable()

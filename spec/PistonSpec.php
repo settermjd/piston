@@ -26,6 +26,9 @@ use Refinery29\Piston\Stubs\StringEmitter;
 use Refinery29\Piston\Stubs\TestException;
 use Zend\Diactoros\Uri;
 
+/**
+ * @mixin Piston
+ */
 class PistonSpec extends ObjectBehavior
 {
     public function let(Container $container)

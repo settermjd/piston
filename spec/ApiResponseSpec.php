@@ -17,6 +17,9 @@ use Refinery29\ApiOutput\ResponseBody;
 use Refinery29\Piston\ApiResponse;
 use Zend\Diactoros\Stream;
 
+/**
+ * @mixin ApiResponse
+ */
 class ApiResponseSpec extends ObjectBehavior
 {
     public function it_can_be_constructed_without_response_body(Stream $stream)

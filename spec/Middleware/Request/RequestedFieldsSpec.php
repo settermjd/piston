@@ -15,6 +15,9 @@ use Refinery29\Piston\Middleware\Request\RequestedFields;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 
+/**
+ * @mixin RequestedFields
+ */
 class RequestedFieldsSpec extends ObjectBehavior
 {
     public function it_is_initializable()

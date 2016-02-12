@@ -12,9 +12,13 @@ use League\Pipeline\Pipeline;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\Payload;
+use Refinery29\Piston\Middleware\PipelineProcessor;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 
+/**
+ * @mixin PipelineProcessor
+ */
 class PipelineProcessorSpec extends ObjectBehavior
 {
     public function it_handles_a_subject(Piston $middleware)

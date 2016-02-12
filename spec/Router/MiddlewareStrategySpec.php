@@ -19,6 +19,9 @@ use Refinery29\Piston\Router\Route;
 use Refinery29\Piston\Router\RouteGroup;
 use Refinery29\Piston\Stubs\FooController;
 
+/**
+ * @mixin MiddlewareStrategy
+ */
 class MiddlewareStrategySpec extends ObjectBehavior
 {
     public function let(ContainerInterface $container)

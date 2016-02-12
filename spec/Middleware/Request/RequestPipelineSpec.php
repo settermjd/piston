@@ -15,6 +15,9 @@ use Refinery29\Piston\Middleware\Request\RequestPipeline;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 
+/**
+ * @mixin RequestPipeline
+ */
 class RequestPipelineSpec extends ObjectBehavior
 {
     public function it_is_initializable()

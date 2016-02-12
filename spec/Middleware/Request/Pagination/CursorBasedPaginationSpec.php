@@ -16,6 +16,9 @@ use Refinery29\Piston\Middleware\Request\Pagination\CursorBasedPagination;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\RequestFactory;
 
+/**
+ * @mixin CursorBasedPagination
+ */
 class CursorBasedPaginationSpec extends ObjectBehavior
 {
     public function it_is_initializable()
