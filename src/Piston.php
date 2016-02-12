@@ -66,10 +66,10 @@ class Piston extends RouteCollection implements Middleware\HasMiddleware
 
         $this->setStrategy(new MiddlewareStrategy($this->container));
 
-        $this->setupDefaultExceptions();
+        $this->registerNotFoundExceptionHandler();
     }
 
-    private function setupDefaultExceptions()
+    private function registerNotFoundExceptionHandler()
     {
         $this->registerException(NotFoundException::class, function (Piston $piston) {
             return $piston->notFound();
