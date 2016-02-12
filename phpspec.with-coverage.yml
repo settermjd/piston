@@ -1,11 +1,11 @@
 suites:
-    piston:
-        namespace: Refinery29\Piston
-        psr4_prefix: Refinery29\Piston
+  piston:
+    namespace: Refinery29\Piston
+    psr4_prefix: Refinery29\Piston
 
 extensions:
-    - PhpSpec\NyanFormattersExtension\Extension
-    - PhpSpec\Extension\CodeCoverageExtension
+  - PhpSpec\NyanFormattersExtension\Extension
+  - PhpSpec\Extension\CodeCoverageExtension
 
 formatter.name: nyan.cat
 
