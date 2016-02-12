@@ -11,8 +11,7 @@ formatter.name: nyan.cat
 
 code_coverage:
   format:
-    - html
+    - text
     - clover
   output:
-    html: coverage
     clover: build/logs/clover.xml
