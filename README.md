@@ -25,7 +25,7 @@ Here's the simplest Piston app you could write. First a new `Piston` object is i
 In the example below we’ve add a default route using an anonymous function as the handler.
 
 ```php
-require_once('vendor/autoload.php');
+require_once 'vendor/autoload.php';
 
 use Refinery29\Piston\ApiResponse as Response;
 use Refinery29\Piston\Piston;
@@ -69,7 +69,7 @@ class JediController
 And here's the previous example revised to use that controller class as the route's handler.
 
 ```php
-require_once('vendor/autoload.php');
+require_once 'vendor/autoload.php';
 
 use DummyPistonApp\Controller;
 use Refinery29\Piston\Piston;
