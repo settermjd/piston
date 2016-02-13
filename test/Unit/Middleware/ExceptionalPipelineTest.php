@@ -68,7 +68,7 @@ class ExceptionalPipelineTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty = new \ReflectionProperty(ExceptionalPipeline::class, 'stages');
         $reflectionProperty->setAccessible(true);
 
-        $stages = $reflectionProperty->getValue($pipeline);
+        $stages = $reflectionProperty->getValue($new);
 
         $this->assertCount(1, $stages);
         $this->assertSame($stage, array_shift($stages));
