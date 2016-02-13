@@ -8,17 +8,11 @@ Opinionated Micro Framework for APIs
 
 ## Installation
 
-Piston can be installed by using either git or [Composer](http://getcomposer.org).
+Run
 
-### Git
-
-Run `git clone https://github.com/refinery29/piston.git` to get the latest copy of the repository, which will clone the repository to a local directory called `piston`.
-
-### Composer
-
-If you have an existing project, or are starting a new project Composer is likely the simplest way to set it as a project dependency. You can either have composer do everything for you, by running `composer require refinery29/piston`.
-
-Or you can manually add `"refinery29/piston": "^1-stable"` to your composer.json’s require section and run `composer update` or `composer install` afterwards.
+```
+$ composer require refinery29/piston
+```
 
 ## Basic Application
 
