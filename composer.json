@@ -45,6 +45,7 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "Refinery29\\Piston\\Test\\": "test",
       "spec\\Refinery29\\Piston\\": "spec"
     }
   },
