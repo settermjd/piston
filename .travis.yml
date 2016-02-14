@@ -34,8 +34,8 @@ before_script:
   - mkdir -p build/logs
 
 script:
-  - if [[ "$WITH_COVERAGE" == "true" && "$IS_MERGE_TO_MASTER" == "true" ]]; then bin/phpspec run --format=dot --config=phpspec.with-coverage.yml; else bin/phpspec run --format=dot --config=phpspec.yml; fi
-  - bin/phpunit --configuration test/Unit/phpunit.xml
+  - bin/phpspec run --format=dot --config=phpspec.yml
+  - if [[ "$WITH_COVERAGE" == "true" && "$IS_MERGE_TO_MASTER" == "true" ]]; then bin/phpunit --configuration=test/Unit/phpunit.xml --coverage-clover=build/logs/clover.xml; else bin/phpunit --configuration=test/Unit/phpunit.xml; fi
   - if [[ "$WITH_CS" == "true" ]]; then bin/php-cs-fixer fix --config=.php_cs --verbose --diff --dry-run; fi
 
 after_success:

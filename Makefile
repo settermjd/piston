@@ -4,7 +4,7 @@ composer:
 	composer install
 
 coverage: composer
-	bin/phpspec run --config phpspec.with-coverage.yml
+	bin/phpunit --configuration test/Unit/phpunit.xml --coverage-text
 
 cs: composer
 	bin/php-cs-fixer fix --config=.php_cs --verbose --diff
