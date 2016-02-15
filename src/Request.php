@@ -113,7 +113,7 @@ class Request extends ServerRequest
     /**
      * @param array $requestedFields
      *
-     * @deprecated 
+     * @deprecated
      */
     public function setRequestedFields(array $requestedFields = [])
     {
