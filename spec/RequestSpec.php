@@ -63,6 +63,44 @@ class RequestSpec extends ObjectBehavior
         $this->getPaginationType()->shouldReturn(Request::OFFSET_LIMIT_PAGINATION);
     }
 
+    public function it_can_set_an_offset_and_limit_returning_a_new_request_object()
+    {
+        $request = $this->withOffsetLimit(10, 10);
+        $request->shouldHaveType(Request::class);
+        $request->getOffsetLimit()->shouldReturn(['offset' => 10, 'limit' => 10]);
+        $request->getPaginationType()->shouldReturn(Request::OFFSET_LIMIT_PAGINATION);
+    }
+
+    public function it_can_set_before_cursor_returning_a_new_request_object()
+    {
+        $request = $this->withBeforeCursor('before');
+        $request->shouldHaveType(Request::class);
+        $request->getBeforeCursor()->shouldReturn('before');
+        $request->getPaginationType()->shouldReturn(Request::CURSOR_PAGINATION);
+    }
+
+    public function it_can_set_after_cursor_returning_a_new_request_object()
+    {
+        $request = $this->withAfterCursor('after');
+        $request->shouldHaveType(Request::class);
+        $request->getAfterCursor()->shouldReturn('after');
+        $request->getPaginationType()->shouldReturn(Request::CURSOR_PAGINATION);
+    }
+
+    public function it_can_set_included_resources_returning_a_new_request_object()
+    {
+        $request = $this->withIncludedResources('resources');
+        $request->shouldHaveType(Request::class);
+        $request->getIncludedResources()->shouldReturn('resources');
+    }
+
+    public function it_can_set_requested_fields_returning_a_new_request_object()
+    {
+        $request = $this->withRequestedFields('requested, fields');
+        $request->shouldHaveType(Request::class);
+        $request->getRequestedFields()->shouldReturn('requested, fields');
+    }
+
     public function it_returns_empty_array_when_no_offset_limit_is_set()
     {
         $this->getOffsetLimit()->shouldReturn([]);
