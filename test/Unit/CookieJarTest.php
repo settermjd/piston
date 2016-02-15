@@ -35,6 +35,25 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($cookies, $cookieJar->all());
     }
 
+    /**
+     * @dataProvider providerInvalidKey
+     *
+     * @param mixed $key
+     */
+    public function testSetRejectsInvalidKey($key)
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $value = $this->getFaker()->word;
+
+        $cookieJar = new CookieJar();
+
+        $cookieJar->set(
+            $key,
+            $value
+        );
+    }
+
     public function testCanSetValue()
     {
         $faker = $this->getFaker();
@@ -49,6 +68,20 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($value, $cookieJar->get($key));
     }
 
+    /**
+     * @dataProvider providerInvalidKey
+     *
+     * @param mixed $key
+     */
+    public function testGetRejectsInvalidKey($key)
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $cookieJar = new CookieJar();
+
+        $cookieJar->get($key);
+    }
+
     public function testGetReturnsNullIfKeyNotFound()
     {
         $key = $this->getFaker()->word;
@@ -56,6 +89,44 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
         $cookieJar = new CookieJar();
 
         $this->assertNull($cookieJar->get($key));
+    }
+
+    /**
+     * @dataProvider providerInvalidKey
+     *
+     * @param mixed $key
+     */
+    public function testClearRejectsInvalidKey($key)
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $cookieJar = new CookieJar();
+
+        $cookieJar->clear($key);
+    }
+
+    /**
+     * @return \Generator
+     */
+    public function providerInvalidKey()
+    {
+        $faker = $this->getFaker();
+
+        $values = [
+            $faker->randomNumber(),
+            $faker->randomFloat(),
+            $faker->words(),
+            null,
+            false,
+            true,
+            new \stdClass(),
+        ];
+
+        foreach ($values as $value) {
+            yield [
+                $value,
+            ];
+        }
     }
 
     public function testCanClearCookie()
