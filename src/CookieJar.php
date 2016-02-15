@@ -35,6 +35,8 @@ class CookieJar
      */
     public function get($key)
     {
+        Assertion::string($key);
+
         if (!array_key_exists($key, $this->cookies)) {
             return;
         }
@@ -48,6 +50,8 @@ class CookieJar
      */
     public function set($key, $value)
     {
+        Assertion::string($key);
+
         $this->cookies[$key] = $value;
     }
 
@@ -56,6 +60,8 @@ class CookieJar
      */
     public function clear($key)
     {
+        Assertion::string($key);
+
         unset($this->cookies[$key]);
     }
 
