@@ -35,10 +35,11 @@ class CookieJar
      */
     public function get($key)
     {
-        return isset($this->cookies[$key])
-            ? $this->cookies[$key]
-            : null
-            ;
+        if (!array_key_exists($key, $this->cookies)) {
+            return;
+        }
+
+        return $this->cookies[$key];
     }
 
     /**
