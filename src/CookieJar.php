@@ -55,10 +55,6 @@ class CookieJar
      */
     public function clear($key)
     {
-        if (!array_key_exists($key, $this->cookies)) {
-            return;
-        }
-
         unset($this->cookies[$key]);
     }
 
