@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2351ea6ab86e03ce65d0d3e486ae79d9",
-    "content-hash": "bf7f44c2f7544eb735ff39feb9831df5",
+    "hash": "bb6c79dd791fa7547ee011c5df2bd508",
+    "content-hash": "80f8a220bde092f41c170b529fb143ba",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -567,7 +567,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/f59678b9896c1ff3e78b7ab418a0e8fa337d6f81",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/47dd44c74d55160a0c46f6d732024a41dcf9a6bc",
                 "reference": "f59678b9896c1ff3e78b7ab418a0e8fa337d6f81",
                 "shasum": ""
             },
@@ -762,47 +762,6 @@
                 "web service"
             ],
             "time": "2015-03-18 18:23:50"
-        },
-        {
-            "name": "henrikbjorn/phpspec-code-coverage",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/henrikbjorn/PhpSpecCodeCoverageExtension.git",
-                "reference": "689f1f173d6ddfac076b4430bf1b6ceb345cff46"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/henrikbjorn/PhpSpecCodeCoverageExtension/zipball/689f1f173d6ddfac076b4430bf1b6ceb345cff46",
-                "reference": "689f1f173d6ddfac076b4430bf1b6ceb345cff46",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "phpspec/phpspec": "~2.0",
-                "phpunit/php-code-coverage": "~2.0"
-            },
-            "require-dev": {
-                "bossa/phpspec2-expect": "~1.0",
-                "ext-xdebug": ">=2.1.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpSpec\\Extension\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Integrates CodeCoverage with PhpSpec",
-            "time": "2014-12-11 11:43:15"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
