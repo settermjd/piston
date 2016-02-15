@@ -88,6 +88,17 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([], $cookieJar->all());
     }
 
+    public function testCanClearCookieEvenIfKeyDoesNotExist()
+    {
+        $key = $this->getFaker()->word;
+
+        $cookieJar = new CookieJar();
+
+        $cookieJar->clear($key);
+
+        $this->assertSame([], $cookieJar->all());
+    }
+
     public function testCanClearAllCookies()
     {
         $cookies = $this->cookies();
