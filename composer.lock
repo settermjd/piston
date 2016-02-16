@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bb6c79dd791fa7547ee011c5df2bd508",
-    "content-hash": "80f8a220bde092f41c170b529fb143ba",
+    "hash": "de230523958cd2fd28a6b27a96923ed7",
+    "content-hash": "e19487d448a21a5df5ae380c5abe268e",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -567,7 +567,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/47dd44c74d55160a0c46f6d732024a41dcf9a6bc",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/11088fbb819088308d297c34860b3dde5411fc9a",
                 "reference": "f59678b9896c1ff3e78b7ab418a0e8fa337d6f81",
                 "shasum": ""
             },
@@ -2507,7 +2507,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5"
+        "php": "^5.6 || ^7.0"
     },
     "platform-dev": []
 }
