@@ -132,6 +132,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider offsetOrLimitProvider
+     *
      * @param int $offset
      * @param int $limit
      */
@@ -142,7 +143,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             [
                 'offset' => $offset,
-                'limit' => $limit
+                'limit' => $limit,
             ],
             $request->getOffsetLimit()
         );
