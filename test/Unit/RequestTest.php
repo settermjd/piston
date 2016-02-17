@@ -130,6 +130,41 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Request::CURSOR_PAGINATION, $mutated->getPaginationType());
     }
 
+    /**
+     * @dataProvider offsetOrLimitProvider
+     *
+     * @param int $offset
+     * @param int $limit
+     */
+    public function testCanSetEitherOffsetOrLimitAndReturnAResult($offset, $limit)
+    {
+        $request = (new Request())->withOffsetLimit($offset, $limit);
+
+        $this->assertSame(
+            [
+                'offset' => $offset,
+                'limit' => $limit,
+            ],
+            $request->getOffsetLimit()
+        );
+    }
+
+    public function offsetOrLimitProvider()
+    {
+        $faker = $this->getFaker();
+
+        return [
+            [
+                'offset' => $faker->numberBetween(0, 9000),
+                'limit' => null,
+            ],
+            [
+                'offset' => null,
+                'limit' => $faker->numberBetween(1, 9000),
+            ],
+        ];
+    }
+
     public function testCanSetOffsetLimit()
     {
         $faker = $this->getFaker();
