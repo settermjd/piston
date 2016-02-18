@@ -19,7 +19,7 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorRejectsInvalidCookies()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $cookies = $this->getFaker()->words;
 
@@ -42,7 +42,7 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRejectsInvalidKey($key)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $value = $this->getFaker()->word;
 
@@ -75,7 +75,7 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRejectsInvalidKey($key)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $cookieJar = new CookieJar();
 
@@ -98,7 +98,7 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
      */
     public function testClearRejectsInvalidKey($key)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $cookieJar = new CookieJar();
 

@@ -28,7 +28,7 @@ class ExceptionalPipelineTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorRejectsInvalidStages()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $stages = [
             $this->getStageMock(),
