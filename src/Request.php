@@ -129,13 +129,13 @@ class Request extends ServerRequest
     }
 
     /**
-     * @param array $included_resources
+     * @param array $includedResources
      *
      * @deprecated
      */
-    public function setIncludedResources(array $included_resources)
+    public function setIncludedResources(array $includedResources)
     {
-        $this->includedResources = $included_resources;
+        $this->includedResources = $includedResources;
     }
 
     /**
@@ -147,24 +147,24 @@ class Request extends ServerRequest
     }
 
     /**
-     * @param string $after_cursor
+     * @param string $afterCursor
      *
      * @deprecated
      */
-    public function setAfterCursor($after_cursor)
+    public function setAfterCursor($afterCursor)
     {
-        $this->afterCursor = $after_cursor;
+        $this->afterCursor = $afterCursor;
         $this->paginationType = self::CURSOR_PAGINATION;
     }
 
     /**
-     * @param string $before_cursor
+     * @param string $beforeCursor
      *
      * @deprecated
      */
-    public function setBeforeCursor($before_cursor)
+    public function setBeforeCursor($beforeCursor)
     {
-        $this->beforeCursor = $before_cursor;
+        $this->beforeCursor = $beforeCursor;
         $this->paginationType = self::CURSOR_PAGINATION;
     }
 
