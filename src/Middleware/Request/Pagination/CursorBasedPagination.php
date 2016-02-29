@@ -60,6 +60,7 @@ class CursorBasedPagination implements StageInterface
 
     /**
      * @param array $queryParams
+     *
      * @return null|string
      */
     private function getBefore($queryParams)
@@ -74,6 +75,7 @@ class CursorBasedPagination implements StageInterface
 
     /**
      * @param array $queryParams
+     *
      * @return null|string
      */
     private function getAfter($queryParams)
