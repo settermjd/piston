@@ -65,9 +65,11 @@ class CursorBasedPaginationSpec extends ObjectBehavior
         $response = $this->process($this->getPayload($request, $middleware));
         $response->shouldHaveType(Payload::class);
 
-        $response->getRequest()->shouldHaveType(Request::class);
-        $response->getRequest()->getBeforeCursor()->shouldEqual(123);
-        $response->getRequest()->getPaginationType()->shouldEqual(Request::CURSOR_PAGINATION);
+        $returnedRequest = $response->getRequest();
+
+        $returnedRequest->shouldHaveType(Request::class);
+        $returnedRequest->getBeforeCursor()->shouldEqual(123);
+        $returnedRequest->getPaginationType()->shouldEqual(Request::CURSOR_PAGINATION);
     }
 
     public function it_returns_a_payload_with_request_using_after_pagination(Piston $middleware)
@@ -77,9 +79,11 @@ class CursorBasedPaginationSpec extends ObjectBehavior
         $response = $this->process($this->getPayload($request, $middleware));
         $response->shouldHaveType(Payload::class);
 
-        $response->getRequest()->shouldHaveType(Request::class);
-        $response->getRequest()->getAfterCursor()->shouldEqual(123);
-        $response->getRequest()->getPaginationType()->shouldEqual(Request::CURSOR_PAGINATION);
+        $returnedRequest = $response->getRequest();
+
+        $returnedRequest->shouldHaveType(Request::class);
+        $returnedRequest->getAfterCursor()->shouldEqual(123);
+        $returnedRequest->getPaginationType()->shouldEqual(Request::CURSOR_PAGINATION);
     }
 
     public function it_will_not_allow_previously_paginated_requests(Piston $middleware)
