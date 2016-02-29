@@ -81,8 +81,10 @@ class OffsetLimitPagination implements StageInterface
 
     /**
      * @param array $queryParams
-     * @return int|null
+     *
      * @throws BadRequestException
+     *
+     * @return int|null
      */
     private function getOffset(array $queryParams = [])
     {
@@ -97,8 +99,10 @@ class OffsetLimitPagination implements StageInterface
 
     /**
      * @param array $queryParams
-     * @return int|null
+     *
      * @throws BadRequestException
+     *
+     * @return int|null
      */
     private function getLimit(array $queryParams = [])
     {

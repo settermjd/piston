@@ -87,7 +87,14 @@ class Request extends ServerRequest
         $body = 'php://input',
         array $headers = []
     ) {
-        parent::__construct($serverParams, $uploadedFiles, $uri, $method, $body, $headers);
+        parent::__construct(
+            $serverParams,
+            $uploadedFiles,
+            $uri,
+            $method,
+            $body,
+            $headers
+        );
 
         $this->cookieJar = $jar ?: new CookieJar();
     }
@@ -187,7 +194,10 @@ class Request extends ServerRequest
     public function getOffsetLimit()
     {
         if ($this->offset || $this->limit) {
-            return ['offset' => $this->offset, 'limit' => $this->limit];
+            return [
+                'offset' => $this->offset,
+                'limit' => $this->limit,
+            ];
         }
 
         return [];
