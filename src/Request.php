@@ -283,11 +283,9 @@ class Request extends ServerRequest
      */
     public function getSort($name)
     {
-        if (!$this->hasSort($name)) {
-            return;
-        }
-
-        return $this->sorts[$name];
+        return (!$this->hasSort($name))
+            ? null
+            : $this->sorts[$name];
     }
 
     /**
