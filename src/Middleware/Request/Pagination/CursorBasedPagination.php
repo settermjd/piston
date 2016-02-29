@@ -65,12 +65,9 @@ class CursorBasedPagination implements StageInterface
      */
     private function getBefore($queryParams)
     {
-        $before = null;
-        if (isset($queryParams['before'])) {
-            $before = $queryParams['before'];
-        }
-
-        return $before;
+        return (isset($queryParams['before']))
+            ? $queryParams['before']
+            : null;
     }
 
     /**
@@ -80,11 +77,8 @@ class CursorBasedPagination implements StageInterface
      */
     private function getAfter($queryParams)
     {
-        $after = null;
-        if (isset($queryParams['after'])) {
-            $after = $queryParams['after'];
-        }
-
-        return $after;
+        return (isset($queryParams['after']))
+            ? $queryParams['after']
+            : null;
     }
 }
