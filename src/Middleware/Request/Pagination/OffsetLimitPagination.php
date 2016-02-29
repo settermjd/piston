@@ -23,12 +23,12 @@ class OffsetLimitPagination implements StageInterface
     /**
      * @var int
      */
-    protected $default_offset = 0;
+    protected $defaultOffset = 0;
 
     /**
      * @var int
      */
-    protected $default_limit = 10;
+    protected $defaultLimit = 10;
 
     /**
      * @param Payload $payload
@@ -51,8 +51,8 @@ class OffsetLimitPagination implements StageInterface
             $this->ensureNotPreviouslyPaginated($request);
             $this->ensureGetOnlyRequest($request);
 
-            $offset = $offset ?: $this->default_offset;
-            $limit = $limit ?: $this->default_limit;
+            $offset = $offset ?: $this->defaultOffset;
+            $limit = $limit ?: $this->defaultLimit;
             $request->setOffsetLimit($offset, $limit);
         }
 
