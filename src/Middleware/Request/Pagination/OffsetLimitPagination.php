@@ -41,11 +41,8 @@ class OffsetLimitPagination implements StageInterface
     {
         /** @var Request $request */
         $request = $payload->getRequest();
-
-        $queryParams = $request->getQueryParams();
-
-        $offset = (isset($queryParams['offset'])) ? $this->coerceToInteger($queryParams['offset'], 'offset') : null;
-        $limit = (isset($queryParams['limit'])) ? $this->coerceToInteger($queryParams['limit'], 'limit') : null;
+        $offset = $this->getOffset($request->getQueryParams());
+        $limit = $this->getLimit($request->getQueryParams());
 
         if ($offset || $limit) {
             $this->ensureNotPreviouslyPaginated($request);
@@ -77,6 +74,40 @@ class OffsetLimitPagination implements StageInterface
             }
         }
 
-        throw new BadRequestException('Parameter "' . $param_name . '" must be an integer. Got ' . $param);
+        throw new BadRequestException(
+            'Parameter "' . $paramName . '" must be an integer. Got ' . $param
+        );
+    }
+
+    /**
+     * @param array $queryParams
+     * @return int|null
+     * @throws BadRequestException
+     */
+    private function getOffset(array $queryParams = [])
+    {
+        $offset = null;
+
+        if (isset($queryParams['offset'])) {
+            $offset = $this->coerceToInteger($queryParams['offset'], 'offset');
+        }
+
+        return $offset;
+    }
+
+    /**
+     * @param array $queryParams
+     * @return int|null
+     * @throws BadRequestException
+     */
+    private function getLimit(array $queryParams = [])
+    {
+        $limit = null;
+
+        if (isset($queryParams['limit'])) {
+            $limit = $this->coerceToInteger($queryParams['limit'], 'limit');
+        }
+
+        return $limit;
     }
 }
