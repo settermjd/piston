@@ -15,6 +15,7 @@ use Refinery29\Piston\ApiResponse;
 use Refinery29\Piston\Middleware\Payload;
 use Refinery29\Piston\Middleware\Request\Pagination\CursorBasedPagination;
 use Refinery29\Piston\Piston;
+use Refinery29\Piston\Request;
 use Refinery29\Piston\RequestFactory;
 
 /**
@@ -57,13 +58,28 @@ class CursorBasedPaginationSpec extends ObjectBehavior
             ->getPaginationCursor()->shouldReturn(['after' => 123]);
     }
 
-    public function it_returns_a_payload_with_request(Piston $middleware)
+    public function it_returns_a_payload_with_request_using_before_pagination(Piston $middleware)
     {
         $request = RequestFactory::fromGlobals()->withQueryParams(['before' => 123]);
 
         $response = $this->process($this->getPayload($request, $middleware));
         $response->shouldHaveType(Payload::class);
-        $response->getRequest()->shouldReturn($request);
+
+        $response->getRequest()->shouldHaveType(Request::class);
+        $response->getRequest()->getBeforeCursor()->shouldEqual(123);
+        $response->getRequest()->getPaginationType()->shouldEqual(Request::CURSOR_PAGINATION);
+    }
+
+    public function it_returns_a_payload_with_request_using_after_pagination(Piston $middleware)
+    {
+        $request = RequestFactory::fromGlobals()->withQueryParams(['after' => 123]);
+
+        $response = $this->process($this->getPayload($request, $middleware));
+        $response->shouldHaveType(Payload::class);
+
+        $response->getRequest()->shouldHaveType(Request::class);
+        $response->getRequest()->getAfterCursor()->shouldEqual(123);
+        $response->getRequest()->getPaginationType()->shouldEqual(Request::CURSOR_PAGINATION);
     }
 
     public function it_will_not_allow_previously_paginated_requests(Piston $middleware)
