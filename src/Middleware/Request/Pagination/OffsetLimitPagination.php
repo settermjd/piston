@@ -53,7 +53,13 @@ class OffsetLimitPagination implements StageInterface
 
             $offset = $offset ?: $this->defaultOffset;
             $limit = $limit ?: $this->defaultLimit;
-            $request->setOffsetLimit($offset, $limit);
+            $request = $request->withOffsetLimit($offset, $limit);
+            
+            $payload = new Payload(
+                $payload->getSubject(),
+                $request,
+                $payload->getResponse()
+            );
         }
 
         return $payload;
