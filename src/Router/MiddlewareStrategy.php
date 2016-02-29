@@ -20,8 +20,8 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
 {
     /**
      * @param callable|string $controller
-     * @param array $vars
-     * @param Route $route
+     * @param array           $vars
+     * @param Route           $route
      *
      * @throws \Exception
      *

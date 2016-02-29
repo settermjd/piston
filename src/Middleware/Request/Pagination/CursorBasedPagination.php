@@ -38,7 +38,9 @@ class CursorBasedPagination implements StageInterface
         $after = (isset($queryParams['after'])) ? $queryParams['after'] : null;
 
         if ($before && $after) {
-            throw new BadRequestException('You may not specify both before and after');
+            throw new BadRequestException(
+                'You may not specify both before and after'
+            );
         }
 
         if ($before || $after) {
@@ -48,13 +50,21 @@ class CursorBasedPagination implements StageInterface
             if ($before) {
                 $request = $request->withBeforeCursor($before);
 
-                return new Payload($payload->getSubject(), $request, $payload->getResponse());
+                return new Payload(
+                    $payload->getSubject(),
+                    $request,
+                    $payload->getResponse()
+                );
             }
 
             if ($after) {
                 $request = $request->withAfterCursor($after);
 
-                return new Payload($payload->getSubject(), $request, $payload->getResponse());
+                return new Payload(
+                    $payload->getSubject(),
+                    $request,
+                    $payload->getResponse()
+                );
             }
         }
 
