@@ -12,11 +12,11 @@ namespace spec\Refinery29\Piston;
 use League\Container\Container;
 use League\Container\ServiceProvider;
 use League\Pipeline\CallableStage;
+use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 use League\Route\Http\Exception\NotFoundException;
 use PhpSpec\ObjectBehavior;
 use Refinery29\Piston\ApiResponse;
-use Refinery29\Piston\Middleware\ExceptionalPipeline;
 use Refinery29\Piston\Piston;
 use Refinery29\Piston\Request;
 use Refinery29\Piston\RequestFactory;
@@ -120,7 +120,7 @@ class PistonSpec extends ObjectBehavior
     public function it_can_add_middleware(StageInterface $operation)
     {
         $this->addMiddleware($operation);
-        $this->getPipeline()->shouldHaveType(ExceptionalPipeline::class);
+        $this->getPipeline()->shouldHaveType(Pipeline::class);
     }
 
     public function it_can_add_service_providers(ServiceProvider\AbstractServiceProvider $provider)
