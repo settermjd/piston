@@ -37,9 +37,11 @@ class CookieJar
     {
         Assertion::string($key);
 
-        return (array_key_exists($key, $this->cookies))
-            ? $this->cookies[$key]
-            : null;
+        if (!array_key_exists($key, $this->cookies)) {
+            return;
+        }
+
+        return $this->cookies[$key];
     }
 
     /**
