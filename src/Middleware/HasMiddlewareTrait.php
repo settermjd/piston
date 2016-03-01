@@ -9,12 +9,13 @@
 
 namespace Refinery29\Piston\Middleware;
 
+use League\Pipeline\Pipeline;
 use League\Pipeline\StageInterface;
 
 trait HasMiddlewareTrait
 {
     /**
-     * @var ExceptionalPipeline
+     * @var Pipeline
      */
     protected $pipeline;
 
@@ -38,12 +39,12 @@ trait HasMiddlewareTrait
     /**
      * Instaniate a new pipeline if one doesn't exist.
      *
-     * @return ExceptionalPipeline
+     * @return Pipeline
      */
     public function getPipeline()
     {
         if (!$this->pipeline) {
-            $this->pipeline = new ExceptionalPipeline();
+            $this->pipeline = new Pipeline();
         }
 
         return $this->pipeline;
