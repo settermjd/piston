@@ -27,7 +27,8 @@ class MiddlewareStrategy extends RequestResponseStrategy implements StrategyInte
      *
      * @return ApiResponse
      */
-    public function dispatch(callable $controller, array $vars = [], Route $route = null) {
+    public function dispatch(callable $controller, array $vars = [], Route $route = null)
+    {
         $group = $route->getParentGroup();
 
         if ($group) {
